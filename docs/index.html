@@ -1,0 +1,1984 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Aplicações práticas do software R para Agronomia</title>
+  <meta name="description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Aplicações práticas do software R para Agronomia" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Aplicações práticas do software R para Agronomia" />
+  
+  <meta name="twitter:description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  
+
+<meta name="author" content="Gabriel Danilo Shimizu" />
+
+
+<meta name="date" content="2020-05-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+<link rel="next" href="análise-de-sobrevivência.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Aplicações práticas do software R para Agronomia</a></li>
+<br>
+<center><b>Gabriel Danilo Shimizu</b></center>
+<br>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Análise de regressão linear e não-linear</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#conjunto-de-dados"><i class="fa fa-check"></i><b>1.1</b> Conjunto de dados</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#média-e-desvio-padrão-amostral"><i class="fa fa-check"></i><b>1.1.1</b> Média e desvio-padrão amostral</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#gráficos-exploratórios"><i class="fa fa-check"></i><b>1.1.2</b> Gráficos exploratórios</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#gráfico-de-caixas"><i class="fa fa-check"></i><b>1.1.3</b> Gráfico de caixas</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#gráfico-de-dispersão"><i class="fa fa-check"></i><b>1.1.4</b> Gráfico de dispersão</a></li>
+<li class="chapter" data-level="1.1.5" data-path="index.html"><a href="index.html#gráfico-de-dispersão-com-médias"><i class="fa fa-check"></i><b>1.1.5</b> Gráfico de dispersão com médias</a></li>
+<li class="chapter" data-level="1.1.6" data-path="index.html"><a href="index.html#gráfico-de-linhas-com-as-médias"><i class="fa fa-check"></i><b>1.1.6</b> Gráfico de linhas com as médias</a></li>
+<li class="chapter" data-level="1.1.7" data-path="index.html"><a href="index.html#histograma"><i class="fa fa-check"></i><b>1.1.7</b> Histograma</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#linear-simples"><i class="fa fa-check"></i><b>1.2</b> Linear Simples</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#criando-o-modelo-de-regressão"><i class="fa fa-check"></i><b>1.2.1</b> Criando o modelo de regressão</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#diagnóstico"><i class="fa fa-check"></i><b>1.2.2</b> Diagnóstico</a></li>
+<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#normalidade-dos-erros"><i class="fa fa-check"></i><b>1.2.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão"><i class="fa fa-check"></i><b>1.2.4</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="index.html"><a href="index.html#construindo-gráfico"><i class="fa fa-check"></i><b>1.2.5</b> Construindo gráfico</a></li>
+<li class="chapter" data-level="1.2.6" data-path="index.html"><a href="index.html#ggplot2"><i class="fa fa-check"></i><b>1.2.6</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#quadrático"><i class="fa fa-check"></i><b>1.3</b> Quadrático</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#criando-modelo-de-regressão"><i class="fa fa-check"></i><b>1.3.1</b> Criando modelo de regressão</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo"><i class="fa fa-check"></i><b>1.3.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#normalidade-dos-erros-1"><i class="fa fa-check"></i><b>1.3.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.3.4" data-path="index.html"><a href="index.html#fator-de-inflação-de-variância-multicolinearidade"><i class="fa fa-check"></i><b>1.3.4</b> Fator de inflação de variância (Multicolinearidade)</a></li>
+<li class="chapter" data-level="1.3.5" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão-1"><i class="fa fa-check"></i><b>1.3.5</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.3.6" data-path="index.html"><a href="index.html#construindo-gráfico-1"><i class="fa fa-check"></i><b>1.3.6</b> Construindo gráfico</a></li>
+<li class="chapter" data-level="1.3.7" data-path="index.html"><a href="index.html#ponto-de-máximo-ou-mínimo"><i class="fa fa-check"></i><b>1.3.7</b> Ponto de máximo (Ou mínimo)</a></li>
+<li class="chapter" data-level="1.3.8" data-path="index.html"><a href="index.html#manualmente"><i class="fa fa-check"></i><b>1.3.8</b> Manualmente</a></li>
+<li class="chapter" data-level="1.3.9" data-path="index.html"><a href="index.html#usando-o-which.max-ou-which.min"><i class="fa fa-check"></i><b>1.3.9</b> Usando o which.max ou which.min</a></li>
+<li class="chapter" data-level="1.3.10" data-path="index.html"><a href="index.html#ggplot2-1"><i class="fa fa-check"></i><b>1.3.10</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#cúbico"><i class="fa fa-check"></i><b>1.4</b> Cúbico</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#construindo-o-modelo"><i class="fa fa-check"></i><b>1.4.1</b> Construindo o modelo</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-1"><i class="fa fa-check"></i><b>1.4.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.4.3" data-path="index.html"><a href="index.html#normalidade-dos-erros-2"><i class="fa fa-check"></i><b>1.4.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.4.4" data-path="index.html"><a href="index.html#fator-de-inflação-de-variância-multicolinearidade-1"><i class="fa fa-check"></i><b>1.4.4</b> Fator de inflação de variância (Multicolinearidade)</a></li>
+<li class="chapter" data-level="1.4.5" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão-2"><i class="fa fa-check"></i><b>1.4.5</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.4.6" data-path="index.html"><a href="index.html#construindo-o-gráfico"><i class="fa fa-check"></i><b>1.4.6</b> Construindo o gráfico</a></li>
+<li class="chapter" data-level="1.4.7" data-path="index.html"><a href="index.html#ponto-de-máximo-mínimo-e-inflexão"><i class="fa fa-check"></i><b>1.4.7</b> ponto de máximo, mínimo e inflexão</a></li>
+<li class="chapter" data-level="1.4.8" data-path="index.html"><a href="index.html#ggplot2-2"><i class="fa fa-check"></i><b>1.4.8</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#logarítmico"><i class="fa fa-check"></i><b>1.5</b> Logarítmico</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#construindo-modelo"><i class="fa fa-check"></i><b>1.5.1</b> Construindo modelo</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-2"><i class="fa fa-check"></i><b>1.5.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#construindo-gráfico-2"><i class="fa fa-check"></i><b>1.5.3</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#michaelis-menten-mm"><i class="fa fa-check"></i><b>1.6</b> Michaelis-Menten (MM)</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="index.html"><a href="index.html#construindo-o-modelo-1"><i class="fa fa-check"></i><b>1.6.1</b> Construindo o modelo</a></li>
+<li class="chapter" data-level="1.6.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-3"><i class="fa fa-check"></i><b>1.6.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.6.3" data-path="index.html"><a href="index.html#construindo-o-gráfico-1"><i class="fa fa-check"></i><b>1.6.3</b> Construindo o gráfico</a></li>
+<li class="chapter" data-level="1.6.4" data-path="index.html"><a href="index.html#utilizando-outro-método"><i class="fa fa-check"></i><b>1.6.4</b> Utilizando outro método</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#mm-modificado"><i class="fa fa-check"></i><b>1.7</b> MM Modificado</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="index.html"><a href="index.html#construindo-modelo-1"><i class="fa fa-check"></i><b>1.7.1</b> Construindo modelo</a></li>
+<li class="chapter" data-level="1.7.2" data-path="index.html"><a href="index.html#construindo-gráfico-3"><i class="fa fa-check"></i><b>1.7.2</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#segmentada-linear"><i class="fa fa-check"></i><b>1.8</b> Segmentada linear</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#construindo-o-modelo-linear"><i class="fa fa-check"></i><b>1.8.1</b> Construindo o modelo linear</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#construindo-o-modelo-segmentado"><i class="fa fa-check"></i><b>1.8.2</b> Construindo o modelo segmentado</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#definindo-limite-com-base-no-platô"><i class="fa fa-check"></i><b>1.8.3</b> Definindo limite com base no platô</a></li>
+<li class="chapter" data-level="1.8.4" data-path="index.html"><a href="index.html#curva-do-primeiro-segmento"><i class="fa fa-check"></i><b>1.8.4</b> Curva do primeiro segmento</a></li>
+<li class="chapter" data-level="1.8.5" data-path="index.html"><a href="index.html#construindo-gráfico-4"><i class="fa fa-check"></i><b>1.8.5</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="index.html"><a href="index.html#segmentada-quadrático"><i class="fa fa-check"></i><b>1.9</b> Segmentada quadrático</a><ul>
+<li class="chapter" data-level="1.9.1" data-path="index.html"><a href="index.html#construindo-o-modelo-quadrático"><i class="fa fa-check"></i><b>1.9.1</b> Construindo o modelo quadrático</a></li>
+<li class="chapter" data-level="1.9.2" data-path="index.html"><a href="index.html#construindo-o-modelo-segmentado-1"><i class="fa fa-check"></i><b>1.9.2</b> Construindo o modelo segmentado</a></li>
+<li class="chapter" data-level="1.9.3" data-path="index.html"><a href="index.html#valores-para-o-primeiro-segmento"><i class="fa fa-check"></i><b>1.9.3</b> Valores para o primeiro segmento</a></li>
+<li class="chapter" data-level="1.9.4" data-path="index.html"><a href="index.html#construindo-o-gráfico-2"><i class="fa fa-check"></i><b>1.9.4</b> Construindo o gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="index.html"><a href="index.html#mitscherlich"><i class="fa fa-check"></i><b>1.10</b> Mitscherlich</a></li>
+<li class="chapter" data-level="1.11" data-path="index.html"><a href="index.html#logística-de-3-termos"><i class="fa fa-check"></i><b>1.11</b> Logística de 3 termos</a><ul>
+<li class="chapter" data-level="1.11.1" data-path="index.html"><a href="index.html#ed-dl-ou-ec"><i class="fa fa-check"></i><b>1.11.1</b> ED, DL ou EC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.12" data-path="index.html"><a href="index.html#logística-de-4-termos"><i class="fa fa-check"></i><b>1.12</b> Logística de 4 termos</a><ul>
+<li class="chapter" data-level="1.12.1" data-path="index.html"><a href="index.html#ed-dl-ou-ec-1"><i class="fa fa-check"></i><b>1.12.1</b> ED, DL ou EC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.13" data-path="index.html"><a href="index.html#yield-loss"><i class="fa fa-check"></i><b>1.13</b> Yield Loss</a></li>
+<li class="chapter" data-level="1.14" data-path="index.html"><a href="index.html#weibull-3"><i class="fa fa-check"></i><b>1.14</b> Weibull 3</a></li>
+<li class="chapter" data-level="1.15" data-path="index.html"><a href="index.html#weibul-4"><i class="fa fa-check"></i><b>1.15</b> Weibul 4</a></li>
+<li class="chapter" data-level="1.16" data-path="index.html"><a href="index.html#assintótica-2"><i class="fa fa-check"></i><b>1.16</b> Assintótica 2</a></li>
+<li class="chapter" data-level="1.17" data-path="index.html"><a href="index.html#assintótica-3"><i class="fa fa-check"></i><b>1.17</b> Assintótica 3</a></li>
+<li class="chapter" data-level="1.18" data-path="index.html"><a href="index.html#brain-counsens-4"><i class="fa fa-check"></i><b>1.18</b> Brain-Counsens 4</a></li>
+<li class="chapter" data-level="1.19" data-path="index.html"><a href="index.html#brain-counsens-5"><i class="fa fa-check"></i><b>1.19</b> Brain-Counsens 5</a></li>
+<li class="chapter" data-level="1.20" data-path="index.html"><a href="index.html#cedergreen-ritz-streibig-3"><i class="fa fa-check"></i><b>1.20</b> Cedergreen-Ritz-Streibig 3</a></li>
+<li class="chapter" data-level="1.21" data-path="index.html"><a href="index.html#cedergreen-ritz-streibig-4"><i class="fa fa-check"></i><b>1.21</b> Cedergreen-Ritz-Streibig 4</a></li>
+<li class="chapter" data-level="1.22" data-path="index.html"><a href="index.html#modelo-exponencial"><i class="fa fa-check"></i><b>1.22</b> Modelo exponencial</a></li>
+<li class="chapter" data-level="1.23" data-path="index.html"><a href="index.html#modelo-loess"><i class="fa fa-check"></i><b>1.23</b> Modelo loess</a></li>
+<li class="chapter" data-level="1.24" data-path="index.html"><a href="index.html#coef.-de-determinação-r2"><i class="fa fa-check"></i><b>1.24</b> Coef. de determinação (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="1.25" data-path="index.html"><a href="index.html#aic"><i class="fa fa-check"></i><b>1.25</b> AIC</a></li>
+<li class="chapter" data-level="1.26" data-path="index.html"><a href="index.html#bic"><i class="fa fa-check"></i><b>1.26</b> BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html"><i class="fa fa-check"></i><b>2</b> Análise de sobrevivência</a><ul>
+<li class="chapter" data-level="2.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#conjunto-de-dados-1"><i class="fa fa-check"></i><b>2.1</b> Conjunto de dados</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#histograma-1"><i class="fa fa-check"></i><b>2.2</b> Histograma</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#método-não-paramétrico-de-kaplan-meier"><i class="fa fa-check"></i><b>2.3</b> Método não-paramétrico de Kaplan-meier</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos"><i class="fa fa-check"></i><b>2.3.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.3.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#tempo-médio-de-sobrevivência"><i class="fa fa-check"></i><b>2.3.2</b> Tempo médio de sobrevivência</a></li>
+<li class="chapter" data-level="2.3.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos"><i class="fa fa-check"></i><b>2.3.3</b> Considerando tratamentos</a></li>
+<li class="chapter" data-level="2.3.4" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#conferindo-diferenças-par-a-par"><i class="fa fa-check"></i><b>2.3.4</b> Conferindo diferenças par a par</a></li>
+<li class="chapter" data-level="2.3.5" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#grafico-por-tratamento-usando-o-método-de-kaplan-meier"><i class="fa fa-check"></i><b>2.3.5</b> Grafico por tratamento usando o método de Kaplan-Meier</a></li>
+<li class="chapter" data-level="2.3.6" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#tempo-médio-de-sobrevivência-1"><i class="fa fa-check"></i><b>2.3.6</b> Tempo médio de sobrevivência</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#modelo-paramétrico"><i class="fa fa-check"></i><b>2.4</b> Modelo paramétrico</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-exponencial"><i class="fa fa-check"></i><b>2.4.1</b> Distribuição exponencial</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-1"><i class="fa fa-check"></i><b>2.4.2</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-1"><i class="fa fa-check"></i><b>2.4.3</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-gaussiano"><i class="fa fa-check"></i><b>2.5</b> Distribuição gaussiano</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-2"><i class="fa fa-check"></i><b>2.5.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.5.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-2"><i class="fa fa-check"></i><b>2.5.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-logistico"><i class="fa fa-check"></i><b>2.6</b> Distribuição logistico</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-3"><i class="fa fa-check"></i><b>2.6.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-3"><i class="fa fa-check"></i><b>2.6.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-log-normal"><i class="fa fa-check"></i><b>2.7</b> Distribuição Log normal</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-4"><i class="fa fa-check"></i><b>2.7.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.7.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-4"><i class="fa fa-check"></i><b>2.7.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-log-logístico"><i class="fa fa-check"></i><b>2.8</b> Distribuição Log-Logístico</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-5"><i class="fa fa-check"></i><b>2.8.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.8.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-5"><i class="fa fa-check"></i><b>2.8.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-weibull-default"><i class="fa fa-check"></i><b>2.9</b> Distribuição Weibull (default)</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-6"><i class="fa fa-check"></i><b>2.9.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.9.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-6"><i class="fa fa-check"></i><b>2.9.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#gompertz"><i class="fa fa-check"></i><b>2.10</b> Gompertz</a></li>
+<li class="chapter" data-level="2.11" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#gamma"><i class="fa fa-check"></i><b>2.11</b> Gamma</a></li>
+<li class="chapter" data-level="2.12" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#método-semi-paramétrico-de-cox"><i class="fa fa-check"></i><b>2.12</b> Método semi-paramétrico de Cox</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-7"><i class="fa fa-check"></i><b>2.12.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.12.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-7"><i class="fa fa-check"></i><b>2.12.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.13" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#modelo-de-riscos-proporcionais-de-cox"><i class="fa fa-check"></i><b>2.13</b> Modelo de riscos proporcionais de COX</a><ul>
+<li class="chapter" data-level="2.13.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-trat"><i class="fa fa-check"></i><b>2.13.1</b> Considerando trat</a></li>
+</ul></li>
+<li class="chapter" data-level="2.14" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#critério-de-inferência-de-akaike"><i class="fa fa-check"></i><b>2.14</b> Critério de inferência de Akaike</a></li>
+<li class="chapter" data-level="2.15" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#resíduo"><i class="fa fa-check"></i><b>2.15</b> Resíduo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html"><i class="fa fa-check"></i><b>3</b> Modelo linear generalizado</a><ul>
+<li class="chapter" data-level="3.1" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#conjunto-de-dados-2"><i class="fa fa-check"></i><b>3.1</b> Conjunto de dados</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-linear-generalizado-1"><i class="fa fa-check"></i><b>3.2</b> Modelo linear generalizado</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance"><i class="fa fa-check"></i><b>3.3</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-1"><i class="fa fa-check"></i><b>3.4</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot"><i class="fa fa-check"></i><b>3.5</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.6" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes"><i class="fa fa-check"></i><b>3.6</b> Constrastes</a></li>
+<li class="chapter" data-level="3.7" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica"><i class="fa fa-check"></i><b>3.7</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.8" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#supondo-que-não-sabemos-o-total-de-cada-repetição"><i class="fa fa-check"></i><b>3.8</b> Supondo que não sabemos o total de cada repetição</a></li>
+<li class="chapter" data-level="3.9" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-1"><i class="fa fa-check"></i><b>3.9</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.10" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-2"><i class="fa fa-check"></i><b>3.10</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.11" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-1"><i class="fa fa-check"></i><b>3.11</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.12" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-1"><i class="fa fa-check"></i><b>3.12</b> Constrastes</a></li>
+<li class="chapter" data-level="3.13" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-1"><i class="fa fa-check"></i><b>3.13</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.14" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#analisando-sobredispersão"><i class="fa fa-check"></i><b>3.14</b> Analisando sobredispersão</a></li>
+<li class="chapter" data-level="3.15" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-2"><i class="fa fa-check"></i><b>3.15</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.16" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-3"><i class="fa fa-check"></i><b>3.16</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.17" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-2"><i class="fa fa-check"></i><b>3.17</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.18" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-2"><i class="fa fa-check"></i><b>3.18</b> Constrastes</a></li>
+<li class="chapter" data-level="3.19" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-2"><i class="fa fa-check"></i><b>3.19</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.20" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#distribuição-quasibinomial"><i class="fa fa-check"></i><b>3.20</b> Distribuição quasibinomial</a></li>
+<li class="chapter" data-level="3.21" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-3"><i class="fa fa-check"></i><b>3.21</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.22" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-4"><i class="fa fa-check"></i><b>3.22</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.23" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-3"><i class="fa fa-check"></i><b>3.23</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.24" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-3"><i class="fa fa-check"></i><b>3.24</b> Constrastes</a></li>
+<li class="chapter" data-level="3.25" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-3"><i class="fa fa-check"></i><b>3.25</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.26" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#fatorial-qualitativo-e-quantitativo"><i class="fa fa-check"></i><b>3.26</b> Fatorial qualitativo e quantitativo</a></li>
+<li class="chapter" data-level="3.27" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo"><i class="fa fa-check"></i><b>3.27</b> Modelo</a></li>
+<li class="chapter" data-level="3.28" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#deviance"><i class="fa fa-check"></i><b>3.28</b> Deviance</a></li>
+<li class="chapter" data-level="3.29" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#teste-de-comparação"><i class="fa fa-check"></i><b>3.29</b> Teste de comparação</a></li>
+<li class="chapter" data-level="3.30" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#regressão"><i class="fa fa-check"></i><b>3.30</b> Regressão</a></li>
+<li class="chapter" data-level="3.31" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#dividindo-o-conjunto-de-dados"><i class="fa fa-check"></i><b>3.31</b> Dividindo o conjunto de dados</a></li>
+<li class="chapter" data-level="3.32" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-para-t1"><i class="fa fa-check"></i><b>3.32</b> modelo para T1</a></li>
+<li class="chapter" data-level="3.33" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-para-t2"><i class="fa fa-check"></i><b>3.33</b> modelo para T2</a></li>
+<li class="chapter" data-level="3.34" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#gráfico"><i class="fa fa-check"></i><b>3.34</b> Gráfico</a><ul>
+<li class="chapter" data-level="3.34.1" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#calculando-vetores"><i class="fa fa-check"></i><b>3.34.1</b> Calculando vetores</a></li>
+<li class="chapter" data-level="3.34.2" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#gráfico-final"><i class="fa fa-check"></i><b>3.34.2</b> Gráfico final</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://agronomiar.github.io/livroagro1/" target="blank">Anterior</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Aplicações práticas do software R para Agronomia</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Aplicações práticas do software R para Agronomia</h1>
+<p class="author"><em>Gabriel Danilo Shimizu</em></p>
+<p class="date"><em>2020-05-13</em></p>
+</div>
+<div id="análise-de-regressão-linear-e-não-linear" class="section level1">
+<h1><span class="header-section-number"> 1</span> Análise de regressão linear e não-linear</h1>
+<p>Nas mais diversas áreas da pesquisa, seja ela na área médica, biológica, industrial, química entre outras, é de grande interesse verificar se duas ou mais variáveis estão relacionadas de alguma forma. Para expressar esta relação é muito importante estabelecer um modelo matemático. Este tipo de modelagem é chamado de regressão, e ajuda a entender como determinadas variáveis influenciam outra variável, ou seja, verifica como o comportamento de uma ou mais variáveis podem mudar o comportamento de outra.</p>
+<p>Na agronomia, a análise de regressão é muito utilizada por exemplo, para estabelecer doses de máxima resposta de produtos fitossanitários, adubos, populações de plantas, etc..; ou mesmo no estudo do desenvolvimento de uma planta, o que chamamos de curva de crescimento.</p>
+<p>Popularmente, é comum a utilização de curva do tipo polinomial, visto a facilidade de sua utilização e explicação. Todavia, muito dos dados não se comportam dessa forma, ainda que o ajuste seja significativo, podendo assim, levar a conclusões limitadas em função da análise inadequada. Logo, o presente tutorial apresenta diferentes ajustes de regressão linear e não-linear de um mesmo conjunto de dados.</p>
+<p>Neste tutorial, você irá reparar que em quase todos os modelos, o coeficientes serão significativos, demonstrando que quase todos os modelos são válidos para explicar o comportamento dos dados. A questão é, qual o melhor modelo?</p>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="480" /></p>
+<p><strong>Obs. Este é um tutorial para demonstração dos modelos de regressão. Alguns casos ele não é significativo ou uma das pressuposições não é atendida. É um tutorial apenas para fins didáticos.</strong></p>
+<p><br><br></p>
+<hr />
+<div id="conjunto-de-dados" class="section level2">
+<h2><span class="header-section-number">1.1</span> Conjunto de dados</h2>
+<hr />
+<p>O conjunto de dados é de um experimento cujo objetivo foi avaliar a perda de massa da casca de romã em estufa a <span class="math inline">\(60^oC\)</span>. Foi utilizado oito repetições em oito avaliações (60, 210,390, 720, 930, 1410, 1890 e 2370 minutos)</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="index.html#cb1-1"></a><span class="st">`</span><span class="dt">PERDA DE MASSA CAA</span><span class="st">`</span>=<span class="kw">c</span>(<span class="fl">18.15810</span>,<span class="fl">17.99376</span>,<span class="fl">14.81450</span>,<span class="fl">15.39822</span>,<span class="fl">21.62234</span>,<span class="fl">20.45106</span>,<span class="fl">18.65319</span>,<span class="fl">20.96547</span>,<span class="fl">36.77274</span>,<span class="fl">39.92503</span>,<span class="fl">34.60874</span>,<span class="fl">35.70286</span>,<span class="fl">43.57189</span>,<span class="fl">42.19460</span>,<span class="fl">39.23367</span>,<span class="fl">43.36169</span>,<span class="fl">52.90384</span>,<span class="fl">52.64886</span>,<span class="fl">45.61431</span>,<span class="fl">47.81200</span>,<span class="fl">44.41734</span>,<span class="fl">47.40493</span>,<span class="fl">46.15373</span>,<span class="fl">47.12330</span>,<span class="fl">65.29474</span>,<span class="fl">67.78859</span>,<span class="fl">64.60738</span>,<span class="fl">66.24453</span>,<span class="fl">63.97464</span>,<span class="fl">66.77636</span>,<span class="fl">65.37446</span>,<span class="fl">65.11912</span>,<span class="fl">67.86385</span>,<span class="fl">70.68877</span>,<span class="fl">69.45271</span>,<span class="fl">70.33895</span>,<span class="fl">69.43583</span>,<span class="fl">71.56150</span>,<span class="fl">69.73480</span>,<span class="fl">69.97407</span>,<span class="fl">69.02813</span>,<span class="fl">71.28882</span>,<span class="fl">71.17485</span>,<span class="fl">71.22420</span>,<span class="fl">71.32344</span>,<span class="fl">72.46687</span>,<span class="fl">71.17063</span>,<span class="fl">72.07550</span>,<span class="fl">69.16576</span>,<span class="fl">71.44176</span>,<span class="fl">71.30762</span>,<span class="fl">71.34075</span>,<span class="fl">71.42775</span>,<span class="fl">72.59710</span>,<span class="fl">71.28255</span>,<span class="fl">72.19996</span>,<span class="fl">69.30339</span>,<span class="fl">71.59471</span>,<span class="fl">71.44040</span>,<span class="fl">71.45729</span>,<span class="fl">71.53206</span>,<span class="fl">72.72733</span>,<span class="fl">71.39446</span>,<span class="fl">72.32441</span>)</span>
+<span id="cb1-2"><a href="index.html#cb1-2"></a>TEMPO=<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">60</span>,<span class="dv">210</span>,<span class="dv">390</span>,<span class="dv">720</span>,<span class="dv">930</span>,<span class="dv">1410</span>,<span class="dv">1890</span>,<span class="dv">2370</span>),<span class="dt">e=</span><span class="dv">8</span>)</span>
+<span id="cb1-3"><a href="index.html#cb1-3"></a>dados=<span class="kw">data.frame</span>(TEMPO,<span class="st">`</span><span class="dt">PERDA DE MASSA CAA</span><span class="st">`</span>)</span>
+<span id="cb1-4"><a href="index.html#cb1-4"></a>y=<span class="kw">c</span>(<span class="st">`</span><span class="dt">PERDA DE MASSA CAA</span><span class="st">`</span>)</span>
+<span id="cb1-5"><a href="index.html#cb1-5"></a>x=<span class="kw">c</span>(TEMPO)</span>
+<span id="cb1-6"><a href="index.html#cb1-6"></a>data=<span class="kw">data.frame</span>(y,x)</span></code></pre></div>
+<p><br><br></p>
+<div id="média-e-desvio-padrão-amostral" class="section level3">
+<h3><span class="header-section-number">1.1.1</span> Média e desvio-padrão amostral</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="index.html#cb2-1"></a>(<span class="dt">media=</span><span class="kw">tapply</span>(y,x, mean))</span></code></pre></div>
+<pre><code>##       60      210      390      720      930     1410     1890     2370 
+## 18.50708 39.42140 48.00979 65.64748 69.88131 71.21905 71.34541 71.47176</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="index.html#cb4-1"></a>(<span class="dt">desvio=</span><span class="kw">tapply</span>(y,x, sd))</span></code></pre></div>
+<pre><code>##       60      210      390      720      930     1410     1890     2370 
+## 2.485224 3.479257 3.133973 1.229025 1.080134 1.007882 1.004939 1.002227</code></pre>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="index.html#cb6-1"></a>(<span class="dt">tempo=</span><span class="kw">c</span>(<span class="dv">60</span>,<span class="dv">210</span>,<span class="dv">390</span>,<span class="dv">720</span>,<span class="dv">930</span>,<span class="dv">1410</span>,<span class="dv">1890</span>,<span class="dv">2370</span>))</span></code></pre></div>
+<pre><code>## [1]   60  210  390  720  930 1410 1890 2370</code></pre>
+<p><br><br></p>
+<hr />
+</div>
+<div id="gráficos-exploratórios" class="section level3">
+<h3><span class="header-section-number">1.1.2</span> Gráficos exploratórios</h3>
+<hr />
+<p><br><br></p>
+</div>
+<div id="gráfico-de-caixas" class="section level3">
+<h3><span class="header-section-number">1.1.3</span> Gráfico de caixas</h3>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="index.html#cb8-1"></a><span class="kw">boxplot</span>(y<span class="op">~</span>x)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-dispersão" class="section level3">
+<h3><span class="header-section-number">1.1.4</span> Gráfico de dispersão</h3>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1"></a><span class="kw">plot</span>(y<span class="op">~</span>x)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-dispersão-com-médias" class="section level3">
+<h3><span class="header-section-number">1.1.5</span> Gráfico de dispersão com médias</h3>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="index.html#cb10-1"></a><span class="kw">plot</span>(y<span class="op">~</span>x)</span>
+<span id="cb10-2"><a href="index.html#cb10-2"></a><span class="kw">points</span>(media<span class="op">~</span>tempo,<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="gráfico-de-linhas-com-as-médias" class="section level3">
+<h3><span class="header-section-number">1.1.6</span> Gráfico de linhas com as médias</h3>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="index.html#cb11-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb11-2"><a href="index.html#cb11-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">type=</span><span class="st">&quot;b&quot;</span>)</span>
+<span id="cb11-3"><a href="index.html#cb11-3"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">type=</span><span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="histograma" class="section level3">
+<h3><span class="header-section-number">1.1.7</span> Histograma</h3>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="index.html#cb12-1"></a><span class="kw">hist</span>(y)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="linear-simples" class="section level2">
+<h2><span class="header-section-number">1.2</span> Linear Simples</h2>
+<hr />
+<p>O modelo de regressão linear simples (MRLS) se define uma relação linear entre a variável dependente e uma variável independente.</p>
+<p><span class="math display">\[Y=\beta_1x+\beta_0\]</span></p>
+<div id="criando-o-modelo-de-regressão" class="section level3">
+<h3><span class="header-section-number">1.2.1</span> Criando o modelo de regressão</h3>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="index.html#cb13-1"></a>modl=<span class="kw">lm</span>(y<span class="op">~</span>x)</span>
+<span id="cb13-2"><a href="index.html#cb13-2"></a><span class="kw">summary</span>(modl)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -24.4181  -8.1253   0.4191   8.8542  16.0914 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 38.099512   2.368998   16.08  &lt; 2e-16 ***
+## x            0.018886   0.001876   10.07 1.15e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.62 on 62 degrees of freedom
+## Multiple R-squared:  0.6205, Adjusted R-squared:  0.6144 
+## F-statistic: 101.4 on 1 and 62 DF,  p-value: 1.147e-14</code></pre>
+</div>
+<div id="diagnóstico" class="section level3">
+<h3><span class="header-section-number">1.2.2</span> Diagnóstico</h3>
+</div>
+<div id="normalidade-dos-erros" class="section level3">
+<h3><span class="header-section-number">1.2.3</span> Normalidade dos erros</h3>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="index.html#cb15-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(modl)</span></code></pre></div>
+<pre><code>## Gaussian model (lm object)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="index.html#cb17-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(modl)) <span class="co"># erros não normais</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(modl)
+## W = 0.94067, p-value = 0.004079</code></pre>
+</div>
+<div id="falta-de-ajuste-desvio-da-regressão" class="section level3">
+<h3><span class="header-section-number">1.2.4</span> Falta de ajuste (Desvio da regressão)</h3>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="index.html#cb19-1"></a>modq=<span class="kw">aov</span>(y<span class="op">~</span><span class="kw">as.factor</span>(x))</span>
+<span id="cb19-2"><a href="index.html#cb19-2"></a><span class="kw">anova</span>(modl,modq)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: y ~ x
+## Model 2: y ~ as.factor(x)
+##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1     62 8377.2                                  
+## 2     56  236.7  6    8140.5 321.02 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="construindo-gráfico" class="section level3">
+<h3><span class="header-section-number">1.2.5</span> Construindo gráfico</h3>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="index.html#cb21-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb21-2"><a href="index.html#cb21-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Linear Simples&quot;</span>,</span>
+<span id="cb21-3"><a href="index.html#cb21-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb21-4"><a href="index.html#cb21-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb21-5"><a href="index.html#cb21-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb21-6"><a href="index.html#cb21-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb21-7"><a href="index.html#cb21-7"></a><span class="kw">curve</span>(<span class="kw">coef</span>(modl)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(modl)[<span class="dv">2</span>]<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb21-8"><a href="index.html#cb21-8"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb21-9"><a href="index.html#cb21-9"></a>       <span class="dt">cex=</span><span class="dv">1</span>,</span>
+<span id="cb21-10"><a href="index.html#cb21-10"></a>       <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb21-11"><a href="index.html#cb21-11"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="fl">38.09951+0.01889</span><span class="op">*</span>x)))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+</div>
+<div id="ggplot2" class="section level3">
+<h3><span class="header-section-number">1.2.6</span> ggplot2</h3>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="index.html#cb22-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb22-2"><a href="index.html#cb22-2"></a>da=<span class="kw">data.frame</span>(media,tempo)</span>
+<span id="cb22-3"><a href="index.html#cb22-3"></a><span class="kw">ggplot</span>(da,<span class="kw">aes</span>(<span class="dt">y=</span>media,<span class="dt">x=</span>tempo))<span class="op">+</span></span>
+<span id="cb22-4"><a href="index.html#cb22-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb22-5"><a href="index.html#cb22-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>,<span class="dt">se =</span> F,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">size=</span><span class="fl">0.1</span>,<span class="dt">lty=</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb22-6"><a href="index.html#cb22-6"></a><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span></span>
+<span id="cb22-7"><a href="index.html#cb22-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Weight loss (%)&quot;</span>)<span class="op">+</span></span>
+<span id="cb22-8"><a href="index.html#cb22-8"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time (Minutes)&quot;</span>) </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="quadrático" class="section level2">
+<h2><span class="header-section-number">1.3</span> Quadrático</h2>
+<hr />
+<p><span class="math display">\[Y=\beta_2x^2+\beta_1x+\beta_0\]</span></p>
+<div id="criando-modelo-de-regressão" class="section level3">
+<h3><span class="header-section-number">1.3.1</span> Criando modelo de regressão</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="index.html#cb23-1"></a>mod1=<span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb23-2"><a href="index.html#cb23-2"></a><span class="kw">summary</span>(mod1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x + I(x^2))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -11.428  -5.288   1.756   4.360   8.018 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.226e+01  1.528e+00   14.57   &lt;2e-16 ***
+## x            6.763e-02  3.367e-03   20.09   &lt;2e-16 ***
+## I(x^2)      -2.055e-05  1.371e-06  -14.99   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.415 on 61 degrees of freedom
+## Multiple R-squared:  0.919,  Adjusted R-squared:  0.9163 
+## F-statistic: 345.9 on 2 and 61 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="diagnóstico-do-modelo" class="section level3">
+<h3><span class="header-section-number">1.3.2</span> Diagnóstico do modelo</h3>
+</div>
+<div id="normalidade-dos-erros-1" class="section level3">
+<h3><span class="header-section-number">1.3.3</span> Normalidade dos erros</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="index.html#cb25-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(mod1)</span></code></pre></div>
+<pre><code>## Gaussian model (lm object)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="index.html#cb27-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(mod1)) <span class="co"># erros nao normais</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(mod1)
+## W = 0.92285, p-value = 0.000655</code></pre>
+</div>
+<div id="fator-de-inflação-de-variância-multicolinearidade" class="section level3">
+<h3><span class="header-section-number">1.3.4</span> Fator de inflação de variância (Multicolinearidade)</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="index.html#cb29-1"></a>car<span class="op">::</span><span class="kw">vif</span>(mod1) <span class="co"># problema de multicolinearidade</span></span></code></pre></div>
+<pre><code>##        x   I(x^2) 
+## 14.84834 14.84834</code></pre>
+</div>
+<div id="falta-de-ajuste-desvio-da-regressão-1" class="section level3">
+<h3><span class="header-section-number">1.3.5</span> Falta de ajuste (Desvio da regressão)</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="index.html#cb31-1"></a>modq=<span class="kw">aov</span>(y<span class="op">~</span><span class="kw">as.factor</span>(x))</span>
+<span id="cb31-2"><a href="index.html#cb31-2"></a><span class="kw">anova</span>(mod1,modq)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: y ~ x + I(x^2)
+## Model 2: y ~ as.factor(x)
+##   Res.Df     RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1     61 1788.55                                  
+## 2     56  236.68  5    1551.9 73.438 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="construindo-gráfico-1" class="section level3">
+<h3><span class="header-section-number">1.3.6</span> Construindo gráfico</h3>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="index.html#cb33-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb33-2"><a href="index.html#cb33-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Quadrático&quot;</span>,</span>
+<span id="cb33-3"><a href="index.html#cb33-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb33-4"><a href="index.html#cb33-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb33-5"><a href="index.html#cb33-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb33-6"><a href="index.html#cb33-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb33-7"><a href="index.html#cb33-7"></a><span class="kw">curve</span>(<span class="kw">coef</span>(mod1)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod1)[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span><span class="kw">coef</span>(mod1)[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb33-8"><a href="index.html#cb33-8"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb33-9"><a href="index.html#cb33-9"></a>       <span class="dt">cex=</span><span class="dv">1</span>,</span>
+<span id="cb33-10"><a href="index.html#cb33-10"></a>       <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb33-11"><a href="index.html#cb33-11"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="fl">22.26+0.006763</span><span class="op">*</span>x<span class="fl">-0.00002055</span><span class="op">*</span>x<span class="op">^</span><span class="dv">2</span>)))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+</div>
+<div id="ponto-de-máximo-ou-mínimo" class="section level3">
+<h3><span class="header-section-number">1.3.7</span> Ponto de máximo (Ou mínimo)</h3>
+<p>O ponto de máximo ou mínimo podem ser encontrados de várias formas</p>
+</div>
+<div id="manualmente" class="section level3">
+<h3><span class="header-section-number">1.3.8</span> Manualmente</h3>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="index.html#cb34-1"></a>(<span class="dt">xmax=</span><span class="op">-</span><span class="kw">coef</span>(mod1)[<span class="dv">2</span>]<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span><span class="kw">coef</span>(mod1)[<span class="dv">3</span>]))</span></code></pre></div>
+<pre><code>##        x 
+## 1645.317</code></pre>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="index.html#cb36-1"></a>(<span class="dt">ymax=</span><span class="kw">coef</span>(mod1)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod1)[<span class="dv">2</span>]<span class="op">*</span>xmax<span class="op">+</span><span class="kw">coef</span>(mod1)[<span class="dv">3</span>]<span class="op">*</span>xmax<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    77.89475</code></pre>
+</div>
+<div id="usando-o-which.max-ou-which.min" class="section level3">
+<h3><span class="header-section-number">1.3.9</span> Usando o which.max ou which.min</h3>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="index.html#cb38-1"></a><span class="kw">plot</span>(y<span class="op">~</span>x)</span>
+<span id="cb38-2"><a href="index.html#cb38-2"></a>tend=<span class="kw">curve</span>(<span class="kw">coef</span>(mod1)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod1)[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span><span class="kw">coef</span>(mod1)[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span>,<span class="dt">add=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="index.html#cb39-1"></a>tend<span class="op">$</span>x[<span class="kw">which.max</span>(tend<span class="op">$</span>y)]</span></code></pre></div>
+<pre><code>## [1] 1653.9</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="index.html#cb41-1"></a><span class="co"># tend$x[which.min(tend$y)] # no caso de mínimo</span></span></code></pre></div>
+</div>
+<div id="ggplot2-1" class="section level3">
+<h3><span class="header-section-number">1.3.10</span> ggplot2</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="index.html#cb42-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb42-2"><a href="index.html#cb42-2"></a>da=<span class="kw">data.frame</span>(media,tempo)</span>
+<span id="cb42-3"><a href="index.html#cb42-3"></a><span class="kw">ggplot</span>(da,<span class="kw">aes</span>(<span class="dt">y=</span>media,<span class="dt">x=</span>tempo))<span class="op">+</span></span>
+<span id="cb42-4"><a href="index.html#cb42-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb42-5"><a href="index.html#cb42-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>,<span class="dt">formula =</span> y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dv">2</span>), <span class="dt">se =</span> F,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">size=</span><span class="fl">0.1</span>,<span class="dt">lty=</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb42-6"><a href="index.html#cb42-6"></a><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span></span>
+<span id="cb42-7"><a href="index.html#cb42-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Weight loss (%)&quot;</span>)<span class="op">+</span></span>
+<span id="cb42-8"><a href="index.html#cb42-8"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time (Minutes)&quot;</span>) </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="cúbico" class="section level2">
+<h2><span class="header-section-number">1.4</span> Cúbico</h2>
+<hr />
+<p><span class="math display">\[Y=\beta_3x^3+\beta_2x^2+\beta_1x+\beta_0\]</span></p>
+<div id="construindo-o-modelo" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> Construindo o modelo</h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="index.html#cb43-1"></a>mod2=<span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>)<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">3</span>))</span>
+<span id="cb43-2"><a href="index.html#cb43-2"></a><span class="kw">summary</span>(mod2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x + I(x^2) + I(x^3))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -6.0186 -1.3299 -0.3928  1.3155  8.0377 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.406e+01  9.927e-01   14.16   &lt;2e-16 ***
+## x            1.174e-01  4.125e-03   28.47   &lt;2e-16 ***
+## I(x^2)      -7.536e-05  4.189e-06  -17.99   &lt;2e-16 ***
+## I(x^3)       1.524e-08  1.149e-09   13.27   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.753 on 60 degrees of freedom
+## Multiple R-squared:  0.9794, Adjusted R-squared:  0.9784 
+## F-statistic: 951.1 on 3 and 60 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="diagnóstico-do-modelo-1" class="section level3">
+<h3><span class="header-section-number">1.4.2</span> Diagnóstico do modelo</h3>
+</div>
+<div id="normalidade-dos-erros-2" class="section level3">
+<h3><span class="header-section-number">1.4.3</span> Normalidade dos erros</h3>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="index.html#cb45-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(mod2)</span></code></pre></div>
+<pre><code>## Gaussian model (lm object)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="index.html#cb47-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(mod2)) <span class="co"># Erros nao normais</span></span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(mod2)
+## W = 0.94796, p-value = 0.009093</code></pre>
+</div>
+<div id="fator-de-inflação-de-variância-multicolinearidade-1" class="section level3">
+<h3><span class="header-section-number">1.4.4</span> Fator de inflação de variância (Multicolinearidade)</h3>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="index.html#cb49-1"></a>car<span class="op">::</span><span class="kw">vif</span>(mod2) <span class="co"># alta multicolinearidade</span></span></code></pre></div>
+<pre><code>##         x    I(x^2)    I(x^3) 
+##  86.25922 536.46498 221.25164</code></pre>
+</div>
+<div id="falta-de-ajuste-desvio-da-regressão-2" class="section level3">
+<h3><span class="header-section-number">1.4.5</span> Falta de ajuste (Desvio da regressão)</h3>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="index.html#cb51-1"></a>modq=<span class="kw">aov</span>(y<span class="op">~</span><span class="kw">as.factor</span>(x))</span>
+<span id="cb51-2"><a href="index.html#cb51-2"></a><span class="kw">anova</span>(mod2,modq)</span></code></pre></div>
+<pre><code>## Analysis of Variance Table
+## 
+## Model 1: y ~ x + I(x^2) + I(x^3)
+## Model 2: y ~ as.factor(x)
+##   Res.Df    RSS Df Sum of Sq      F    Pr(&gt;F)    
+## 1     60 454.60                                  
+## 2     56 236.68  4    217.93 12.891 1.666e-07 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="construindo-o-gráfico" class="section level3">
+<h3><span class="header-section-number">1.4.6</span> Construindo o gráfico</h3>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="index.html#cb53-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb53-2"><a href="index.html#cb53-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Cúbico&quot;,</span></span>
+<span id="cb53-3"><a href="index.html#cb53-3"></a><span class="st">     las=1, cex=1.3,</span></span>
+<span id="cb53-4"><a href="index.html#cb53-4"></a><span class="st">     ylab=&quot;</span>Weight <span class="kw">loss</span> (%)<span class="st">&quot;, xlim=c(0,2500),</span></span>
+<span id="cb53-5"><a href="index.html#cb53-5"></a><span class="st">     xlab=&quot;</span><span class="kw">Time</span> (Minutes)<span class="st">&quot;, </span></span>
+<span id="cb53-6"><a href="index.html#cb53-6"></a><span class="st">     pch=16, ylim=c(0,80))</span></span>
+<span id="cb53-7"><a href="index.html#cb53-7"></a><span class="st">curve(coef(mod2)[1]+coef(mod2)[2]*x+coef(mod2)[3]*x^2+coef(mod2)[4]*x^3, add=TRUE, lty=2)</span></span>
+<span id="cb53-8"><a href="index.html#cb53-8"></a><span class="st">legend(&quot;</span>topleft<span class="st">&quot;,</span></span>
+<span id="cb53-9"><a href="index.html#cb53-9"></a><span class="st">       cex=1,</span></span>
+<span id="cb53-10"><a href="index.html#cb53-10"></a><span class="st">       bty=&quot;</span>n<span class="st">&quot;,</span></span>
+<span id="cb53-11"><a href="index.html#cb53-11"></a><span class="st">       legend = c(expression(hat(Y)==14.06+0.01174*x-0.00007536*x^2+0.00000001524*x^3)))</span></span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-26-1.png" width="672" /></p>
+</div>
+<div id="ponto-de-máximo-mínimo-e-inflexão" class="section level3">
+<h3><span class="header-section-number">1.4.7</span> ponto de máximo, mínimo e inflexão</h3>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="index.html#cb54-1"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo)</span>
+<span id="cb54-2"><a href="index.html#cb54-2"></a>curva=<span class="kw">curve</span>(<span class="kw">coef</span>(mod2)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod2)[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span><span class="kw">coef</span>(mod2)[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span><span class="op">+</span><span class="kw">coef</span>(mod2)[<span class="dv">4</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">3</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="index.html#cb55-1"></a><span class="co"># ponto de inflexão</span></span>
+<span id="cb55-2"><a href="index.html#cb55-2"></a>pi=<span class="op">-</span>(<span class="dv">2</span><span class="op">*</span><span class="kw">coef</span>(mod2)[<span class="dv">3</span>])<span class="op">/</span>(<span class="dv">3</span><span class="op">*</span><span class="dv">2</span><span class="op">*</span><span class="kw">coef</span>(mod2)[<span class="dv">4</span>])</span>
+<span id="cb55-3"><a href="index.html#cb55-3"></a></span>
+<span id="cb55-4"><a href="index.html#cb55-4"></a><span class="co"># ponto de máximo anterior ao ponto de inflexão</span></span>
+<span id="cb55-5"><a href="index.html#cb55-5"></a>xmax=curva<span class="op">$</span>x[<span class="kw">which.max</span>(curva<span class="op">$</span>y[curva<span class="op">$</span>x<span class="op">&lt;</span>pi])]</span>
+<span id="cb55-6"><a href="index.html#cb55-6"></a></span>
+<span id="cb55-7"><a href="index.html#cb55-7"></a><span class="co"># ponto de mínimo posterior ao ponto de inflexão</span></span>
+<span id="cb55-8"><a href="index.html#cb55-8"></a>xmin=curva<span class="op">$</span>x[<span class="kw">which.max</span>(curva<span class="op">$</span>y[curva<span class="op">$</span>x<span class="op">&lt;</span>pi])<span class="op">+</span><span class="kw">which.min</span>(curva<span class="op">$</span>y[curva<span class="op">$</span>x<span class="op">&gt;</span>xmax])]</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="index.html#cb56-1"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo)</span>
+<span id="cb56-2"><a href="index.html#cb56-2"></a>curva=<span class="kw">curve</span>(<span class="kw">coef</span>(mod2)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod2)[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span><span class="kw">coef</span>(mod2)[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span><span class="op">+</span><span class="kw">coef</span>(mod2)[<span class="dv">4</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">3</span>, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">1</span>)</span>
+<span id="cb56-3"><a href="index.html#cb56-3"></a><span class="kw">abline</span>(<span class="dt">v=</span><span class="kw">c</span>(xmax,xmin,pi),<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+</div>
+<div id="ggplot2-2" class="section level3">
+<h3><span class="header-section-number">1.4.8</span> ggplot2</h3>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="index.html#cb57-1"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb57-2"><a href="index.html#cb57-2"></a>da=<span class="kw">data.frame</span>(media,tempo)</span>
+<span id="cb57-3"><a href="index.html#cb57-3"></a><span class="kw">ggplot</span>(da,<span class="kw">aes</span>(<span class="dt">y=</span>media,<span class="dt">x=</span>tempo))<span class="op">+</span></span>
+<span id="cb57-4"><a href="index.html#cb57-4"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb57-5"><a href="index.html#cb57-5"></a><span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method=</span><span class="st">&quot;lm&quot;</span>,<span class="dt">formula =</span> y<span class="op">~</span><span class="kw">poly</span>(x,<span class="dv">3</span>), <span class="dt">se =</span> F,<span class="dt">col=</span><span class="st">&quot;black&quot;</span>,<span class="dt">size=</span><span class="fl">0.1</span>,<span class="dt">lty=</span><span class="dv">2</span>)<span class="op">+</span></span>
+<span id="cb57-6"><a href="index.html#cb57-6"></a><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span></span>
+<span id="cb57-7"><a href="index.html#cb57-7"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Weight loss (%)&quot;</span>)<span class="op">+</span></span>
+<span id="cb57-8"><a href="index.html#cb57-8"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time (Minutes)&quot;</span>) </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="logarítmico" class="section level2">
+<h2><span class="header-section-number">1.5</span> Logarítmico</h2>
+<hr />
+<p><span class="math display">\[Y=\beta_{0}+\beta_{1}\log(x)\]</span></p>
+<div id="construindo-modelo" class="section level3">
+<h3><span class="header-section-number">1.5.1</span> Construindo modelo</h3>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="index.html#cb58-1"></a>modelog=<span class="kw">lm</span>(y<span class="op">~</span><span class="kw">log</span>(x))</span>
+<span id="cb58-2"><a href="index.html#cb58-2"></a><span class="kw">summary</span>(modelog)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ log(x))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -8.5359 -3.5194 -0.5506  3.6366  8.4348 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -42.7285     3.3261  -12.85   &lt;2e-16 ***
+## log(x)       15.5158     0.5096   30.45   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.724 on 62 degrees of freedom
+## Multiple R-squared:  0.9373, Adjusted R-squared:  0.9363 
+## F-statistic: 927.1 on 1 and 62 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="diagnóstico-do-modelo-2" class="section level3">
+<h3><span class="header-section-number">1.5.2</span> Diagnóstico do modelo</h3>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="index.html#cb60-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(modelog)</span></code></pre></div>
+<pre><code>## Gaussian model (lm object)</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="index.html#cb62-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(modelog))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(modelog)
+## W = 0.94476, p-value = 0.006371</code></pre>
+</div>
+<div id="construindo-gráfico-2" class="section level3">
+<h3><span class="header-section-number">1.5.3</span> Construindo gráfico</h3>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="index.html#cb64-1"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Log&quot;</span>,</span>
+<span id="cb64-2"><a href="index.html#cb64-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb64-3"><a href="index.html#cb64-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb64-4"><a href="index.html#cb64-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb64-5"><a href="index.html#cb64-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb64-6"><a href="index.html#cb64-6"></a><span class="kw">curve</span>(<span class="op">-</span><span class="fl">42.73+15.52</span><span class="op">*</span><span class="kw">log</span>(x),<span class="dt">add=</span>T,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb64-7"><a href="index.html#cb64-7"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb64-8"><a href="index.html#cb64-8"></a>       <span class="dt">cex=</span><span class="dv">1</span>,</span>
+<span id="cb64-9"><a href="index.html#cb64-9"></a>       <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb64-10"><a href="index.html#cb64-10"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==-</span><span class="fl">42.73+15.52</span><span class="op">*</span><span class="kw">log</span>(x))))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="michaelis-menten-mm" class="section level2">
+<h2><span class="header-section-number">1.6</span> Michaelis-Menten (MM)</h2>
+<hr />
+<p><span class="math display">\[Y=\frac{A\times x}{V+x}\]</span></p>
+<div id="construindo-o-modelo-1" class="section level3">
+<h3><span class="header-section-number">1.6.1</span> Construindo o modelo</h3>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="index.html#cb65-1"></a>data=<span class="kw">data.frame</span>(y,x)</span>
+<span id="cb65-2"><a href="index.html#cb65-2"></a>n0 &lt;-<span class="st"> </span><span class="kw">nls</span>(<span class="dt">formula=</span>y<span class="op">~</span>A<span class="op">*</span>x<span class="op">/</span>(V<span class="op">+</span>x), <span class="dt">data=</span>data,</span>
+<span id="cb65-3"><a href="index.html#cb65-3"></a>          <span class="dt">start=</span><span class="kw">list</span>(<span class="dt">A=</span><span class="kw">max</span>(y), <span class="dt">V=</span><span class="dv">100</span>), <span class="dt">trace=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## 2726.427 :   72.72733 100.00000
+## 820.4424 :   78.84265 179.59765
+## 691.338 :   80.90678 212.88993
+## 690.8008 :   81.02471 215.24858
+## 690.8006 :   81.02129 215.20409
+## 690.8006 :   81.02137 215.20519</code></pre>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="index.html#cb67-1"></a><span class="kw">summary</span>(n0)</span></code></pre></div>
+<pre><code>## 
+## Formula: y ~ A * x/(V + x)
+## 
+## Parameters:
+##   Estimate Std. Error t value Pr(&gt;|t|)    
+## A   81.021      1.004   80.67   &lt;2e-16 ***
+## V  215.205     11.711   18.38   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.338 on 62 degrees of freedom
+## 
+## Number of iterations to convergence: 5 
+## Achieved convergence tolerance: 3.035e-07</code></pre>
+</div>
+<div id="diagnóstico-do-modelo-3" class="section level3">
+<h3><span class="header-section-number">1.6.2</span> Diagnóstico do modelo</h3>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="index.html#cb69-1"></a><span class="kw">shapiro.test</span>(<span class="kw">resid</span>(n0))</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  resid(n0)
+## W = 0.9717, p-value = 0.1482</code></pre>
+</div>
+<div id="construindo-o-gráfico-1" class="section level3">
+<h3><span class="header-section-number">1.6.3</span> Construindo o gráfico</h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="index.html#cb71-1"></a>A &lt;-<span class="st"> </span><span class="kw">coef</span>(n0)[<span class="dv">1</span>]; V &lt;-<span class="st"> </span><span class="kw">coef</span>(n0)[<span class="dv">2</span>]</span>
+<span id="cb71-2"><a href="index.html#cb71-2"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb71-3"><a href="index.html#cb71-3"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Michaelis Menten&quot;</span>,</span>
+<span id="cb71-4"><a href="index.html#cb71-4"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb71-5"><a href="index.html#cb71-5"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb71-6"><a href="index.html#cb71-6"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb71-7"><a href="index.html#cb71-7"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb71-8"><a href="index.html#cb71-8"></a><span class="kw">curve</span>(A<span class="op">*</span>x<span class="op">/</span>(V<span class="op">+</span>x), <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb71-9"><a href="index.html#cb71-9"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb71-10"><a href="index.html#cb71-10"></a>       <span class="dt">cex=</span><span class="dv">1</span>,</span>
+<span id="cb71-11"><a href="index.html#cb71-11"></a>       <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb71-12"><a href="index.html#cb71-12"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="kw">frac</span>(<span class="fl">81.021</span><span class="op">*</span>x,(<span class="fl">215.205</span><span class="op">+</span>x)))))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
+</div>
+<div id="utilizando-outro-método" class="section level3">
+<h3><span class="header-section-number">1.6.4</span> Utilizando outro método</h3>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="index.html#cb72-1"></a>m.m &lt;-<span class="st"> </span><span class="kw">nls</span>(y <span class="op">~</span><span class="st"> </span><span class="kw">SSmicmen</span>(x, Vm, K), <span class="dt">data =</span> data)</span>
+<span id="cb72-2"><a href="index.html#cb72-2"></a>m.m</span></code></pre></div>
+<pre><code>## Nonlinear regression model
+##   model: y ~ SSmicmen(x, Vm, K)
+##    data: data
+##     Vm      K 
+##  81.02 215.20 
+##  residual sum-of-squares: 690.8
+## 
+## Number of iterations to convergence: 0 
+## Achieved convergence tolerance: 2.047e-06</code></pre>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="index.html#cb74-1"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Michaelis-Menten&quot;</span>,</span>
+<span id="cb74-2"><a href="index.html#cb74-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb74-3"><a href="index.html#cb74-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb74-4"><a href="index.html#cb74-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb74-5"><a href="index.html#cb74-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb74-6"><a href="index.html#cb74-6"></a><span class="kw">curve</span>((<span class="fl">81.02135</span><span class="op">*</span>x)<span class="op">/</span>(<span class="fl">215.20499</span><span class="op">+</span>x), <span class="dt">add=</span>T)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="mm-modificado" class="section level2">
+<h2><span class="header-section-number">1.7</span> MM Modificado</h2>
+<hr />
+<p><span class="math display">\[Y=\frac{A\times x}{V+x}+D\times x \]</span></p>
+<div id="construindo-modelo-1" class="section level3">
+<h3><span class="header-section-number">1.7.1</span> Construindo modelo</h3>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="index.html#cb75-1"></a>data=<span class="kw">data.frame</span>(y,x)</span>
+<span id="cb75-2"><a href="index.html#cb75-2"></a>n1 &lt;-<span class="st"> </span><span class="kw">nls</span>(<span class="dt">formula=</span>y<span class="op">~</span>A<span class="op">*</span>x<span class="op">/</span>(V<span class="op">+</span>x)<span class="op">+</span>D<span class="op">*</span>x, <span class="dt">data=</span>data,</span>
+<span id="cb75-3"><a href="index.html#cb75-3"></a>          <span class="dt">start=</span><span class="kw">list</span>(<span class="dt">A=</span><span class="kw">max</span>(y), <span class="dt">V=</span><span class="dv">100</span>,<span class="dt">D=</span><span class="dv">10</span>), <span class="dt">trace=</span><span class="ot">TRUE</span>)</span></code></pre></div>
+<pre><code>## 10206286603 :   72.72733 100.00000  10.00000
+## 802.0047 :   8.061554e+01  1.857416e+02 -9.194725e-04
+## 545.3405 :   91.710079373 263.748404929  -0.004630648
+## 521.8705 :   96.954052340 297.103221016  -0.006224234
+## 521.0745 :   98.085315801 303.935203239  -0.006567869
+## 521.0613 :   98.241471280 304.881731574  -0.006617559
+## 521.0611 :   98.261118528 305.001695810  -0.006623916
+## 521.0611 :   98.263575225 305.016711452  -0.006624713</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="index.html#cb77-1"></a><span class="kw">summary</span>(n1)</span></code></pre></div>
+<pre><code>## 
+## Formula: y ~ A * x/(V + x) + D * x
+## 
+## Parameters:
+##     Estimate Std. Error t value Pr(&gt;|t|)    
+## A  98.263575   4.439290  22.135  &lt; 2e-16 ***
+## V 305.016711  25.778649  11.832  &lt; 2e-16 ***
+## D  -0.006625   0.001563  -4.239 7.73e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.923 on 61 degrees of freedom
+## 
+## Number of iterations to convergence: 7 
+## Achieved convergence tolerance: 9.342e-06</code></pre>
+</div>
+<div id="construindo-gráfico-3" class="section level3">
+<h3><span class="header-section-number">1.7.2</span> Construindo gráfico</h3>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="index.html#cb79-1"></a>A &lt;-<span class="st"> </span><span class="kw">coef</span>(n1)[<span class="dv">1</span>]; V &lt;-<span class="st"> </span><span class="kw">coef</span>(n1)[<span class="dv">2</span>]; D&lt;-<span class="kw">coef</span>(n1)[<span class="dv">3</span>]</span>
+<span id="cb79-2"><a href="index.html#cb79-2"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb79-3"><a href="index.html#cb79-3"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Michaelis Menten (Corrigido)&quot;</span>,</span>
+<span id="cb79-4"><a href="index.html#cb79-4"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb79-5"><a href="index.html#cb79-5"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb79-6"><a href="index.html#cb79-6"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb79-7"><a href="index.html#cb79-7"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb79-8"><a href="index.html#cb79-8"></a><span class="kw">curve</span>(A<span class="op">*</span>x<span class="op">/</span>(V<span class="op">+</span>x)<span class="op">+</span>D<span class="op">*</span>x, <span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb79-9"><a href="index.html#cb79-9"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb79-10"><a href="index.html#cb79-10"></a>       <span class="dt">cex=</span><span class="dv">1</span>,</span>
+<span id="cb79-11"><a href="index.html#cb79-11"></a>       <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb79-12"><a href="index.html#cb79-12"></a>       <span class="dt">legend =</span> <span class="kw">c</span>(<span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="kw">frac</span>(<span class="fl">98.263572</span><span class="op">*</span>x,(<span class="fl">305.016698</span><span class="op">+</span>x))<span class="op">-</span><span class="fl">0.006625</span><span class="op">*</span>x)))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="segmentada-linear" class="section level2">
+<h2><span class="header-section-number">1.8</span> Segmentada linear</h2>
+<hr />
+<p><span class="math display">\[Y=\beta_{1}X+\beta_{0} (if\leq X_1)\]</span></p>
+<div id="construindo-o-modelo-linear" class="section level3">
+<h3><span class="header-section-number">1.8.1</span> Construindo o modelo linear</h3>
+<div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="index.html#cb80-1"></a>modelo_linear&lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x)</span>
+<span id="cb80-2"><a href="index.html#cb80-2"></a><span class="kw">summary</span>(modelo_linear)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -24.4181  -8.1253   0.4191   8.8542  16.0914 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 38.099512   2.368998   16.08  &lt; 2e-16 ***
+## x            0.018886   0.001876   10.07 1.15e-14 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 11.62 on 62 degrees of freedom
+## Multiple R-squared:  0.6205, Adjusted R-squared:  0.6144 
+## F-statistic: 101.4 on 1 and 62 DF,  p-value: 1.147e-14</code></pre>
+</div>
+<div id="construindo-o-modelo-segmentado" class="section level3">
+<h3><span class="header-section-number">1.8.2</span> Construindo o modelo segmentado</h3>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="index.html#cb82-1"></a><span class="kw">library</span>(segmented)</span>
+<span id="cb82-2"><a href="index.html#cb82-2"></a>modelo_pieciwise&lt;-<span class="st"> </span><span class="kw">segmented</span>(modelo_linear, <span class="dt">seg.Z =</span> <span class="op">~</span>x, <span class="dt">psi=</span><span class="dv">1000</span>)</span>
+<span id="cb82-3"><a href="index.html#cb82-3"></a>modelo_pieciwise</span></code></pre></div>
+<pre><code>## Call: segmented.lm(obj = modelo_linear, seg.Z = ~x, psi = 1000)
+## 
+## Meaningful coefficients of the linear terms:
+## (Intercept)            x         U1.x  
+##    15.94664      0.08803     -0.08524  
+## 
+## Estimated Break-Point(s):
+## psi1.x  
+##  585.2</code></pre>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="index.html#cb84-1"></a><span class="kw">summary</span>(modelo_pieciwise)</span></code></pre></div>
+<pre><code>## 
+##  ***Regression Model with Segmented Relationship(s)***
+## 
+## Call: 
+## segmented.lm(obj = modelo_linear, seg.Z = ~x, psi = 1000)
+## 
+## Estimated Break-Point(s):
+##           Est. St.Err
+## psi1.x 585.22 24.498
+## 
+## Meaningful coefficients of the linear terms:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 15.946644   1.251665   12.74   &lt;2e-16 ***
+## x            0.088028   0.004850   18.15   &lt;2e-16 ***
+## U1.x        -0.085239   0.004921  -17.32       NA    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.205 on 60 degrees of freedom
+## Multiple R-Squared: 0.9721,  Adjusted R-squared: 0.9707 
+## 
+## Convergence attained in 2 iter. (rel. change 0)</code></pre>
+</div>
+<div id="definindo-limite-com-base-no-platô" class="section level3">
+<h3><span class="header-section-number">1.8.3</span> Definindo limite com base no platô</h3>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="index.html#cb86-1"></a>y1=y[x<span class="op">&lt;=</span>modelo_pieciwise<span class="op">$</span>psi[<span class="dv">2</span>]]</span>
+<span id="cb86-2"><a href="index.html#cb86-2"></a>x11=x[x<span class="op">&lt;=</span>modelo_pieciwise<span class="op">$</span>psi[<span class="dv">2</span>]]</span></code></pre></div>
+</div>
+<div id="curva-do-primeiro-segmento" class="section level3">
+<h3><span class="header-section-number">1.8.4</span> Curva do primeiro segmento</h3>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="index.html#cb87-1"></a>mod=<span class="kw">lm</span>(y1<span class="op">~</span>x11)</span>
+<span id="cb87-2"><a href="index.html#cb87-2"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y1 ~ x11)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -6.414 -3.174 -0.520  2.435  9.139 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 15.946644   1.854475   8.599 1.74e-08 ***
+## x11          0.088028   0.007186  12.250 2.67e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.749 on 22 degrees of freedom
+## Multiple R-squared:  0.8721, Adjusted R-squared:  0.8663 
+## F-statistic: 150.1 on 1 and 22 DF,  p-value: 2.673e-11</code></pre>
+</div>
+<div id="construindo-gráfico-4" class="section level3">
+<h3><span class="header-section-number">1.8.5</span> Construindo gráfico</h3>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="index.html#cb89-1"></a><span class="kw">par</span>(<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">las=</span><span class="dv">1</span>); <span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb89-2"><a href="index.html#cb89-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, </span>
+<span id="cb89-3"><a href="index.html#cb89-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>, <span class="dt">main=</span><span class="st">&quot;Segmentado Linear&quot;</span>,</span>
+<span id="cb89-4"><a href="index.html#cb89-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb89-5"><a href="index.html#cb89-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb89-6"><a href="index.html#cb89-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb89-7"><a href="index.html#cb89-7"></a>a=<span class="kw">curve</span>(<span class="kw">coef</span>(mod)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod)[<span class="dv">2</span>]<span class="op">*</span>x, </span>
+<span id="cb89-8"><a href="index.html#cb89-8"></a>        <span class="dt">to=</span>modelo_pieciwise<span class="op">$</span>psi[<span class="dv">2</span>], <span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">add=</span>T)</span>
+<span id="cb89-9"><a href="index.html#cb89-9"></a>plato=a<span class="op">$</span>y[<span class="kw">round</span>(a<span class="op">$</span>x,<span class="dv">3</span>)<span class="op">==</span><span class="kw">round</span>(modelo_pieciwise<span class="op">$</span>psi[<span class="dv">2</span>],<span class="dv">3</span>)]</span>
+<span id="cb89-10"><a href="index.html#cb89-10"></a><span class="kw">lines</span>(<span class="kw">c</span>(modelo_pieciwise<span class="op">$</span>psi[<span class="dv">2</span>],<span class="kw">max</span>(x)),</span>
+<span id="cb89-11"><a href="index.html#cb89-11"></a>      <span class="kw">c</span>(plato,plato),<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb89-12"><a href="index.html#cb89-12"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb89-13"><a href="index.html#cb89-13"></a>       <span class="dt">cex=</span><span class="dv">1</span>,</span>
+<span id="cb89-14"><a href="index.html#cb89-14"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="fl">19.836817+0.066839</span><span class="op">*</span>x<span class="op">~</span>(<span class="st">&quot;if&quot;</span><span class="op">~</span>x<span class="op">~</span><span class="st">&quot;&lt;&quot;</span><span class="op">~</span><span class="fl">751.4</span>)), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="segmentada-quadrático" class="section level2">
+<h2><span class="header-section-number">1.9</span> Segmentada quadrático</h2>
+<hr />
+<p><span class="math display">\[Y=\beta_{2}X^2+\beta_{1}X+\beta_{0} (if\leq X_1)\]</span></p>
+<div id="construindo-o-modelo-quadrático" class="section level3">
+<h3><span class="header-section-number">1.9.1</span> Construindo o modelo quadrático</h3>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="index.html#cb90-1"></a>modelo_linear&lt;-<span class="st"> </span><span class="kw">lm</span>(y<span class="op">~</span>x<span class="op">+</span><span class="kw">I</span>(x<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb90-2"><a href="index.html#cb90-2"></a><span class="kw">summary</span>(modelo_linear)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x + I(x^2))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -11.428  -5.288   1.756   4.360   8.018 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  2.226e+01  1.528e+00   14.57   &lt;2e-16 ***
+## x            6.763e-02  3.367e-03   20.09   &lt;2e-16 ***
+## I(x^2)      -2.055e-05  1.371e-06  -14.99   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.415 on 61 degrees of freedom
+## Multiple R-squared:  0.919,  Adjusted R-squared:  0.9163 
+## F-statistic: 345.9 on 2 and 61 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="construindo-o-modelo-segmentado-1" class="section level3">
+<h3><span class="header-section-number">1.9.2</span> Construindo o modelo segmentado</h3>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="index.html#cb92-1"></a><span class="kw">library</span>(segmented)</span>
+<span id="cb92-2"><a href="index.html#cb92-2"></a>modelo_pieciwise1&lt;-<span class="st"> </span><span class="kw">segmented</span>(modelo_linear)</span>
+<span id="cb92-3"><a href="index.html#cb92-3"></a>modelo_pieciwise1</span></code></pre></div>
+<pre><code>## Call: segmented.lm(obj = modelo_linear)
+## 
+## Meaningful coefficients of the linear terms:
+## (Intercept)            x       I(x^2)         U1.x  
+##   1.580e+01    9.004e-02   -4.424e-06   -7.368e-02  
+## 
+## Estimated Break-Point(s):
+## psi1.x  
+##  560.2</code></pre>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="index.html#cb94-1"></a><span class="kw">summary</span>(modelo_pieciwise1)</span></code></pre></div>
+<pre><code>## 
+##  ***Regression Model with Segmented Relationship(s)***
+## 
+## Call: 
+## segmented.lm(obj = modelo_linear)
+## 
+## Estimated Break-Point(s):
+##            Est. St.Err
+## psi1.x 560.234 28.392
+## 
+## Meaningful coefficients of the linear terms:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.580e+01  1.201e+00  13.151   &lt;2e-16 ***
+## x            9.004e-02  4.718e-03  19.083   &lt;2e-16 ***
+## I(x^2)      -4.424e-06  1.764e-06  -2.508   0.0149 *  
+## U1.x        -7.368e-02  6.596e-03 -11.171       NA    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.073 on 59 degrees of freedom
+## Multiple R-Squared: 0.9748,  Adjusted R-squared: 0.973 
+## 
+## Convergence attained in 2 iter. (rel. change 0)</code></pre>
+</div>
+<div id="valores-para-o-primeiro-segmento" class="section level3">
+<h3><span class="header-section-number">1.9.3</span> Valores para o primeiro segmento</h3>
+<p>Obs. No caso do linear simples, podemo usar apenas os pontos abaixo do platô, no caso do segmentado quadrático aconselho englobar o ponto acima do acusado no platô. No meu caso é o ponto 930.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb96-1"><a href="index.html#cb96-1"></a>y1=y[x<span class="op">&lt;=</span><span class="dv">930</span>]</span>
+<span id="cb96-2"><a href="index.html#cb96-2"></a>x11=x[x<span class="op">&lt;=</span><span class="dv">930</span>]</span>
+<span id="cb96-3"><a href="index.html#cb96-3"></a>mod=<span class="kw">lm</span>(y1<span class="op">~</span>x11<span class="op">+</span><span class="kw">I</span>(x11<span class="op">^</span><span class="dv">2</span>))</span>
+<span id="cb96-4"><a href="index.html#cb96-4"></a><span class="kw">summary</span>(mod)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y1 ~ x11 + I(x11^2))
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -5.5773 -2.1731  0.0432  1.2608  8.0591 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.357e+01  1.379e+00   9.839 7.13e-12 ***
+## x11          1.175e-01  7.321e-03  16.047  &lt; 2e-16 ***
+## I(x11^2)    -6.173e-05  7.151e-06  -8.632 2.15e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.293 on 37 degrees of freedom
+## Multiple R-squared:  0.9715, Adjusted R-squared:   0.97 
+## F-statistic: 630.9 on 2 and 37 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div id="construindo-o-gráfico-2" class="section level3">
+<h3><span class="header-section-number">1.9.4</span> Construindo o gráfico</h3>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="index.html#cb98-1"></a><span class="kw">par</span>(<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">las=</span><span class="dv">1</span>); <span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb98-2"><a href="index.html#cb98-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Segmentado Quadrático&quot;</span>,</span>
+<span id="cb98-3"><a href="index.html#cb98-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb98-4"><a href="index.html#cb98-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb98-5"><a href="index.html#cb98-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb98-6"><a href="index.html#cb98-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb98-7"><a href="index.html#cb98-7"></a>maximo=<span class="op">-</span><span class="kw">coef</span>(mod)[<span class="dv">2</span>]<span class="op">/</span>(<span class="dv">2</span><span class="op">*</span><span class="kw">coef</span>(mod)[<span class="dv">3</span>])</span>
+<span id="cb98-8"><a href="index.html#cb98-8"></a>a=<span class="kw">curve</span>(<span class="kw">coef</span>(mod)[<span class="dv">1</span>]<span class="op">+</span><span class="kw">coef</span>(mod)[<span class="dv">2</span>]<span class="op">*</span>x<span class="op">+</span><span class="kw">coef</span>(mod)[<span class="dv">3</span>]<span class="op">*</span>x<span class="op">^</span><span class="dv">2</span>, </span>
+<span id="cb98-9"><a href="index.html#cb98-9"></a>        <span class="dt">to=</span>maximo, <span class="dt">lty=</span><span class="dv">2</span>,</span>
+<span id="cb98-10"><a href="index.html#cb98-10"></a>        <span class="dt">add=</span>T)</span>
+<span id="cb98-11"><a href="index.html#cb98-11"></a>plato=a<span class="op">$</span>y[<span class="kw">round</span>(a<span class="op">$</span>x,<span class="dv">3</span>)<span class="op">==</span><span class="kw">round</span>(maximo,<span class="dv">3</span>)]</span>
+<span id="cb98-12"><a href="index.html#cb98-12"></a><span class="kw">lines</span>(<span class="kw">c</span>(maximo,<span class="kw">max</span>(x)),</span>
+<span id="cb98-13"><a href="index.html#cb98-13"></a>      <span class="kw">c</span>(plato,plato),<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb98-14"><a href="index.html#cb98-14"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb98-15"><a href="index.html#cb98-15"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(Y<span class="op">==</span><span class="fl">13.57+0.1175</span><span class="op">*</span>x<span class="fl">-0.00006173</span><span class="op">*</span>x<span class="op">^</span><span class="dv">2</span><span class="op">~</span>(<span class="st">&quot;if&quot;</span><span class="op">~</span>x<span class="op">~</span><span class="st">&quot;&lt;&quot;</span><span class="op">~</span><span class="fl">951.5095</span>)), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="mitscherlich" class="section level2">
+<h2><span class="header-section-number">1.10</span> Mitscherlich</h2>
+<hr />
+<p><span class="math display">\[Y=A \times(1-exp((B\times C)-(C \times X)\]</span></p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="index.html#cb99-1"></a>modelo2=<span class="kw">nls</span>(y<span class="op">~</span>A<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>((B<span class="op">*</span>C)<span class="op">-</span>(C<span class="op">*</span>x))),</span>
+<span id="cb99-2"><a href="index.html#cb99-2"></a>           <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">A=</span><span class="dv">80</span>,<span class="dt">B=</span><span class="op">-</span><span class="dv">10</span>,<span class="dt">C=</span><span class="fl">0.01</span>),<span class="dt">data=</span>data)</span>
+<span id="cb99-3"><a href="index.html#cb99-3"></a><span class="kw">summary</span>(modelo2)</span></code></pre></div>
+<pre><code>## 
+## Formula: y ~ A * (1 - exp((B * C) - (C * x)))
+## 
+## Parameters:
+##     Estimate Std. Error t value Pr(&gt;|t|)    
+## A  7.232e+01  5.606e-01 129.004  &lt; 2e-16 ***
+## B -4.438e+01  8.610e+00  -5.155  2.9e-06 ***
+## C  2.874e-03  1.302e-04  22.066  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.63 on 61 degrees of freedom
+## 
+## Number of iterations to convergence: 7 
+## Achieved convergence tolerance: 8.634e-07</code></pre>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="index.html#cb101-1"></a><span class="kw">par</span>(<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">las=</span><span class="dv">1</span>); <span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb101-2"><a href="index.html#cb101-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo,<span class="dt">main=</span><span class="st">&quot;Mitscherlich&quot;</span>,</span>
+<span id="cb101-3"><a href="index.html#cb101-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb101-4"><a href="index.html#cb101-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb101-5"><a href="index.html#cb101-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb101-6"><a href="index.html#cb101-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb101-7"><a href="index.html#cb101-7"></a>b=<span class="kw">summary</span>(modelo2)</span>
+<span id="cb101-8"><a href="index.html#cb101-8"></a>A=b<span class="op">$</span>coefficients[<span class="dv">1</span>,<span class="dv">1</span>]</span>
+<span id="cb101-9"><a href="index.html#cb101-9"></a>B=b<span class="op">$</span>coefficients[<span class="dv">2</span>,<span class="dv">1</span>]</span>
+<span id="cb101-10"><a href="index.html#cb101-10"></a>C=b<span class="op">$</span>coefficients[<span class="dv">3</span>,<span class="dv">1</span>]</span>
+<span id="cb101-11"><a href="index.html#cb101-11"></a>a=<span class="kw">curve</span>(A<span class="op">*</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">exp</span>((B<span class="op">*</span>C)<span class="op">-</span>(C<span class="op">*</span>x))),<span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">add=</span>T)</span>
+<span id="cb101-12"><a href="index.html#cb101-12"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,<span class="kw">expression</span>(Y<span class="op">==</span><span class="fl">72.31912</span><span class="op">*</span>(<span class="dv">1</span><span class="op">-</span>e<span class="op">^</span>{(<span class="op">-</span><span class="fl">44.382759</span><span class="op">*</span><span class="fl">0.002873</span>)<span class="op">-</span>(<span class="fl">0.002873</span><span class="op">*</span>x)})),<span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="logística-de-3-termos" class="section level2">
+<h2><span class="header-section-number">1.11</span> Logística de 3 termos</h2>
+<hr />
+<p><span class="math display">\[Y = \frac{d}{1+exp(b(x-e))}\]</span></p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="index.html#cb102-1"></a><span class="kw">library</span>(drc)</span>
+<span id="cb102-2"><a href="index.html#cb102-2"></a>model &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> <span class="kw">LL.3</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb102-3"><a href="index.html#cb102-3"></a><span class="kw">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Log-logistic (ED50 as parameter) with lower limit at 0 (3 parms)
+## 
+## Parameter estimates:
+## 
+##                 Estimate Std. Error t-value   p-value    
+## b:(Intercept)  -1.058194   0.062275 -16.992 &lt; 2.2e-16 ***
+## d:(Intercept)  79.599836   1.684582  47.252 &lt; 2.2e-16 ***
+## e:(Intercept) 208.408451  12.445682  16.745 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  3.340759 (61 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="index.html#cb104-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb104-2"><a href="index.html#cb104-2"></a><span class="kw">plot</span>(model,<span class="dt">main=</span><span class="st">&quot;Logístico LL.3&quot;</span>,</span>
+<span id="cb104-3"><a href="index.html#cb104-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb104-4"><a href="index.html#cb104-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb104-5"><a href="index.html#cb104-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb104-6"><a href="index.html#cb104-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb104-7"><a href="index.html#cb104-7"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb104-8"><a href="index.html#cb104-8"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="kw">frac</span>(<span class="fl">79.599836</span>,</span>
+<span id="cb104-9"><a href="index.html#cb104-9"></a>                                      <span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">1.058194</span>(x<span class="fl">-208.408455</span>)))), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<div id="ed-dl-ou-ec" class="section level3">
+<h3><span class="header-section-number">1.11.1</span> ED, DL ou EC</h3>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="index.html#cb105-1"></a><span class="kw">ED</span>(model,<span class="dv">10</span>) <span class="co">## Ed10</span></span></code></pre></div>
+<pre><code>## 
+## Estimated effective doses
+## 
+##        Estimate Std. Error
+## e:1:10   26.131      2.755</code></pre>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="index.html#cb107-1"></a><span class="kw">ED</span>(model,<span class="dv">50</span>) <span class="co">## ED50</span></span></code></pre></div>
+<pre><code>## 
+## Estimated effective doses
+## 
+##        Estimate Std. Error
+## e:1:50  208.408     12.446</code></pre>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="index.html#cb109-1"></a><span class="kw">ED</span>(model,<span class="dv">90</span>) <span class="co">## ED90</span></span></code></pre></div>
+<pre><code>## 
+## Estimated effective doses
+## 
+##        Estimate Std. Error
+## e:1:90   1662.2      267.4</code></pre>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="logística-de-4-termos" class="section level2">
+<h2><span class="header-section-number">1.12</span> Logística de 4 termos</h2>
+<hr />
+<p><span class="math display">\[Y = c-\frac{d-c}{1+exp(b(x-e))}\]</span></p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="index.html#cb111-1"></a>model1 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> <span class="kw">LL.4</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb111-2"><a href="index.html#cb111-2"></a><span class="kw">summary</span>(model1)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Log-logistic (ED50 as parameter) (4 parms)
+## 
+## Parameter estimates:
+## 
+##               Estimate Std. Error  t-value   p-value    
+## b:(Intercept)  -1.6960     0.1552 -10.9279 6.668e-16 ***
+## c:(Intercept)  15.1899     1.9728   7.6995 1.597e-10 ***
+## d:(Intercept)  74.5348     1.0697  69.6796 &lt; 2.2e-16 ***
+## e:(Intercept) 289.3971    16.5292  17.5082 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  2.950196 (60 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="index.html#cb113-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb113-2"><a href="index.html#cb113-2"></a><span class="kw">plot</span>(model,<span class="dt">main=</span><span class="st">&quot;Logístico LL.4&quot;</span>,</span>
+<span id="cb113-3"><a href="index.html#cb113-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb113-4"><a href="index.html#cb113-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb113-5"><a href="index.html#cb113-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb113-6"><a href="index.html#cb113-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb113-7"><a href="index.html#cb113-7"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb113-8"><a href="index.html#cb113-8"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(<span class="kw">hat</span>(Y)<span class="op">==</span><span class="fl">15.1899</span><span class="op">+</span><span class="kw">frac</span>(<span class="fl">74.59984-15.1899</span>,</span>
+<span id="cb113-9"><a href="index.html#cb113-9"></a>                                              <span class="dv">1</span><span class="op">+</span><span class="kw">exp</span>(<span class="op">-</span><span class="fl">1.6960</span>(x<span class="fl">-289.3971</span>)))), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<div id="ed-dl-ou-ec-1" class="section level3">
+<h3><span class="header-section-number">1.12.1</span> ED, DL ou EC</h3>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="index.html#cb114-1"></a><span class="kw">ED</span>(model,<span class="dv">10</span>) <span class="co">## Ed10</span></span></code></pre></div>
+<pre><code>## 
+## Estimated effective doses
+## 
+##        Estimate Std. Error
+## e:1:10   26.131      2.755</code></pre>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="index.html#cb116-1"></a><span class="kw">ED</span>(model,<span class="dv">50</span>) <span class="co">## ED50</span></span></code></pre></div>
+<pre><code>## 
+## Estimated effective doses
+## 
+##        Estimate Std. Error
+## e:1:50  208.408     12.446</code></pre>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="index.html#cb118-1"></a><span class="kw">ED</span>(model,<span class="dv">90</span>) <span class="co">## ED90</span></span></code></pre></div>
+<pre><code>## 
+## Estimated effective doses
+## 
+##        Estimate Std. Error
+## e:1:90   1662.2      267.4</code></pre>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="yield-loss" class="section level2">
+<h2><span class="header-section-number">1.13</span> Yield Loss</h2>
+<hr />
+<p><span class="math display">\[\hat{Y}=\frac{i\times x}{1+\frac{i\times x}{A}}\]</span></p>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="index.html#cb120-1"></a><span class="co">#library(devtools)</span></span>
+<span id="cb120-2"><a href="index.html#cb120-2"></a><span class="co">#install_github(&quot;OnofriAndreaPG/aomisc&quot;)</span></span>
+<span id="cb120-3"><a href="index.html#cb120-3"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb120-4"><a href="index.html#cb120-4"></a><span class="kw">library</span>(aomisc)</span>
+<span id="cb120-5"><a href="index.html#cb120-5"></a>model2 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> <span class="kw">DRC.YL</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb120-6"><a href="index.html#cb120-6"></a><span class="kw">summary</span>(model2)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Yield-Loss function (Cousens, 1985) (2 parms)
+## 
+## Parameter estimates:
+## 
+##                Estimate Std. Error t-value   p-value    
+## i:(Intercept)  0.376483   0.016637  22.629 &lt; 2.2e-16 ***
+## A:(Intercept) 81.021404   0.996137  81.336 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  3.337955 (62 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="index.html#cb122-1"></a><span class="kw">plot</span>(model2,<span class="dt">main=</span><span class="st">&quot;Yield Loss&quot;</span>,</span>
+<span id="cb122-2"><a href="index.html#cb122-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb122-3"><a href="index.html#cb122-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb122-4"><a href="index.html#cb122-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb122-5"><a href="index.html#cb122-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb122-6"><a href="index.html#cb122-6"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb122-7"><a href="index.html#cb122-7"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(<span class="kw">hat</span>(YL)<span class="op">==</span><span class="kw">frac</span>(<span class="fl">0.376483</span><span class="op">*</span>x,</span>
+<span id="cb122-8"><a href="index.html#cb122-8"></a>                                       <span class="dv">1</span><span class="op">+</span><span class="kw">frac</span>(<span class="fl">0.376483</span><span class="op">*</span>x,<span class="fl">81.021705</span>))), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="weibull-3" class="section level2">
+<h2><span class="header-section-number">1.14</span> Weibull 3</h2>
+<hr />
+<p><span class="math display">\[\hat{Y}=d\times e^{-e^{b\times log(x)-e}}\]</span></p>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="index.html#cb123-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb123-2"><a href="index.html#cb123-2"></a>model3 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> <span class="kw">w3</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb123-3"><a href="index.html#cb123-3"></a><span class="kw">summary</span>(model3)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Weibull (type 1) with lower limit at 0 (3 parms)
+## 
+## Parameter estimates:
+## 
+##                 Estimate Std. Error t-value   p-value    
+## b:(Intercept)  -0.621433   0.051944 -11.963 &lt; 2.2e-16 ***
+## d:(Intercept)  88.316665   3.466514  25.477 &lt; 2.2e-16 ***
+## e:(Intercept) 135.558602  10.937572  12.394 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  3.702132 (61 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="index.html#cb125-1"></a><span class="kw">plot</span>(model3,<span class="dt">main=</span><span class="st">&quot;Weibull 3&quot;</span>,</span>
+<span id="cb125-2"><a href="index.html#cb125-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb125-3"><a href="index.html#cb125-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb125-4"><a href="index.html#cb125-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb125-5"><a href="index.html#cb125-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb125-6"><a href="index.html#cb125-6"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb125-7"><a href="index.html#cb125-7"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(<span class="kw">hat</span>(YL)<span class="op">==</span><span class="fl">88.316665</span><span class="op">*</span>e<span class="op">^</span>(<span class="op">-</span>e<span class="op">^</span>{(<span class="op">-</span><span class="fl">0.621433</span><span class="op">*</span>(<span class="kw">log</span>(x)<span class="op">-</span><span class="fl">135.558606</span>))})), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="weibul-4" class="section level2">
+<h2><span class="header-section-number">1.15</span> Weibul 4</h2>
+<hr />
+<p><span class="math display">\[\hat{Y} = c + (d − c)(1 − exp(− exp(b(log(x) − log(e)))))\]</span></p>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="index.html#cb126-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb126-2"><a href="index.html#cb126-2"></a>model4 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> <span class="kw">w4</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb126-3"><a href="index.html#cb126-3"></a><span class="kw">summary</span>(model4)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Weibull (type 1) (4 parms)
+## 
+## Parameter estimates:
+## 
+##               Estimate Std. Error t-value   p-value    
+## b:(Intercept)  -1.2171     0.1156 -10.528 2.911e-15 ***
+## c:(Intercept)  18.4270     1.2668  14.546 &lt; 2.2e-16 ***
+## d:(Intercept)  76.5754     1.5142  50.571 &lt; 2.2e-16 ***
+## e:(Intercept) 230.4661    11.7439  19.624 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  3.134519 (60 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="index.html#cb128-1"></a><span class="kw">plot</span>(model4,<span class="dt">main=</span><span class="st">&quot;Weibull 4&quot;</span>,</span>
+<span id="cb128-2"><a href="index.html#cb128-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb128-3"><a href="index.html#cb128-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb128-4"><a href="index.html#cb128-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb128-5"><a href="index.html#cb128-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span>
+<span id="cb128-6"><a href="index.html#cb128-6"></a><span class="kw">legend</span>(<span class="st">&quot;topleft&quot;</span>,</span>
+<span id="cb128-7"><a href="index.html#cb128-7"></a>       <span class="dt">legend=</span><span class="kw">expression</span>(<span class="kw">hat</span>(YL)<span class="op">==</span><span class="fl">18.4270</span><span class="op">+</span>(<span class="fl">76.5754-18.4270</span>)(<span class="dv">1</span><span class="op">-</span>e<span class="op">^</span>(<span class="op">-</span>e<span class="op">^</span>(<span class="op">-</span><span class="fl">1.2171</span><span class="op">*</span>(<span class="kw">log</span>(x)<span class="op">-</span><span class="kw">log</span>(<span class="fl">230.4661</span>)))))), <span class="dt">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="assintótica-2" class="section level2">
+<h2><span class="header-section-number">1.16</span> Assintótica 2</h2>
+<hr />
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="index.html#cb129-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb129-2"><a href="index.html#cb129-2"></a>model5 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> drc<span class="op">::</span><span class="kw">AR.2</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb129-3"><a href="index.html#cb129-3"></a><span class="kw">summary</span>(model5)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Asymptotic regression with lower limit at 0 (2 parms)
+## 
+## Parameter estimates:
+## 
+##                Estimate Std. Error t-value   p-value    
+## d:(Intercept)  71.36776    0.64016 111.484 &lt; 2.2e-16 ***
+## e:(Intercept) 285.21787   10.77269  26.476 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  3.364715 (62 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb131"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb131-1"><a href="index.html#cb131-1"></a><span class="kw">plot</span>(model5,<span class="dt">main=</span><span class="st">&quot;Assintótica 2&quot;</span>,</span>
+<span id="cb131-2"><a href="index.html#cb131-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb131-3"><a href="index.html#cb131-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb131-4"><a href="index.html#cb131-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb131-5"><a href="index.html#cb131-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="assintótica-3" class="section level2">
+<h2><span class="header-section-number">1.17</span> Assintótica 3</h2>
+<hr />
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="index.html#cb132-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb132-2"><a href="index.html#cb132-2"></a>model6 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> drc<span class="op">::</span><span class="kw">AR.3</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb132-3"><a href="index.html#cb132-3"></a><span class="kw">summary</span>(model6)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Shifted asymptotic regression (3 parms)
+## 
+## Parameter estimates:
+## 
+##                Estimate Std. Error  t-value   p-value    
+## c:(Intercept)   8.65955    1.29240   6.7003 7.565e-09 ***
+## d:(Intercept)  72.31924    0.55231 130.9390 &lt; 2.2e-16 ***
+## e:(Intercept) 348.01446   15.20460  22.8888 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  2.630211 (61 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="index.html#cb134-1"></a><span class="kw">plot</span>(model6,<span class="dt">main=</span><span class="st">&quot;Assintótica 3&quot;</span>,</span>
+<span id="cb134-2"><a href="index.html#cb134-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb134-3"><a href="index.html#cb134-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb134-4"><a href="index.html#cb134-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb134-5"><a href="index.html#cb134-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="brain-counsens-4" class="section level2">
+<h2><span class="header-section-number">1.18</span> Brain-Counsens 4</h2>
+<hr />
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="index.html#cb135-1"></a>model7 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> drc<span class="op">::</span><span class="kw">BC.4</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb135-2"><a href="index.html#cb135-2"></a><span class="kw">summary</span>(model7)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Brain-Cousens (hormesis) with lower limit fixed at 0 (4 parms)
+## 
+## Parameter estimates:
+## 
+##                  Estimate  Std. Error  t-value   p-value    
+## b:(Intercept)  -0.7419957   0.0628498 -11.8059 &lt; 2.2e-16 ***
+## d:(Intercept) 149.6381450  28.0543384   5.3339 1.539e-06 ***
+## e:(Intercept) 842.5975169 384.1854662   2.1932  0.032179 *  
+## f:(Intercept)  -0.0196017   0.0066143  -2.9635  0.004356 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  2.642605 (60 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="index.html#cb137-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb137-2"><a href="index.html#cb137-2"></a><span class="kw">plot</span>(model,<span class="dt">main=</span><span class="st">&quot;Brain-Counsens 4&quot;</span>,</span>
+<span id="cb137-3"><a href="index.html#cb137-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb137-4"><a href="index.html#cb137-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb137-5"><a href="index.html#cb137-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb137-6"><a href="index.html#cb137-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-58-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="brain-counsens-5" class="section level2">
+<h2><span class="header-section-number">1.19</span> Brain-Counsens 5</h2>
+<hr />
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="index.html#cb138-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb138-2"><a href="index.html#cb138-2"></a>model8 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> drc<span class="op">::</span><span class="kw">BC.5</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb138-3"><a href="index.html#cb138-3"></a><span class="kw">summary</span>(model8)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: Brain-Cousens (hormesis) (5 parms)
+## 
+## Parameter estimates:
+## 
+##                  Estimate  Std. Error t-value   p-value    
+## b:(Intercept)  -1.0445094   0.2286639 -4.5679 2.561e-05 ***
+## c:(Intercept)   8.7627115   4.7730274  1.8359  0.071416 .  
+## d:(Intercept) 109.0339449  20.0242731  5.4451 1.055e-06 ***
+## e:(Intercept) 486.0685001 143.3483090  3.3908  0.001248 ** 
+## f:(Intercept)  -0.0112154   0.0051383 -2.1827  0.033048 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  2.632805 (59 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="index.html#cb140-1"></a><span class="kw">plot</span>(model8,<span class="dt">main=</span><span class="st">&quot;Brain-Cousens 5&quot;</span>,</span>
+<span id="cb140-2"><a href="index.html#cb140-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb140-3"><a href="index.html#cb140-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb140-4"><a href="index.html#cb140-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb140-5"><a href="index.html#cb140-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-59-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="cedergreen-ritz-streibig-3" class="section level2">
+<h2><span class="header-section-number">1.20</span> Cedergreen-Ritz-Streibig 3</h2>
+<hr />
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="index.html#cb141-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb141-2"><a href="index.html#cb141-2"></a>model9 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> drc<span class="op">::</span><span class="kw">uml3a</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb141-3"><a href="index.html#cb141-3"></a><span class="kw">summary</span>(model9)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: U-shaped Cedergreen-Ritz-Streibig (4 parms)
+## 
+## Parameter estimates:
+## 
+##                Estimate Std. Error t-value   p-value    
+## b:(Intercept)   1.70356    0.15617 10.9084 6.917e-16 ***
+## d:(Intercept)  74.51053    1.06473 69.9805 &lt; 2.2e-16 ***
+## e:(Intercept) 291.21663   16.71405 17.4235 &lt; 2.2e-16 ***
+## f:(Intercept) -15.54808    1.99553 -7.7915 1.112e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  2.947189 (60 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="index.html#cb143-1"></a><span class="kw">plot</span>(model9,<span class="dt">main=</span><span class="st">&quot;Cedergreen-Ritz-Streibig 3&quot;</span>,</span>
+<span id="cb143-2"><a href="index.html#cb143-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb143-3"><a href="index.html#cb143-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb143-4"><a href="index.html#cb143-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb143-5"><a href="index.html#cb143-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-60-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="cedergreen-ritz-streibig-4" class="section level2">
+<h2><span class="header-section-number">1.21</span> Cedergreen-Ritz-Streibig 4</h2>
+<hr />
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="index.html#cb144-1"></a><span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb144-2"><a href="index.html#cb144-2"></a>model10 &lt;-<span class="st"> </span><span class="kw">drm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">fct =</span> drc<span class="op">::</span><span class="kw">uml4a</span>(), <span class="dt">data =</span> data)</span>
+<span id="cb144-3"><a href="index.html#cb144-3"></a><span class="kw">summary</span>(model10)</span></code></pre></div>
+<pre><code>## 
+## Model fitted: U-shaped Cedergreen-Ritz-Streibig (5 parms)
+## 
+## Parameter estimates:
+## 
+##                  Estimate  Std. Error  t-value   p-value    
+## b:(Intercept)     4.64106     0.47568   9.7568 6.416e-14 ***
+## c:(Intercept) -1701.15137    94.96264 -17.9139 &lt; 2.2e-16 ***
+## d:(Intercept)    71.53869     0.42799 167.1489 &lt; 2.2e-16 ***
+## e:(Intercept)   544.23492    21.39639  25.4358 &lt; 2.2e-16 ***
+## f:(Intercept) -1748.54548    96.09285 -18.1964 &lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error:
+## 
+##  2.008856 (59 degrees of freedom)</code></pre>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="index.html#cb146-1"></a><span class="kw">plot</span>(model,<span class="dt">main=</span><span class="st">&quot;Cedergreen-Ritz-Streibig 4&quot;</span>,</span>
+<span id="cb146-2"><a href="index.html#cb146-2"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb146-3"><a href="index.html#cb146-3"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, </span>
+<span id="cb146-4"><a href="index.html#cb146-4"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb146-5"><a href="index.html#cb146-5"></a>     <span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-61-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="modelo-exponencial" class="section level2">
+<h2><span class="header-section-number">1.22</span> Modelo exponencial</h2>
+<hr />
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="index.html#cb147-1"></a>modelexp=<span class="kw">lm</span>(<span class="kw">log</span>(y)<span class="op">~</span>x);<span class="kw">summary</span>(modelexp)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log(y) ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.8722 -0.1354  0.1129  0.2682  0.3722 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 3.543e+00  6.534e-02  54.216  &lt; 2e-16 ***
+## x           4.188e-04  5.174e-05   8.095 2.71e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.3206 on 62 degrees of freedom
+## Multiple R-squared:  0.5138, Adjusted R-squared:  0.506 
+## F-statistic: 65.52 on 1 and 62 DF,  p-value: 2.711e-11</code></pre>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="index.html#cb149-1"></a>alpha=<span class="kw">exp</span>(modelexp<span class="op">$</span>coefficients[<span class="dv">1</span>])</span>
+<span id="cb149-2"><a href="index.html#cb149-2"></a>beta=modelexp<span class="op">$</span>coefficients[<span class="dv">2</span>]</span>
+<span id="cb149-3"><a href="index.html#cb149-3"></a>model11=<span class="kw">nls</span>(y<span class="op">~</span>A<span class="op">*</span><span class="kw">exp</span>(x<span class="op">*</span>B),<span class="dt">start=</span><span class="kw">list</span>(<span class="dt">A=</span>alpha,<span class="dt">B=</span>beta))</span>
+<span id="cb149-4"><a href="index.html#cb149-4"></a><span class="kw">summary</span>(model11)</span></code></pre></div>
+<pre><code>## 
+## Formula: y ~ A * exp(x * B)
+## 
+## Parameters:
+##    Estimate Std. Error t value Pr(&gt;|t|)    
+## A 4.237e+01  2.255e+00  18.790  &lt; 2e-16 ***
+## B 2.762e-04  3.386e-05   8.156 2.12e-11 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 12.77 on 62 degrees of freedom
+## 
+## Number of iterations to convergence: 6 
+## Achieved convergence tolerance: 5.434e-06</code></pre>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="index.html#cb151-1"></a><span class="kw">plot</span>(y<span class="op">~</span>x)</span>
+<span id="cb151-2"><a href="index.html#cb151-2"></a><span class="kw">lines</span>(<span class="kw">seq</span>(<span class="kw">min</span>(x), <span class="kw">max</span>(x), <span class="dt">length.out =</span> <span class="dv">100</span>), </span>
+<span id="cb151-3"><a href="index.html#cb151-3"></a>      <span class="kw">predict</span>(model11, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="kw">seq</span>(<span class="kw">min</span>(x), </span>
+<span id="cb151-4"><a href="index.html#cb151-4"></a>                                                     <span class="kw">max</span>(x), </span>
+<span id="cb151-5"><a href="index.html#cb151-5"></a>                                                     <span class="dt">length.out =</span> <span class="dv">100</span>))),</span>
+<span id="cb151-6"><a href="index.html#cb151-6"></a>      <span class="dt">col=</span><span class="st">&quot;red&quot;</span>,<span class="dt">lwd=</span><span class="dv">2</span>,<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-62-1.png" width="672" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="modelo-loess" class="section level2">
+<h2><span class="header-section-number">1.23</span> Modelo loess</h2>
+<hr />
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="index.html#cb152-1"></a>model12=<span class="kw">loess</span>(y<span class="op">~</span>x)</span>
+<span id="cb152-2"><a href="index.html#cb152-2"></a><span class="kw">summary</span>(model12)</span></code></pre></div>
+<pre><code>## Call:
+## loess(formula = y ~ x)
+## 
+## Number of Observations: 64 
+## Equivalent Number of Parameters: 4.94 
+## Residual Standard Error: 2.7 
+## Trace of smoother matrix: 5.42  (exact)
+## 
+## Control settings:
+##   span     :  0.75 
+##   degree   :  2 
+##   family   :  gaussian
+##   surface  :  interpolate      cell = 0.2
+##   normalize:  TRUE
+##  parametric:  FALSE
+## drop.square:  FALSE</code></pre>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="index.html#cb154-1"></a><span class="kw">par</span>(<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">las=</span><span class="dv">1</span>); <span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb154-2"><a href="index.html#cb154-2"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;Modelo Loess&quot;</span>,</span>
+<span id="cb154-3"><a href="index.html#cb154-3"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb154-4"><a href="index.html#cb154-4"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb154-5"><a href="index.html#cb154-5"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb154-6"><a href="index.html#cb154-6"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb154-7"><a href="index.html#cb154-7"></a><span class="kw">lines</span>(x,<span class="kw">predict</span>(model12,x),<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-63-1.png" width="672" /></p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="index.html#cb155-1"></a><span class="co">## ou</span></span>
+<span id="cb155-2"><a href="index.html#cb155-2"></a></span>
+<span id="cb155-3"><a href="index.html#cb155-3"></a><span class="kw">par</span>(<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">las=</span><span class="dv">1</span>); <span class="kw">par</span>(<span class="dt">family=</span><span class="st">&quot;serif&quot;</span>)</span>
+<span id="cb155-4"><a href="index.html#cb155-4"></a><span class="kw">plot</span>(media<span class="op">~</span>tempo, <span class="dt">main=</span><span class="st">&quot;modelo loess&quot;</span>,</span>
+<span id="cb155-5"><a href="index.html#cb155-5"></a>     <span class="dt">las=</span><span class="dv">1</span>, <span class="dt">cex=</span><span class="fl">1.3</span>,</span>
+<span id="cb155-6"><a href="index.html#cb155-6"></a>     <span class="dt">ylab=</span><span class="st">&quot;Weight loss (%)&quot;</span>, <span class="dt">xlim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">2500</span>),</span>
+<span id="cb155-7"><a href="index.html#cb155-7"></a>     <span class="dt">xlab=</span><span class="st">&quot;Time (Minutes)&quot;</span>, </span>
+<span id="cb155-8"><a href="index.html#cb155-8"></a>     <span class="dt">pch=</span><span class="dv">16</span>, <span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">80</span>))</span>
+<span id="cb155-9"><a href="index.html#cb155-9"></a><span class="kw">lines</span>(<span class="kw">seq</span>(<span class="dv">60</span>,<span class="dv">2370</span>,<span class="dv">5</span>),<span class="kw">predict</span>(model12,<span class="kw">seq</span>(<span class="dv">60</span>,<span class="dv">2370</span>,<span class="dv">5</span>)),<span class="dt">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-63-2.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="index.html#cb156-1"></a><span class="co">## ou</span></span>
+<span id="cb156-2"><a href="index.html#cb156-2"></a></span>
+<span id="cb156-3"><a href="index.html#cb156-3"></a><span class="kw">library</span>(ggplot2)</span>
+<span id="cb156-4"><a href="index.html#cb156-4"></a><span class="kw">ggplot</span>(data,<span class="kw">aes</span>(<span class="dt">y=</span>y,<span class="dt">x=</span>x))<span class="op">+</span></span>
+<span id="cb156-5"><a href="index.html#cb156-5"></a><span class="st">  </span><span class="kw">geom_point</span>()<span class="op">+</span></span>
+<span id="cb156-6"><a href="index.html#cb156-6"></a><span class="st">  </span><span class="kw">geom_smooth</span>()<span class="op">+</span></span>
+<span id="cb156-7"><a href="index.html#cb156-7"></a><span class="st">  </span><span class="kw">theme_bw</span>()<span class="op">+</span></span>
+<span id="cb156-8"><a href="index.html#cb156-8"></a><span class="st">  </span><span class="kw">theme_classic</span>()<span class="op">+</span></span>
+<span id="cb156-9"><a href="index.html#cb156-9"></a><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Time (minutes)&quot;</span>)<span class="op">+</span></span>
+<span id="cb156-10"><a href="index.html#cb156-10"></a><span class="st">  </span><span class="kw">ylab</span>(<span class="st">&quot;Weight loss (%)&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-63-3.png" width="672" /></p>
+<hr />
+</div>
+<div id="coef.-de-determinação-r2" class="section level2">
+<h2><span class="header-section-number">1.24</span> Coef. de determinação (<span class="math inline">\(R^2\)</span>)</h2>
+<hr />
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="index.html#cb157-1"></a>r2=<span class="kw">c</span>(<span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(modl))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-2"><a href="index.html#cb157-2"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(mod1))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-3"><a href="index.html#cb157-3"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(mod2))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-4"><a href="index.html#cb157-4"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(modelog))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-5"><a href="index.html#cb157-5"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(n0))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-6"><a href="index.html#cb157-6"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(n1))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-7"><a href="index.html#cb157-7"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(modelo_pieciwise))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-8"><a href="index.html#cb157-8"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(modelo_pieciwise1))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-9"><a href="index.html#cb157-9"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(modelo2))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-10"><a href="index.html#cb157-10"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-11"><a href="index.html#cb157-11"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model1))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-12"><a href="index.html#cb157-12"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model2))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-13"><a href="index.html#cb157-13"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model3))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-14"><a href="index.html#cb157-14"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model4))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-15"><a href="index.html#cb157-15"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model5))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-16"><a href="index.html#cb157-16"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model6))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-17"><a href="index.html#cb157-17"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model7))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-18"><a href="index.html#cb157-18"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model8))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-19"><a href="index.html#cb157-19"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model9))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-20"><a href="index.html#cb157-20"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model10))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))),</span>
+<span id="cb157-21"><a href="index.html#cb157-21"></a><span class="dv">1</span><span class="op">-</span><span class="kw">var</span>(<span class="kw">residuals</span>(model11))<span class="op">/</span><span class="kw">var</span>(<span class="kw">residuals</span>(<span class="kw">lm</span>(y<span class="op">~</span><span class="dv">1</span>))))</span></code></pre></div>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="aic" class="section level2">
+<h2><span class="header-section-number">1.25</span> AIC</h2>
+<hr />
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="index.html#cb158-1"></a>aic=<span class="kw">c</span>(<span class="kw">AIC</span>(modl),</span>
+<span id="cb158-2"><a href="index.html#cb158-2"></a><span class="kw">AIC</span>(mod1),</span>
+<span id="cb158-3"><a href="index.html#cb158-3"></a><span class="kw">AIC</span>(mod2),</span>
+<span id="cb158-4"><a href="index.html#cb158-4"></a><span class="kw">AIC</span>(modelog),</span>
+<span id="cb158-5"><a href="index.html#cb158-5"></a><span class="kw">AIC</span>(n0),</span>
+<span id="cb158-6"><a href="index.html#cb158-6"></a><span class="kw">AIC</span>(n1),</span>
+<span id="cb158-7"><a href="index.html#cb158-7"></a><span class="kw">AIC</span>(modelo_pieciwise),</span>
+<span id="cb158-8"><a href="index.html#cb158-8"></a><span class="kw">AIC</span>(modelo_pieciwise1),</span>
+<span id="cb158-9"><a href="index.html#cb158-9"></a><span class="kw">AIC</span>(modelo2),</span>
+<span id="cb158-10"><a href="index.html#cb158-10"></a><span class="kw">AIC</span>(model),</span>
+<span id="cb158-11"><a href="index.html#cb158-11"></a><span class="kw">AIC</span>(model1),</span>
+<span id="cb158-12"><a href="index.html#cb158-12"></a><span class="kw">AIC</span>(model2),</span>
+<span id="cb158-13"><a href="index.html#cb158-13"></a><span class="kw">AIC</span>(model3),</span>
+<span id="cb158-14"><a href="index.html#cb158-14"></a><span class="kw">AIC</span>(model4),</span>
+<span id="cb158-15"><a href="index.html#cb158-15"></a><span class="kw">AIC</span>(model5),</span>
+<span id="cb158-16"><a href="index.html#cb158-16"></a><span class="kw">AIC</span>(model6),</span>
+<span id="cb158-17"><a href="index.html#cb158-17"></a><span class="kw">AIC</span>(model7),</span>
+<span id="cb158-18"><a href="index.html#cb158-18"></a><span class="kw">AIC</span>(model8),</span>
+<span id="cb158-19"><a href="index.html#cb158-19"></a><span class="kw">AIC</span>(model9),</span>
+<span id="cb158-20"><a href="index.html#cb158-20"></a><span class="kw">AIC</span>(model10),</span>
+<span id="cb158-21"><a href="index.html#cb158-21"></a><span class="kw">AIC</span>(model11))</span></code></pre></div>
+<p><br><br><br></p>
+<hr />
+</div>
+<div id="bic" class="section level2">
+<h2><span class="header-section-number">1.26</span> BIC</h2>
+<hr />
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="index.html#cb159-1"></a>bic=<span class="kw">c</span>(<span class="kw">BIC</span>(modl),</span>
+<span id="cb159-2"><a href="index.html#cb159-2"></a><span class="kw">BIC</span>(mod1),</span>
+<span id="cb159-3"><a href="index.html#cb159-3"></a><span class="kw">BIC</span>(mod2),</span>
+<span id="cb159-4"><a href="index.html#cb159-4"></a><span class="kw">BIC</span>(modelog),</span>
+<span id="cb159-5"><a href="index.html#cb159-5"></a><span class="kw">BIC</span>(n0),</span>
+<span id="cb159-6"><a href="index.html#cb159-6"></a><span class="kw">BIC</span>(n1),</span>
+<span id="cb159-7"><a href="index.html#cb159-7"></a><span class="kw">BIC</span>(modelo_pieciwise),</span>
+<span id="cb159-8"><a href="index.html#cb159-8"></a><span class="kw">BIC</span>(modelo_pieciwise1),</span>
+<span id="cb159-9"><a href="index.html#cb159-9"></a><span class="kw">BIC</span>(modelo2),</span>
+<span id="cb159-10"><a href="index.html#cb159-10"></a><span class="kw">BIC</span>(model),</span>
+<span id="cb159-11"><a href="index.html#cb159-11"></a><span class="kw">BIC</span>(model1),</span>
+<span id="cb159-12"><a href="index.html#cb159-12"></a><span class="kw">BIC</span>(model2),</span>
+<span id="cb159-13"><a href="index.html#cb159-13"></a><span class="kw">BIC</span>(model3),</span>
+<span id="cb159-14"><a href="index.html#cb159-14"></a><span class="kw">BIC</span>(model4),</span>
+<span id="cb159-15"><a href="index.html#cb159-15"></a><span class="kw">BIC</span>(model5),</span>
+<span id="cb159-16"><a href="index.html#cb159-16"></a><span class="kw">BIC</span>(model6),</span>
+<span id="cb159-17"><a href="index.html#cb159-17"></a><span class="kw">BIC</span>(model7),</span>
+<span id="cb159-18"><a href="index.html#cb159-18"></a><span class="kw">BIC</span>(model8),</span>
+<span id="cb159-19"><a href="index.html#cb159-19"></a><span class="kw">BIC</span>(model9),</span>
+<span id="cb159-20"><a href="index.html#cb159-20"></a><span class="kw">BIC</span>(model10),</span>
+<span id="cb159-21"><a href="index.html#cb159-21"></a><span class="kw">BIC</span>(model11))</span>
+<span id="cb159-22"><a href="index.html#cb159-22"></a>analise=<span class="kw">cbind</span>(aic,bic,r2)</span>
+<span id="cb159-23"><a href="index.html#cb159-23"></a><span class="kw">rownames</span>(analise)=<span class="kw">c</span>(<span class="st">&quot;Linear&quot;</span>,<span class="st">&quot;Quadrático&quot;</span>,<span class="st">&quot;Cúbico&quot;,&quot;</span>Log<span class="st">&quot;,</span></span>
+<span id="cb159-24"><a href="index.html#cb159-24"></a><span class="st">                    &quot;</span>Michaelis<span class="op">-</span>Mente<span class="st">&quot;,&quot;</span>Michaelis <span class="kw">Menten</span> (Corrigido)<span class="st">&quot;,</span></span>
+<span id="cb159-25"><a href="index.html#cb159-25"></a><span class="st">                    &quot;</span>Segmentada Linear<span class="st">&quot;,&quot;</span>Segmentada Quadrática<span class="st">&quot;,</span></span>
+<span id="cb159-26"><a href="index.html#cb159-26"></a><span class="st">                    &quot;</span>Mitscherlich<span class="st">&quot;,&quot;</span>Logístico LL<span class="fl">.3</span><span class="st">&quot;,&quot;</span>Logístico LL<span class="fl">.4</span><span class="st">&quot;,</span></span>
+<span id="cb159-27"><a href="index.html#cb159-27"></a><span class="st">                    &quot;</span>Yield Loss<span class="st">&quot;, &quot;</span>Weibull <span class="dv">3</span><span class="st">&quot;,&quot;</span>Weibull <span class="dv">4</span><span class="st">&quot;,</span></span>
+<span id="cb159-28"><a href="index.html#cb159-28"></a><span class="st">                    &quot;</span>Assintótica <span class="dv">2</span><span class="st">&quot;,&quot;</span>Assintótica <span class="dv">3</span><span class="st">&quot;,</span></span>
+<span id="cb159-29"><a href="index.html#cb159-29"></a><span class="st">                    &quot;</span>Brain<span class="op">-</span>Counsens <span class="dv">4</span><span class="st">&quot;,&quot;</span>Brain<span class="op">-</span>Counsens <span class="dv">5</span><span class="st">&quot;,</span></span>
+<span id="cb159-30"><a href="index.html#cb159-30"></a><span class="st">                    &quot;</span>Cedergreen<span class="op">-</span>Ritz<span class="op">-</span>Streibig <span class="dv">3</span><span class="st">&quot;,</span></span>
+<span id="cb159-31"><a href="index.html#cb159-31"></a><span class="st">                    &quot;</span>Cedergreen<span class="op">-</span>Ritz<span class="op">-</span>Streibig <span class="dv">4</span><span class="st">&quot;,</span></span>
+<span id="cb159-32"><a href="index.html#cb159-32"></a><span class="st">                    &quot;</span>Exponencial<span class="st">&quot;)</span></span>
+<span id="cb159-33"><a href="index.html#cb159-33"></a><span class="st">knitr::kable(analise)</span></span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">aic</th>
+<th align="right">bic</th>
+<th align="right">r2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Linear</td>
+<td align="right">499.5847</td>
+<td align="right">506.0614</td>
+<td align="right">0.6204884</td>
+</tr>
+<tr class="even">
+<td>Quadrático</td>
+<td align="right">402.7620</td>
+<td align="right">411.3975</td>
+<td align="right">0.9189732</td>
+</tr>
+<tr class="odd">
+<td>Cúbico</td>
+<td align="right">317.0989</td>
+<td align="right">327.8933</td>
+<td align="right">0.9794051</td>
+</tr>
+<tr class="even">
+<td>Log</td>
+<td align="right">384.3339</td>
+<td align="right">390.8105</td>
+<td align="right">0.9373170</td>
+</tr>
+<tr class="odd">
+<td>Michaelis-Mente</td>
+<td align="right">339.8781</td>
+<td align="right">346.3547</td>
+<td align="right">0.9687055</td>
+</tr>
+<tr class="even">
+<td>Michaelis Menten (Corrigido)</td>
+<td align="right">323.8311</td>
+<td align="right">332.4667</td>
+<td align="right">0.9765013</td>
+</tr>
+<tr class="odd">
+<td>Segmentada Linear</td>
+<td align="right">336.5958</td>
+<td align="right">347.3902</td>
+<td align="right">0.9720705</td>
+</tr>
+<tr class="even">
+<td>Segmentada Quadrática</td>
+<td align="right">332.1142</td>
+<td align="right">345.0675</td>
+<td align="right">0.9747606</td>
+</tr>
+<tr class="odd">
+<td>Mitscherlich</td>
+<td align="right">310.3357</td>
+<td align="right">318.9713</td>
+<td align="right">0.9808822</td>
+</tr>
+<tr class="even">
+<td>Logístico LL.3</td>
+<td align="right">340.9449</td>
+<td align="right">349.5804</td>
+<td align="right">0.9691758</td>
+</tr>
+<tr class="odd">
+<td>Logístico LL.4</td>
+<td align="right">325.9732</td>
+<td align="right">336.7677</td>
+<td align="right">0.9763419</td>
+</tr>
+<tr class="even">
+<td>Yield Loss</td>
+<td align="right">339.8781</td>
+<td align="right">346.3547</td>
+<td align="right">0.9687055</td>
+</tr>
+<tr class="odd">
+<td>Weibull 3</td>
+<td align="right">354.0919</td>
+<td align="right">362.7274</td>
+<td align="right">0.9621318</td>
+</tr>
+<tr class="even">
+<td>Weibull 4</td>
+<td align="right">333.7306</td>
+<td align="right">344.5250</td>
+<td align="right">0.9732933</td>
+</tr>
+<tr class="odd">
+<td>Assintótica 2</td>
+<td align="right">340.9002</td>
+<td align="right">347.3768</td>
+<td align="right">0.9688639</td>
+</tr>
+<tr class="even">
+<td>Assintótica 3</td>
+<td align="right">310.3357</td>
+<td align="right">318.9713</td>
+<td align="right">0.9808822</td>
+</tr>
+<tr class="odd">
+<td>Brain-Counsens 4</td>
+<td align="right">311.8796</td>
+<td align="right">322.6740</td>
+<td align="right">0.9810184</td>
+</tr>
+<tr class="even">
+<td>Brain-Counsens 5</td>
+<td align="right">312.3284</td>
+<td align="right">325.2817</td>
+<td align="right">0.9814725</td>
+</tr>
+<tr class="odd">
+<td>Cedergreen-Ritz-Streibig 3</td>
+<td align="right">325.8427</td>
+<td align="right">336.6371</td>
+<td align="right">0.9763901</td>
+</tr>
+<tr class="even">
+<td>Cedergreen-Ritz-Streibig 4</td>
+<td align="right">277.7064</td>
+<td align="right">290.6597</td>
+<td align="right">0.9892136</td>
+</tr>
+<tr class="odd">
+<td>Exponencial</td>
+<td align="right">511.5978</td>
+<td align="right">518.0744</td>
+<td align="right">0.5422488</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+<a href="análise-de-sobrevivência.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livroagro.pdf", "livroagro.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 3 Modelo linear generalizado | Aplicações práticas do software R para Agronomia</title>
+  <meta name="description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 3 Modelo linear generalizado | Aplicações práticas do software R para Agronomia" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 3 Modelo linear generalizado | Aplicações práticas do software R para Agronomia" />
+  
+  <meta name="twitter:description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  
+
+<meta name="author" content="Gabriel Danilo Shimizu" />
+
+
+<meta name="date" content="2020-05-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="análise-de-sobrevivência.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Aplicações práticas do software R para Agronomia</a></li>
+<br>
+<center><b>Gabriel Danilo Shimizu</b></center>
+<br>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Análise de regressão linear e não-linear</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#conjunto-de-dados"><i class="fa fa-check"></i><b>1.1</b> Conjunto de dados</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#média-e-desvio-padrão-amostral"><i class="fa fa-check"></i><b>1.1.1</b> Média e desvio-padrão amostral</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#gráficos-exploratórios"><i class="fa fa-check"></i><b>1.1.2</b> Gráficos exploratórios</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#gráfico-de-caixas"><i class="fa fa-check"></i><b>1.1.3</b> Gráfico de caixas</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#gráfico-de-dispersão"><i class="fa fa-check"></i><b>1.1.4</b> Gráfico de dispersão</a></li>
+<li class="chapter" data-level="1.1.5" data-path="index.html"><a href="index.html#gráfico-de-dispersão-com-médias"><i class="fa fa-check"></i><b>1.1.5</b> Gráfico de dispersão com médias</a></li>
+<li class="chapter" data-level="1.1.6" data-path="index.html"><a href="index.html#gráfico-de-linhas-com-as-médias"><i class="fa fa-check"></i><b>1.1.6</b> Gráfico de linhas com as médias</a></li>
+<li class="chapter" data-level="1.1.7" data-path="index.html"><a href="index.html#histograma"><i class="fa fa-check"></i><b>1.1.7</b> Histograma</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#linear-simples"><i class="fa fa-check"></i><b>1.2</b> Linear Simples</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#criando-o-modelo-de-regressão"><i class="fa fa-check"></i><b>1.2.1</b> Criando o modelo de regressão</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#diagnóstico"><i class="fa fa-check"></i><b>1.2.2</b> Diagnóstico</a></li>
+<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#normalidade-dos-erros"><i class="fa fa-check"></i><b>1.2.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão"><i class="fa fa-check"></i><b>1.2.4</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="index.html"><a href="index.html#construindo-gráfico"><i class="fa fa-check"></i><b>1.2.5</b> Construindo gráfico</a></li>
+<li class="chapter" data-level="1.2.6" data-path="index.html"><a href="index.html#ggplot2"><i class="fa fa-check"></i><b>1.2.6</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#quadrático"><i class="fa fa-check"></i><b>1.3</b> Quadrático</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#criando-modelo-de-regressão"><i class="fa fa-check"></i><b>1.3.1</b> Criando modelo de regressão</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo"><i class="fa fa-check"></i><b>1.3.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#normalidade-dos-erros-1"><i class="fa fa-check"></i><b>1.3.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.3.4" data-path="index.html"><a href="index.html#fator-de-inflação-de-variância-multicolinearidade"><i class="fa fa-check"></i><b>1.3.4</b> Fator de inflação de variância (Multicolinearidade)</a></li>
+<li class="chapter" data-level="1.3.5" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão-1"><i class="fa fa-check"></i><b>1.3.5</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.3.6" data-path="index.html"><a href="index.html#construindo-gráfico-1"><i class="fa fa-check"></i><b>1.3.6</b> Construindo gráfico</a></li>
+<li class="chapter" data-level="1.3.7" data-path="index.html"><a href="index.html#ponto-de-máximo-ou-mínimo"><i class="fa fa-check"></i><b>1.3.7</b> Ponto de máximo (Ou mínimo)</a></li>
+<li class="chapter" data-level="1.3.8" data-path="index.html"><a href="index.html#manualmente"><i class="fa fa-check"></i><b>1.3.8</b> Manualmente</a></li>
+<li class="chapter" data-level="1.3.9" data-path="index.html"><a href="index.html#usando-o-which.max-ou-which.min"><i class="fa fa-check"></i><b>1.3.9</b> Usando o which.max ou which.min</a></li>
+<li class="chapter" data-level="1.3.10" data-path="index.html"><a href="index.html#ggplot2-1"><i class="fa fa-check"></i><b>1.3.10</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#cúbico"><i class="fa fa-check"></i><b>1.4</b> Cúbico</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#construindo-o-modelo"><i class="fa fa-check"></i><b>1.4.1</b> Construindo o modelo</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-1"><i class="fa fa-check"></i><b>1.4.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.4.3" data-path="index.html"><a href="index.html#normalidade-dos-erros-2"><i class="fa fa-check"></i><b>1.4.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.4.4" data-path="index.html"><a href="index.html#fator-de-inflação-de-variância-multicolinearidade-1"><i class="fa fa-check"></i><b>1.4.4</b> Fator de inflação de variância (Multicolinearidade)</a></li>
+<li class="chapter" data-level="1.4.5" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão-2"><i class="fa fa-check"></i><b>1.4.5</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.4.6" data-path="index.html"><a href="index.html#construindo-o-gráfico"><i class="fa fa-check"></i><b>1.4.6</b> Construindo o gráfico</a></li>
+<li class="chapter" data-level="1.4.7" data-path="index.html"><a href="index.html#ponto-de-máximo-mínimo-e-inflexão"><i class="fa fa-check"></i><b>1.4.7</b> ponto de máximo, mínimo e inflexão</a></li>
+<li class="chapter" data-level="1.4.8" data-path="index.html"><a href="index.html#ggplot2-2"><i class="fa fa-check"></i><b>1.4.8</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#logarítmico"><i class="fa fa-check"></i><b>1.5</b> Logarítmico</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#construindo-modelo"><i class="fa fa-check"></i><b>1.5.1</b> Construindo modelo</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-2"><i class="fa fa-check"></i><b>1.5.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#construindo-gráfico-2"><i class="fa fa-check"></i><b>1.5.3</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#michaelis-menten-mm"><i class="fa fa-check"></i><b>1.6</b> Michaelis-Menten (MM)</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="index.html"><a href="index.html#construindo-o-modelo-1"><i class="fa fa-check"></i><b>1.6.1</b> Construindo o modelo</a></li>
+<li class="chapter" data-level="1.6.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-3"><i class="fa fa-check"></i><b>1.6.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.6.3" data-path="index.html"><a href="index.html#construindo-o-gráfico-1"><i class="fa fa-check"></i><b>1.6.3</b> Construindo o gráfico</a></li>
+<li class="chapter" data-level="1.6.4" data-path="index.html"><a href="index.html#utilizando-outro-método"><i class="fa fa-check"></i><b>1.6.4</b> Utilizando outro método</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#mm-modificado"><i class="fa fa-check"></i><b>1.7</b> MM Modificado</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="index.html"><a href="index.html#construindo-modelo-1"><i class="fa fa-check"></i><b>1.7.1</b> Construindo modelo</a></li>
+<li class="chapter" data-level="1.7.2" data-path="index.html"><a href="index.html#construindo-gráfico-3"><i class="fa fa-check"></i><b>1.7.2</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#segmentada-linear"><i class="fa fa-check"></i><b>1.8</b> Segmentada linear</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#construindo-o-modelo-linear"><i class="fa fa-check"></i><b>1.8.1</b> Construindo o modelo linear</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#construindo-o-modelo-segmentado"><i class="fa fa-check"></i><b>1.8.2</b> Construindo o modelo segmentado</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#definindo-limite-com-base-no-platô"><i class="fa fa-check"></i><b>1.8.3</b> Definindo limite com base no platô</a></li>
+<li class="chapter" data-level="1.8.4" data-path="index.html"><a href="index.html#curva-do-primeiro-segmento"><i class="fa fa-check"></i><b>1.8.4</b> Curva do primeiro segmento</a></li>
+<li class="chapter" data-level="1.8.5" data-path="index.html"><a href="index.html#construindo-gráfico-4"><i class="fa fa-check"></i><b>1.8.5</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="index.html"><a href="index.html#segmentada-quadrático"><i class="fa fa-check"></i><b>1.9</b> Segmentada quadrático</a><ul>
+<li class="chapter" data-level="1.9.1" data-path="index.html"><a href="index.html#construindo-o-modelo-quadrático"><i class="fa fa-check"></i><b>1.9.1</b> Construindo o modelo quadrático</a></li>
+<li class="chapter" data-level="1.9.2" data-path="index.html"><a href="index.html#construindo-o-modelo-segmentado-1"><i class="fa fa-check"></i><b>1.9.2</b> Construindo o modelo segmentado</a></li>
+<li class="chapter" data-level="1.9.3" data-path="index.html"><a href="index.html#valores-para-o-primeiro-segmento"><i class="fa fa-check"></i><b>1.9.3</b> Valores para o primeiro segmento</a></li>
+<li class="chapter" data-level="1.9.4" data-path="index.html"><a href="index.html#construindo-o-gráfico-2"><i class="fa fa-check"></i><b>1.9.4</b> Construindo o gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="index.html"><a href="index.html#mitscherlich"><i class="fa fa-check"></i><b>1.10</b> Mitscherlich</a></li>
+<li class="chapter" data-level="1.11" data-path="index.html"><a href="index.html#logística-de-3-termos"><i class="fa fa-check"></i><b>1.11</b> Logística de 3 termos</a><ul>
+<li class="chapter" data-level="1.11.1" data-path="index.html"><a href="index.html#ed-dl-ou-ec"><i class="fa fa-check"></i><b>1.11.1</b> ED, DL ou EC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.12" data-path="index.html"><a href="index.html#logística-de-4-termos"><i class="fa fa-check"></i><b>1.12</b> Logística de 4 termos</a><ul>
+<li class="chapter" data-level="1.12.1" data-path="index.html"><a href="index.html#ed-dl-ou-ec-1"><i class="fa fa-check"></i><b>1.12.1</b> ED, DL ou EC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.13" data-path="index.html"><a href="index.html#yield-loss"><i class="fa fa-check"></i><b>1.13</b> Yield Loss</a></li>
+<li class="chapter" data-level="1.14" data-path="index.html"><a href="index.html#weibull-3"><i class="fa fa-check"></i><b>1.14</b> Weibull 3</a></li>
+<li class="chapter" data-level="1.15" data-path="index.html"><a href="index.html#weibul-4"><i class="fa fa-check"></i><b>1.15</b> Weibul 4</a></li>
+<li class="chapter" data-level="1.16" data-path="index.html"><a href="index.html#assintótica-2"><i class="fa fa-check"></i><b>1.16</b> Assintótica 2</a></li>
+<li class="chapter" data-level="1.17" data-path="index.html"><a href="index.html#assintótica-3"><i class="fa fa-check"></i><b>1.17</b> Assintótica 3</a></li>
+<li class="chapter" data-level="1.18" data-path="index.html"><a href="index.html#brain-counsens-4"><i class="fa fa-check"></i><b>1.18</b> Brain-Counsens 4</a></li>
+<li class="chapter" data-level="1.19" data-path="index.html"><a href="index.html#brain-counsens-5"><i class="fa fa-check"></i><b>1.19</b> Brain-Counsens 5</a></li>
+<li class="chapter" data-level="1.20" data-path="index.html"><a href="index.html#cedergreen-ritz-streibig-3"><i class="fa fa-check"></i><b>1.20</b> Cedergreen-Ritz-Streibig 3</a></li>
+<li class="chapter" data-level="1.21" data-path="index.html"><a href="index.html#cedergreen-ritz-streibig-4"><i class="fa fa-check"></i><b>1.21</b> Cedergreen-Ritz-Streibig 4</a></li>
+<li class="chapter" data-level="1.22" data-path="index.html"><a href="index.html#modelo-exponencial"><i class="fa fa-check"></i><b>1.22</b> Modelo exponencial</a></li>
+<li class="chapter" data-level="1.23" data-path="index.html"><a href="index.html#modelo-loess"><i class="fa fa-check"></i><b>1.23</b> Modelo loess</a></li>
+<li class="chapter" data-level="1.24" data-path="index.html"><a href="index.html#coef.-de-determinação-r2"><i class="fa fa-check"></i><b>1.24</b> Coef. de determinação (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="1.25" data-path="index.html"><a href="index.html#aic"><i class="fa fa-check"></i><b>1.25</b> AIC</a></li>
+<li class="chapter" data-level="1.26" data-path="index.html"><a href="index.html#bic"><i class="fa fa-check"></i><b>1.26</b> BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html"><i class="fa fa-check"></i><b>2</b> Análise de sobrevivência</a><ul>
+<li class="chapter" data-level="2.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#conjunto-de-dados-1"><i class="fa fa-check"></i><b>2.1</b> Conjunto de dados</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#histograma-1"><i class="fa fa-check"></i><b>2.2</b> Histograma</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#método-não-paramétrico-de-kaplan-meier"><i class="fa fa-check"></i><b>2.3</b> Método não-paramétrico de Kaplan-meier</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos"><i class="fa fa-check"></i><b>2.3.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.3.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#tempo-médio-de-sobrevivência"><i class="fa fa-check"></i><b>2.3.2</b> Tempo médio de sobrevivência</a></li>
+<li class="chapter" data-level="2.3.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos"><i class="fa fa-check"></i><b>2.3.3</b> Considerando tratamentos</a></li>
+<li class="chapter" data-level="2.3.4" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#conferindo-diferenças-par-a-par"><i class="fa fa-check"></i><b>2.3.4</b> Conferindo diferenças par a par</a></li>
+<li class="chapter" data-level="2.3.5" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#grafico-por-tratamento-usando-o-método-de-kaplan-meier"><i class="fa fa-check"></i><b>2.3.5</b> Grafico por tratamento usando o método de Kaplan-Meier</a></li>
+<li class="chapter" data-level="2.3.6" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#tempo-médio-de-sobrevivência-1"><i class="fa fa-check"></i><b>2.3.6</b> Tempo médio de sobrevivência</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#modelo-paramétrico"><i class="fa fa-check"></i><b>2.4</b> Modelo paramétrico</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-exponencial"><i class="fa fa-check"></i><b>2.4.1</b> Distribuição exponencial</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-1"><i class="fa fa-check"></i><b>2.4.2</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-1"><i class="fa fa-check"></i><b>2.4.3</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-gaussiano"><i class="fa fa-check"></i><b>2.5</b> Distribuição gaussiano</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-2"><i class="fa fa-check"></i><b>2.5.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.5.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-2"><i class="fa fa-check"></i><b>2.5.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-logistico"><i class="fa fa-check"></i><b>2.6</b> Distribuição logistico</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-3"><i class="fa fa-check"></i><b>2.6.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-3"><i class="fa fa-check"></i><b>2.6.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-log-normal"><i class="fa fa-check"></i><b>2.7</b> Distribuição Log normal</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-4"><i class="fa fa-check"></i><b>2.7.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.7.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-4"><i class="fa fa-check"></i><b>2.7.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-log-logístico"><i class="fa fa-check"></i><b>2.8</b> Distribuição Log-Logístico</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-5"><i class="fa fa-check"></i><b>2.8.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.8.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-5"><i class="fa fa-check"></i><b>2.8.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-weibull-default"><i class="fa fa-check"></i><b>2.9</b> Distribuição Weibull (default)</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-6"><i class="fa fa-check"></i><b>2.9.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.9.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-6"><i class="fa fa-check"></i><b>2.9.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#gompertz"><i class="fa fa-check"></i><b>2.10</b> Gompertz</a></li>
+<li class="chapter" data-level="2.11" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#gamma"><i class="fa fa-check"></i><b>2.11</b> Gamma</a></li>
+<li class="chapter" data-level="2.12" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#método-semi-paramétrico-de-cox"><i class="fa fa-check"></i><b>2.12</b> Método semi-paramétrico de Cox</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-7"><i class="fa fa-check"></i><b>2.12.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.12.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-7"><i class="fa fa-check"></i><b>2.12.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.13" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#modelo-de-riscos-proporcionais-de-cox"><i class="fa fa-check"></i><b>2.13</b> Modelo de riscos proporcionais de COX</a><ul>
+<li class="chapter" data-level="2.13.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-trat"><i class="fa fa-check"></i><b>2.13.1</b> Considerando trat</a></li>
+</ul></li>
+<li class="chapter" data-level="2.14" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#critério-de-inferência-de-akaike"><i class="fa fa-check"></i><b>2.14</b> Critério de inferência de Akaike</a></li>
+<li class="chapter" data-level="2.15" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#resíduo"><i class="fa fa-check"></i><b>2.15</b> Resíduo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html"><i class="fa fa-check"></i><b>3</b> Modelo linear generalizado</a><ul>
+<li class="chapter" data-level="3.1" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#conjunto-de-dados-2"><i class="fa fa-check"></i><b>3.1</b> Conjunto de dados</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-linear-generalizado-1"><i class="fa fa-check"></i><b>3.2</b> Modelo linear generalizado</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance"><i class="fa fa-check"></i><b>3.3</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-1"><i class="fa fa-check"></i><b>3.4</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot"><i class="fa fa-check"></i><b>3.5</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.6" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes"><i class="fa fa-check"></i><b>3.6</b> Constrastes</a></li>
+<li class="chapter" data-level="3.7" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica"><i class="fa fa-check"></i><b>3.7</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.8" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#supondo-que-não-sabemos-o-total-de-cada-repetição"><i class="fa fa-check"></i><b>3.8</b> Supondo que não sabemos o total de cada repetição</a></li>
+<li class="chapter" data-level="3.9" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-1"><i class="fa fa-check"></i><b>3.9</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.10" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-2"><i class="fa fa-check"></i><b>3.10</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.11" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-1"><i class="fa fa-check"></i><b>3.11</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.12" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-1"><i class="fa fa-check"></i><b>3.12</b> Constrastes</a></li>
+<li class="chapter" data-level="3.13" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-1"><i class="fa fa-check"></i><b>3.13</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.14" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#analisando-sobredispersão"><i class="fa fa-check"></i><b>3.14</b> Analisando sobredispersão</a></li>
+<li class="chapter" data-level="3.15" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-2"><i class="fa fa-check"></i><b>3.15</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.16" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-3"><i class="fa fa-check"></i><b>3.16</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.17" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-2"><i class="fa fa-check"></i><b>3.17</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.18" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-2"><i class="fa fa-check"></i><b>3.18</b> Constrastes</a></li>
+<li class="chapter" data-level="3.19" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-2"><i class="fa fa-check"></i><b>3.19</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.20" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#distribuição-quasibinomial"><i class="fa fa-check"></i><b>3.20</b> Distribuição quasibinomial</a></li>
+<li class="chapter" data-level="3.21" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-3"><i class="fa fa-check"></i><b>3.21</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.22" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-4"><i class="fa fa-check"></i><b>3.22</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.23" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-3"><i class="fa fa-check"></i><b>3.23</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.24" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-3"><i class="fa fa-check"></i><b>3.24</b> Constrastes</a></li>
+<li class="chapter" data-level="3.25" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-3"><i class="fa fa-check"></i><b>3.25</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.26" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#fatorial-qualitativo-e-quantitativo"><i class="fa fa-check"></i><b>3.26</b> Fatorial qualitativo e quantitativo</a></li>
+<li class="chapter" data-level="3.27" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo"><i class="fa fa-check"></i><b>3.27</b> Modelo</a></li>
+<li class="chapter" data-level="3.28" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#deviance"><i class="fa fa-check"></i><b>3.28</b> Deviance</a></li>
+<li class="chapter" data-level="3.29" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#teste-de-comparação"><i class="fa fa-check"></i><b>3.29</b> Teste de comparação</a></li>
+<li class="chapter" data-level="3.30" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#regressão"><i class="fa fa-check"></i><b>3.30</b> Regressão</a></li>
+<li class="chapter" data-level="3.31" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#dividindo-o-conjunto-de-dados"><i class="fa fa-check"></i><b>3.31</b> Dividindo o conjunto de dados</a></li>
+<li class="chapter" data-level="3.32" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-para-t1"><i class="fa fa-check"></i><b>3.32</b> modelo para T1</a></li>
+<li class="chapter" data-level="3.33" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-para-t2"><i class="fa fa-check"></i><b>3.33</b> modelo para T2</a></li>
+<li class="chapter" data-level="3.34" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#gráfico"><i class="fa fa-check"></i><b>3.34</b> Gráfico</a><ul>
+<li class="chapter" data-level="3.34.1" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#calculando-vetores"><i class="fa fa-check"></i><b>3.34.1</b> Calculando vetores</a></li>
+<li class="chapter" data-level="3.34.2" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#gráfico-final"><i class="fa fa-check"></i><b>3.34.2</b> Gráfico final</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://agronomiar.github.io/livroagro1/" target="blank">Anterior</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Aplicações práticas do software R para Agronomia</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modelo-linear-generalizado" class="section level1">
+<h1><span class="header-section-number"> 3</span> Modelo linear generalizado</h1>
+<div id="conjunto-de-dados-2" class="section level2">
+<h2><span class="header-section-number">3.1</span> Conjunto de dados</h2>
+<p>Considera um conjunto de dados simulados de germinação com oito repetições e quatro tratamento qualitativos. Conforme a regra de análise de sementes, em um teste de germinação é estabelecido a quantidade mínima de 50 sementes por rolo de papel. Logo, sabemos que a quantidade máxima de cada repetição e de 50 sementes.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="modelo-linear-generalizado.html#cb243-1"></a>trat=<span class="kw">rep</span>(<span class="kw">paste</span>(<span class="st">&quot;T&quot;</span>,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>),<span class="dt">e=</span><span class="dv">8</span>)</span>
+<span id="cb243-2"><a href="modelo-linear-generalizado.html#cb243-2"></a>germ=<span class="kw">c</span>(<span class="dv">33</span>,<span class="dv">35</span>,<span class="dv">34</span>,<span class="dv">30</span>,<span class="dv">38</span>,<span class="dv">30</span>,<span class="dv">37</span>,<span class="dv">30</span>,<span class="dv">36</span>,<span class="dv">38</span>,<span class="dv">34</span>,<span class="dv">38</span>,<span class="dv">38</span>,<span class="dv">38</span>,<span class="dv">35</span>,<span class="dv">35</span>,<span class="dv">30</span>,<span class="dv">15</span>,<span class="dv">31</span>,<span class="dv">17</span>,<span class="dv">25</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">18</span>,<span class="dv">27</span>,<span class="dv">20</span>,<span class="dv">28</span>,<span class="dv">35</span>,<span class="dv">30</span>,<span class="dv">30</span>,<span class="dv">30</span>,<span class="dv">29</span>)</span></code></pre></div>
+</div>
+<div id="modelo-linear-generalizado-1" class="section level2">
+<h2><span class="header-section-number">3.2</span> Modelo linear generalizado</h2>
+<p>No R, podemos realizar a entrada dos dados de duas formas. Pela proporção ou por dados dicotomizados (Respostas do tipo 0 ou 1).</p>
+<p>Nosso exemplo usaremos pela proporção.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="modelo-linear-generalizado.html#cb244-1"></a>modelo=<span class="kw">glm</span>(<span class="kw">cbind</span>(germ,<span class="dv">50</span><span class="op">-</span>germ)<span class="op">~</span>trat, <span class="dt">family=</span>binomial)</span></code></pre></div>
+<p><strong>Explicação</strong>: <code>germ</code> é nossa resposta, ou seja, total de sementes germinadas (ou podemos chamar de total de sucessos na repetição). O valor <code>50</code> indica o total de observações na repetição (Deve ser conhecido). <code>trat</code> é nossa variável explicativa qualitativa, <code>binomial</code> é a distrbuição provável que estamos considerando.</p>
+</div>
+<div id="análise-de-deviance" class="section level2">
+<h2><span class="header-section-number">3.3</span> Análise de deviance</h2>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="modelo-linear-generalizado.html#cb245-1"></a><span class="kw">summary</span>(modelo)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(germ, 50 - germ) ~ trat, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4488  -0.5500   0.2359   0.4838   2.2701  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.6969     0.1061   6.566 5.16e-11 ***
+## tratT 2       0.2977     0.1548   1.924  0.05437 .  
+## tratT 3      -0.8572     0.1460  -5.870 4.36e-09 ***
+## tratT 4      -0.4048     0.1466  -2.762  0.00574 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 108.818  on 31  degrees of freedom
+## Residual deviance:  38.676  on 28  degrees of freedom
+## AIC: 182.75
+## 
+## Number of Fisher Scoring iterations: 3</code></pre>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="modelo-linear-generalizado.html#cb247-1"></a><span class="kw">anova</span>(modelo, <span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: binomial, link: logit
+## 
+## Response: cbind(germ, 50 - germ)
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+## NULL                    31    108.818              
+## trat  3   70.142        28     38.676 3.979e-15 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="diagnóstico-1" class="section level2">
+<h2><span class="header-section-number">3.4</span> Diagnóstico</h2>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="modelo-linear-generalizado.html#cb249-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb249-2"><a href="modelo-linear-generalizado.html#cb249-2"></a><span class="kw">plot</span>(modelo)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+</div>
+<div id="halfnormaplot" class="section level2">
+<h2><span class="header-section-number">3.5</span> Halfnormaplot</h2>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="modelo-linear-generalizado.html#cb250-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(modelo, <span class="dt">print.on=</span>T)</span></code></pre></div>
+<pre><code>## Binomial model</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+</div>
+<div id="constrastes" class="section level2">
+<h2><span class="header-section-number">3.6</span> Constrastes</h2>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="modelo-linear-generalizado.html#cb252-1"></a><span class="kw">library</span>(emmeans)</span>
+<span id="cb252-2"><a href="modelo-linear-generalizado.html#cb252-2"></a>media=<span class="kw">emmeans</span>(modelo,<span class="op">~</span>trat)</span></code></pre></div>
+</div>
+<div id="retornando-a-função-logistica" class="section level2">
+<h2><span class="header-section-number">3.7</span> Retornando a função logistica</h2>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="modelo-linear-generalizado.html#cb253-1"></a>medfin=<span class="kw">regrid</span>(media)</span>
+<span id="cb253-2"><a href="modelo-linear-generalizado.html#cb253-2"></a><span class="kw">library</span>(multcompView)</span>
+<span id="cb253-3"><a href="modelo-linear-generalizado.html#cb253-3"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb253-4"><a href="modelo-linear-generalizado.html#cb253-4"></a><span class="kw">cld</span>(medfin, <span class="dt">alpha=</span><span class="fl">0.05</span>, <span class="dt">Letters=</span>letters, <span class="dt">decreasing=</span><span class="ot">FALSE</span>, <span class="dt">adjust=</span><span class="st">&quot;tukey&quot;</span>)</span></code></pre></div>
+<pre><code>##  trat  prob     SE  df asymp.LCL asymp.UCL .group
+##  T 3  0.460 0.0249 Inf     0.398     0.522  a    
+##  T 4  0.573 0.0247 Inf     0.511     0.634   b   
+##  T 1  0.667 0.0236 Inf     0.609     0.726    c  
+##  T 2  0.730 0.0222 Inf     0.675     0.785    c  
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 4 estimates 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="supondo-que-não-sabemos-o-total-de-cada-repetição" class="section level2">
+<h2><span class="header-section-number">3.8</span> Supondo que não sabemos o total de cada repetição</h2>
+<p>Nesse caso, vamos optar pela distribuição poisson</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="modelo-linear-generalizado.html#cb255-1"></a>modelo=<span class="kw">glm</span>(germ<span class="op">~</span>trat, <span class="dt">family=</span>poisson)</span></code></pre></div>
+</div>
+<div id="análise-de-deviance-1" class="section level2">
+<h2><span class="header-section-number">3.9</span> Análise de deviance</h2>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="modelo-linear-generalizado.html#cb256-1"></a><span class="kw">summary</span>(modelo)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = germ ~ trat, family = poisson)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.7823  -0.3347   0.1574   0.2550   1.5832  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  3.50781    0.06120  57.318  &lt; 2e-16 ***
+## tratT 2      0.08951    0.08468   1.057 0.290496    
+## tratT 3     -0.37231    0.09581  -3.886 0.000102 ***
+## tratT 4     -0.15353    0.09007  -1.705 0.088274 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 46.061  on 31  degrees of freedom
+## Residual deviance: 18.017  on 28  degrees of freedom
+## AIC: 193.41
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="modelo-linear-generalizado.html#cb258-1"></a><span class="kw">anova</span>(modelo, <span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: poisson, link: log
+## 
+## Response: germ
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+## NULL                    31     46.061              
+## trat  3   28.045        28     18.017 3.555e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="diagnóstico-2" class="section level2">
+<h2><span class="header-section-number">3.10</span> Diagnóstico</h2>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="modelo-linear-generalizado.html#cb260-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb260-2"><a href="modelo-linear-generalizado.html#cb260-2"></a><span class="kw">plot</span>(modelo)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-103-1.png" width="672" /></p>
+</div>
+<div id="halfnormaplot-1" class="section level2">
+<h2><span class="header-section-number">3.11</span> Halfnormaplot</h2>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="modelo-linear-generalizado.html#cb261-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(modelo, <span class="dt">print.on=</span>T)</span></code></pre></div>
+<pre><code>## Poisson model</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-104-1.png" width="672" /></p>
+</div>
+<div id="constrastes-1" class="section level2">
+<h2><span class="header-section-number">3.12</span> Constrastes</h2>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="modelo-linear-generalizado.html#cb263-1"></a><span class="kw">library</span>(emmeans)</span>
+<span id="cb263-2"><a href="modelo-linear-generalizado.html#cb263-2"></a>media=<span class="kw">emmeans</span>(modelo,<span class="op">~</span>trat)</span></code></pre></div>
+</div>
+<div id="retornando-a-função-logistica-1" class="section level2">
+<h2><span class="header-section-number">3.13</span> Retornando a função logistica</h2>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="modelo-linear-generalizado.html#cb264-1"></a>medfin=<span class="kw">regrid</span>(media)</span>
+<span id="cb264-2"><a href="modelo-linear-generalizado.html#cb264-2"></a><span class="kw">library</span>(multcompView)</span>
+<span id="cb264-3"><a href="modelo-linear-generalizado.html#cb264-3"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb264-4"><a href="modelo-linear-generalizado.html#cb264-4"></a><span class="kw">cld</span>(medfin, <span class="dt">alpha=</span><span class="fl">0.05</span>, <span class="dt">Letters=</span>letters, <span class="dt">decreasing=</span><span class="ot">FALSE</span>, <span class="dt">adjust=</span><span class="st">&quot;tukey&quot;</span>)</span></code></pre></div>
+<pre><code>##  trat rate   SE  df asymp.LCL asymp.UCL .group
+##  T 3  23.0 1.70 Inf      18.8      27.2  a    
+##  T 4  28.6 1.89 Inf      23.9      33.3  ab   
+##  T 1  33.4 2.04 Inf      28.3      38.5   bc  
+##  T 2  36.5 2.14 Inf      31.2      41.8    c  
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 4 estimates 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="analisando-sobredispersão" class="section level2">
+<h2><span class="header-section-number">3.14</span> Analisando sobredispersão</h2>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="modelo-linear-generalizado.html#cb266-1"></a><span class="kw">library</span>(AER)</span>
+<span id="cb266-2"><a href="modelo-linear-generalizado.html#cb266-2"></a><span class="kw">dispersiontest</span>(modelo, <span class="dt">trafo=</span><span class="dv">1</span>) </span></code></pre></div>
+<pre><code>## 
+##  Overdispersion test
+## 
+## data:  modelo
+## z = -2.8129, p-value = 0.9975
+## alternative hypothesis: true alpha is greater than 0
+## sample estimates:
+##      alpha 
+## -0.4488216</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="modelo-linear-generalizado.html#cb268-1"></a><span class="co">## se for menor que 0,01 há sbredispersão, nesse caso usar quasipoisson</span></span></code></pre></div>
+<p>Caso fosse menor que 0,01 ou 0,05, podemos testar a distribuição quasipoisson.
+Vamos treinar, ainda que não seja necessário.</p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="modelo-linear-generalizado.html#cb269-1"></a>modelo=<span class="kw">glm</span>(germ<span class="op">~</span>trat, <span class="dt">family=</span>quasipoisson)</span></code></pre></div>
+</div>
+<div id="análise-de-deviance-2" class="section level2">
+<h2><span class="header-section-number">3.15</span> Análise de deviance</h2>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="modelo-linear-generalizado.html#cb270-1"></a><span class="kw">summary</span>(modelo)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = germ ~ trat, family = quasipoisson)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.7823  -0.3347   0.1574   0.2550   1.5832  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.50781    0.04857  72.219  &lt; 2e-16 ***
+## tratT 2      0.08951    0.06720   1.332   0.1937    
+## tratT 3     -0.37231    0.07604  -4.896 3.69e-05 ***
+## tratT 4     -0.15353    0.07148  -2.148   0.0405 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasipoisson family taken to be 0.6299182)
+## 
+##     Null deviance: 46.061  on 31  degrees of freedom
+## Residual deviance: 18.017  on 28  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="modelo-linear-generalizado.html#cb272-1"></a><span class="kw">anova</span>(modelo, <span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: quasipoisson, link: log
+## 
+## Response: germ
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)    
+## NULL                    31     46.061             
+## trat  3   28.045        28     18.017 1.17e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="diagnóstico-3" class="section level2">
+<h2><span class="header-section-number">3.16</span> Diagnóstico</h2>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="modelo-linear-generalizado.html#cb274-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb274-2"><a href="modelo-linear-generalizado.html#cb274-2"></a><span class="kw">plot</span>(modelo)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-110-1.png" width="672" /></p>
+</div>
+<div id="halfnormaplot-2" class="section level2">
+<h2><span class="header-section-number">3.17</span> Halfnormaplot</h2>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="modelo-linear-generalizado.html#cb275-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(modelo, <span class="dt">print.on=</span>T)</span></code></pre></div>
+<pre><code>## Quasi-Poisson model</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-111-1.png" width="672" /></p>
+</div>
+<div id="constrastes-2" class="section level2">
+<h2><span class="header-section-number">3.18</span> Constrastes</h2>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="modelo-linear-generalizado.html#cb277-1"></a><span class="kw">library</span>(emmeans)</span>
+<span id="cb277-2"><a href="modelo-linear-generalizado.html#cb277-2"></a>media=<span class="kw">emmeans</span>(modelo,<span class="op">~</span>trat)</span></code></pre></div>
+</div>
+<div id="retornando-a-função-logistica-2" class="section level2">
+<h2><span class="header-section-number">3.19</span> Retornando a função logistica</h2>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="modelo-linear-generalizado.html#cb278-1"></a>medfin=<span class="kw">regrid</span>(media)</span>
+<span id="cb278-2"><a href="modelo-linear-generalizado.html#cb278-2"></a><span class="kw">library</span>(multcompView)</span>
+<span id="cb278-3"><a href="modelo-linear-generalizado.html#cb278-3"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb278-4"><a href="modelo-linear-generalizado.html#cb278-4"></a><span class="kw">cld</span>(medfin, <span class="dt">alpha=</span><span class="fl">0.05</span>, <span class="dt">Letters=</span>letters, <span class="dt">decreasing=</span><span class="ot">FALSE</span>, <span class="dt">adjust=</span><span class="st">&quot;tukey&quot;</span>)</span></code></pre></div>
+<pre><code>##  trat rate   SE  df asymp.LCL asymp.UCL .group
+##  T 3  23.0 1.35 Inf      19.6      26.4  a    
+##  T 4  28.6 1.50 Inf      24.9      32.4   b   
+##  T 1  33.4 1.62 Inf      29.3      37.4   bc  
+##  T 2  36.5 1.70 Inf      32.3      40.7    c  
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 4 estimates 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="distribuição-quasibinomial" class="section level2">
+<h2><span class="header-section-number">3.20</span> Distribuição quasibinomial</h2>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="modelo-linear-generalizado.html#cb280-1"></a>quasibin&lt;-<span class="kw">glm</span>(<span class="kw">cbind</span>(germ,<span class="dv">50</span><span class="op">-</span>germ)<span class="op">~</span>trat, <span class="dt">family =</span> quasibinomial)</span></code></pre></div>
+</div>
+<div id="análise-de-deviance-3" class="section level2">
+<h2><span class="header-section-number">3.21</span> Análise de deviance</h2>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="modelo-linear-generalizado.html#cb281-1"></a><span class="kw">summary</span>(modelo)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = germ ~ trat, family = quasipoisson)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.7823  -0.3347   0.1574   0.2550   1.5832  
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  3.50781    0.04857  72.219  &lt; 2e-16 ***
+## tratT 2      0.08951    0.06720   1.332   0.1937    
+## tratT 3     -0.37231    0.07604  -4.896 3.69e-05 ***
+## tratT 4     -0.15353    0.07148  -2.148   0.0405 *  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for quasipoisson family taken to be 0.6299182)
+## 
+##     Null deviance: 46.061  on 31  degrees of freedom
+## Residual deviance: 18.017  on 28  degrees of freedom
+## AIC: NA
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="modelo-linear-generalizado.html#cb283-1"></a><span class="kw">anova</span>(modelo, <span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: quasipoisson, link: log
+## 
+## Response: germ
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev Pr(&gt;Chi)    
+## NULL                    31     46.061             
+## trat  3   28.045        28     18.017 1.17e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+</div>
+<div id="diagnóstico-4" class="section level2">
+<h2><span class="header-section-number">3.22</span> Diagnóstico</h2>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="modelo-linear-generalizado.html#cb285-1"></a><span class="kw">par</span>(<span class="dt">mfrow=</span><span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">2</span>))</span>
+<span id="cb285-2"><a href="modelo-linear-generalizado.html#cb285-2"></a><span class="kw">plot</span>(modelo)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-116-1.png" width="672" /></p>
+</div>
+<div id="halfnormaplot-3" class="section level2">
+<h2><span class="header-section-number">3.23</span> Halfnormaplot</h2>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="modelo-linear-generalizado.html#cb286-1"></a>hnp<span class="op">::</span><span class="kw">hnp</span>(modelo, <span class="dt">print.on=</span>T)</span></code></pre></div>
+<pre><code>## Quasi-Poisson model</code></pre>
+<p><img src="index_files/figure-html/unnamed-chunk-117-1.png" width="672" /></p>
+</div>
+<div id="constrastes-3" class="section level2">
+<h2><span class="header-section-number">3.24</span> Constrastes</h2>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="modelo-linear-generalizado.html#cb288-1"></a><span class="kw">library</span>(emmeans)</span>
+<span id="cb288-2"><a href="modelo-linear-generalizado.html#cb288-2"></a>media=<span class="kw">emmeans</span>(modelo,<span class="op">~</span>trat)</span>
+<span id="cb288-3"><a href="modelo-linear-generalizado.html#cb288-3"></a><span class="kw">summary</span>(<span class="kw">pairs</span>(media), <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span></code></pre></div>
+<pre><code>##  contrast  ratio     SE  df z.ratio p.value
+##  T 1 / T 2 0.914 0.0615 Inf -1.332  0.5425 
+##  T 1 / T 3 1.451 0.1103 Inf  4.896  &lt;.0001 
+##  T 1 / T 4 1.166 0.0833 Inf  2.148  0.1382 
+##  T 2 / T 3 1.587 0.1186 Inf  6.182  &lt;.0001 
+##  T 2 / T 4 1.275 0.0893 Inf  3.469  0.0029 
+##  T 3 / T 4 0.803 0.0631 Inf -2.784  0.0275 
+## 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## Tests are performed on the log scale</code></pre>
+</div>
+<div id="retornando-a-função-logistica-3" class="section level2">
+<h2><span class="header-section-number">3.25</span> Retornando a função logistica</h2>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="modelo-linear-generalizado.html#cb290-1"></a>medfin=<span class="kw">regrid</span>(media)</span>
+<span id="cb290-2"><a href="modelo-linear-generalizado.html#cb290-2"></a><span class="kw">library</span>(multcompView)</span>
+<span id="cb290-3"><a href="modelo-linear-generalizado.html#cb290-3"></a><span class="kw">library</span>(multcomp)</span>
+<span id="cb290-4"><a href="modelo-linear-generalizado.html#cb290-4"></a><span class="kw">cld</span>(medfin, <span class="dt">alpha=</span><span class="fl">0.05</span>, <span class="dt">Letters=</span>letters, <span class="dt">decreasing=</span><span class="ot">FALSE</span>, <span class="dt">adjust=</span><span class="st">&quot;tukey&quot;</span>)</span></code></pre></div>
+<pre><code>##  trat rate   SE  df asymp.LCL asymp.UCL .group
+##  T 3  23.0 1.35 Inf      19.6      26.4  a    
+##  T 4  28.6 1.50 Inf      24.9      32.4   b   
+##  T 1  33.4 1.62 Inf      29.3      37.4   bc  
+##  T 2  36.5 1.70 Inf      32.3      40.7    c  
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 4 estimates 
+## P value adjustment: tukey method for comparing a family of 4 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="fatorial-qualitativo-e-quantitativo" class="section level2">
+<h2><span class="header-section-number">3.26</span> Fatorial qualitativo e quantitativo</h2>
+<p>Supondo um outro exemplo de um experimento em esquema fatorial 2 x 5, em que o primeiro fator e qualitativo e o segundo fator quantitativo com 5 doses (2, 4, 6, 8, 10) e três repetições cada. Total de semenetes e conhecido e o valor e 30.</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="modelo-linear-generalizado.html#cb292-1"></a>resp=<span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">6</span>,<span class="dv">6</span>,<span class="dv">5</span>,<span class="dv">17</span>,<span class="dv">18</span>,<span class="dv">14</span>,<span class="dv">25</span>,<span class="dv">26</span>,<span class="dv">23</span>,</span>
+<span id="cb292-2"><a href="modelo-linear-generalizado.html#cb292-2"></a>       <span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">15</span>,<span class="dv">14</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">16</span>,<span class="dv">16</span>,<span class="dv">20</span>,<span class="dv">20</span>,<span class="dv">19</span>)</span>
+<span id="cb292-3"><a href="modelo-linear-generalizado.html#cb292-3"></a>f1=<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>,<span class="st">&quot;T2&quot;</span>),<span class="dt">e=</span><span class="dv">15</span>) <span class="co">## fator qualitativo</span></span>
+<span id="cb292-4"><a href="modelo-linear-generalizado.html#cb292-4"></a>d=<span class="kw">rep</span>(<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>),<span class="dt">e=</span><span class="dv">3</span>,<span class="dv">2</span>) <span class="co">## dose como numerico</span></span>
+<span id="cb292-5"><a href="modelo-linear-generalizado.html#cb292-5"></a>D=<span class="kw">factor</span>(d) <span class="co">## considerando dose como fator</span></span></code></pre></div>
+</div>
+<div id="modelo" class="section level2">
+<h2><span class="header-section-number">3.27</span> Modelo</h2>
+<p>Vamos considerar os dois fatores como qualitativos</p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="modelo-linear-generalizado.html#cb293-1"></a>bin=<span class="kw">glm</span>(<span class="kw">cbind</span>(resp,<span class="dv">30</span><span class="op">-</span>resp)<span class="op">~</span>f1<span class="op">*</span>D, <span class="dt">family =</span> binomial)</span></code></pre></div>
+</div>
+<div id="deviance" class="section level2">
+<h2><span class="header-section-number">3.28</span> Deviance</h2>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="modelo-linear-generalizado.html#cb294-1"></a><span class="kw">summary</span>(bin)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(resp, 30 - resp) ~ f1 * D, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.8532  -0.2951   0.1217   0.1590   0.9375  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)
+## (Intercept)   -23.14    6757.51  -0.003    0.997
+## f1T2           18.65    6757.51   0.003    0.998
+## D4             20.81    6757.51   0.003    0.998
+## D6             21.68    6757.51   0.003    0.997
+## D8             23.31    6757.51   0.003    0.997
+## D10            24.67    6757.51   0.004    0.997
+## f1T2:D4       -19.39    6757.51  -0.003    0.998
+## f1T2:D6       -17.24    6757.51  -0.003    0.998
+## f1T2:D8       -18.74    6757.51  -0.003    0.998
+## f1T2:D10      -19.54    6757.51  -0.003    0.998
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 397.0255  on 29  degrees of freedom
+## Residual deviance:   5.6398  on 20  degrees of freedom
+## AIC: 108.6
+## 
+## Number of Fisher Scoring iterations: 19</code></pre>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="modelo-linear-generalizado.html#cb296-1"></a><span class="kw">anova</span>(bin, <span class="dt">test=</span><span class="st">&quot;Chisq&quot;</span>)</span></code></pre></div>
+<pre><code>## Analysis of Deviance Table
+## 
+## Model: binomial, link: logit
+## 
+## Response: cbind(resp, 30 - resp)
+## 
+## Terms added sequentially (first to last)
+## 
+## 
+##      Df Deviance Resid. Df Resid. Dev  Pr(&gt;Chi)    
+## NULL                    29     397.03              
+## f1    1     0.24        28     396.78    0.6215    
+## D     4   363.46        24      33.33 &lt; 2.2e-16 ***
+## f1:D  4    27.69        20       5.64 1.443e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="modelo-linear-generalizado.html#cb298-1"></a>referencia &lt;-<span class="st"> </span><span class="kw">ref_grid</span>(bin)</span>
+<span id="cb298-2"><a href="modelo-linear-generalizado.html#cb298-2"></a>referencia <span class="co">## Aqui deve aparecer os niveis dos fatores, se dose so aparecer 1, está errado</span></span></code></pre></div>
+<pre><code>## &#39;emmGrid&#39; object with variables:
+##     f1 = T1, T2
+##     D = 2, 4, 6, 8, 10
+## Transformation: &quot;logit&quot;</code></pre>
+</div>
+<div id="teste-de-comparação" class="section level2">
+<h2><span class="header-section-number">3.29</span> Teste de comparação</h2>
+<p>Se não fosse um fator quantitativo, podemos fazer assim:</p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="modelo-linear-generalizado.html#cb300-1"></a>media &lt;-<span class="st"> </span><span class="kw">emmeans</span>(bin, <span class="op">~</span>f1<span class="op">|</span>D)</span>
+<span id="cb300-2"><a href="modelo-linear-generalizado.html#cb300-2"></a>medfin&lt;-<span class="kw">regrid</span>(media)</span>
+<span id="cb300-3"><a href="modelo-linear-generalizado.html#cb300-3"></a><span class="kw">cld</span>(medfin, <span class="dt">alpha=</span><span class="fl">0.05</span>, <span class="dt">Letters=</span>letters, <span class="dt">adjust=</span><span class="st">&quot;tukey&quot;</span>)</span></code></pre></div>
+<pre><code>## D = 2:
+##  f1   prob       SE  df asymp.LCL asymp.UCL .group
+##  T1 0.0000 6.00e-07 Inf -1.40e-06  1.40e-06  a    
+##  T2 0.0111 1.10e-02 Inf -1.36e-02  3.58e-02  a    
+## 
+## D = 4:
+##  f1   prob       SE  df asymp.LCL asymp.UCL .group
+##  T2 0.0444 2.17e-02 Inf -4.14e-03  9.30e-02  a    
+##  T1 0.0889 3.00e-02 Inf  2.18e-02  1.56e-01  a    
+## 
+## D = 6:
+##  f1   prob       SE  df asymp.LCL asymp.UCL .group
+##  T1 0.1889 4.13e-02 Inf  9.66e-02  2.81e-01  a    
+##  T2 0.4889 5.27e-02 Inf  3.71e-01  6.07e-01   b   
+## 
+## D = 8:
+##  f1   prob       SE  df asymp.LCL asymp.UCL .group
+##  T2 0.5222 5.27e-02 Inf  4.04e-01  6.40e-01  a    
+##  T1 0.5444 5.25e-02 Inf  4.27e-01  6.62e-01  a    
+## 
+## D = 10:
+##  f1   prob       SE  df asymp.LCL asymp.UCL .group
+##  T2 0.6556 5.01e-02 Inf  5.44e-01  7.68e-01  a    
+##  T1 0.8222 4.03e-02 Inf  7.32e-01  9.12e-01   b   
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 2 estimates 
+## significance level used: alpha = 0.05</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="modelo-linear-generalizado.html#cb302-1"></a>media &lt;-<span class="st"> </span><span class="kw">emmeans</span>(bin, <span class="op">~</span>D<span class="op">|</span>f1)</span>
+<span id="cb302-2"><a href="modelo-linear-generalizado.html#cb302-2"></a>medfin&lt;-<span class="kw">regrid</span>(media)</span>
+<span id="cb302-3"><a href="modelo-linear-generalizado.html#cb302-3"></a><span class="kw">cld</span>(medfin, <span class="dt">alpha=</span><span class="fl">0.05</span>, <span class="dt">Letters=</span>letters, <span class="dt">adjust=</span><span class="st">&quot;tukey&quot;</span>)</span></code></pre></div>
+<pre><code>## f1 = T1:
+##  D    prob       SE  df asymp.LCL asymp.UCL .group
+##  2  0.0000 6.00e-07 Inf -1.60e-06  1.60e-06  a    
+##  4  0.0889 3.00e-02 Inf  1.18e-02  1.66e-01   b   
+##  6  0.1889 4.13e-02 Inf  8.29e-02  2.95e-01   b   
+##  8  0.5444 5.25e-02 Inf  4.10e-01  6.79e-01    c  
+##  10 0.8222 4.03e-02 Inf  7.19e-01  9.26e-01     d 
+## 
+## f1 = T2:
+##  D    prob       SE  df asymp.LCL asymp.UCL .group
+##  2  0.0111 1.10e-02 Inf -1.73e-02  3.95e-02  a    
+##  4  0.0444 2.17e-02 Inf -1.14e-02  1.00e-01  a    
+##  6  0.4889 5.27e-02 Inf  3.54e-01  6.24e-01   b   
+##  8  0.5222 5.27e-02 Inf  3.87e-01  6.57e-01   b   
+##  10 0.6556 5.01e-02 Inf  5.27e-01  7.84e-01   b   
+## 
+## Confidence level used: 0.95 
+## Conf-level adjustment: sidak method for 5 estimates 
+## P value adjustment: tukey method for comparing a family of 5 estimates 
+## significance level used: alpha = 0.05</code></pre>
+</div>
+<div id="regressão" class="section level2">
+<h2><span class="header-section-number">3.30</span> Regressão</h2>
+<p>Como há interação entre os fatores, necessitamos construir duas curvas, vejamos:</p>
+</div>
+<div id="dividindo-o-conjunto-de-dados" class="section level2">
+<h2><span class="header-section-number">3.31</span> Dividindo o conjunto de dados</h2>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="modelo-linear-generalizado.html#cb304-1"></a>resp1=resp[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>]  <span class="co">## resposta de T1, nesse caso as observações de T1 estão na posição de  1 a 15</span></span>
+<span id="cb304-2"><a href="modelo-linear-generalizado.html#cb304-2"></a>resp2=resp[<span class="dv">16</span><span class="op">:</span><span class="dv">30</span>] <span class="co">## resposta de T2, nesse caso as observações de T2 estão na posição de  16 a 30</span></span>
+<span id="cb304-3"><a href="modelo-linear-generalizado.html#cb304-3"></a>d=d[<span class="dv">1</span><span class="op">:</span><span class="dv">15</span>] <span class="co">## cortando dose, nesse caso somente uma vez é necessário</span></span></code></pre></div>
+</div>
+<div id="modelo-para-t1" class="section level2">
+<h2><span class="header-section-number">3.32</span> modelo para T1</h2>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="modelo-linear-generalizado.html#cb305-1"></a>bin1=<span class="kw">glm</span>(<span class="kw">cbind</span>(resp1,<span class="dv">30</span><span class="op">-</span>resp1)<span class="op">~</span>d, <span class="dt">family =</span> binomial)</span>
+<span id="cb305-2"><a href="modelo-linear-generalizado.html#cb305-2"></a><span class="kw">summary</span>(bin1)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(resp1, 30 - resp1) ~ d, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -0.9384  -0.7855  -0.1458   0.4803   0.8687  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -5.66100    0.51900  -10.91   &lt;2e-16 ***
+## d            0.72347    0.06751   10.72   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 223.1818  on 14  degrees of freedom
+## Residual deviance:   6.8923  on 13  degrees of freedom
+## AIC: 50.895
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+</div>
+<div id="modelo-para-t2" class="section level2">
+<h2><span class="header-section-number">3.33</span> modelo para T2</h2>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="modelo-linear-generalizado.html#cb307-1"></a>bin2=<span class="kw">glm</span>(<span class="kw">cbind</span>(resp2,<span class="dv">30</span><span class="op">-</span>resp2)<span class="op">~</span>d, <span class="dt">family =</span> binomial)</span>
+<span id="cb307-2"><a href="modelo-linear-generalizado.html#cb307-2"></a><span class="kw">summary</span>(bin2)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = cbind(resp2, 30 - resp2) ~ d, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.8205  -1.5467  -0.9111   0.1884   2.4892  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -3.89248    0.37250 -10.449   &lt;2e-16 ***
+## d            0.49464    0.05016   9.862   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 173.600  on 14  degrees of freedom
+## Residual deviance:  34.827  on 13  degrees of freedom
+## AIC: 81.781
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+</div>
+<div id="gráfico" class="section level2">
+<h2><span class="header-section-number">3.34</span> Gráfico</h2>
+<div id="calculando-vetores" class="section level3">
+<h3><span class="header-section-number">3.34.1</span> Calculando vetores</h3>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="modelo-linear-generalizado.html#cb309-1"></a>med1=<span class="kw">tapply</span>(resp1<span class="op">/</span><span class="dv">30</span>, d, mean)</span>
+<span id="cb309-2"><a href="modelo-linear-generalizado.html#cb309-2"></a>med2=<span class="kw">tapply</span>(resp2<span class="op">/</span><span class="dv">30</span>, d, mean)</span>
+<span id="cb309-3"><a href="modelo-linear-generalizado.html#cb309-3"></a>DOSE=<span class="kw">c</span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">6</span>,<span class="dv">8</span>,<span class="dv">10</span>)</span></code></pre></div>
+</div>
+<div id="gráfico-final" class="section level3">
+<h3><span class="header-section-number">3.34.2</span> Gráfico final</h3>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="modelo-linear-generalizado.html#cb310-1"></a><span class="kw">plot</span>(med1<span class="op">~</span>DOSE,<span class="dt">xlab=</span><span class="st">&quot;Dose(mg/L)&quot;</span>,<span class="dt">ylab=</span><span class="st">&quot;Probabilidade&quot;</span>)</span>
+<span id="cb310-2"><a href="modelo-linear-generalizado.html#cb310-2"></a><span class="kw">points</span>(med2<span class="op">~</span>DOSE,<span class="dt">pch=</span><span class="dv">16</span>,<span class="dt">col=</span><span class="st">&quot;darkblue&quot;</span>)</span>
+<span id="cb310-3"><a href="modelo-linear-generalizado.html#cb310-3"></a><span class="kw">curve</span>(<span class="kw">predict</span>(bin1,<span class="kw">data.frame</span>(<span class="dt">d=</span>x),<span class="dt">type=</span><span class="st">&quot;resp&quot;</span>),<span class="dt">add=</span><span class="ot">TRUE</span>) <span class="co">## curva de T1</span></span>
+<span id="cb310-4"><a href="modelo-linear-generalizado.html#cb310-4"></a><span class="co">##points(d,fitted(bin1),pch=20) </span></span>
+<span id="cb310-5"><a href="modelo-linear-generalizado.html#cb310-5"></a><span class="kw">curve</span>(<span class="kw">predict</span>(bin2,<span class="kw">data.frame</span>(<span class="dt">d=</span>x),<span class="dt">type=</span><span class="st">&quot;resp&quot;</span>),<span class="dt">add=</span><span class="ot">TRUE</span>, <span class="dt">lty=</span><span class="dv">2</span>,<span class="dt">col=</span><span class="st">&quot;darkblue&quot;</span>) <span class="co">## Curva de T2</span></span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="análise-de-sobrevivência.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livroagro.pdf", "livroagro.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

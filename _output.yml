@@ -1,0 +1,12 @@
+bookdown::gitbook:
+  css: style.css
+  config:
+    toc:
+      before: |
+        <li><a href="./">Aplicações práticas do software R para Agronomia</a></li>
+        <br>
+        <center><b>Gabriel Danilo Shimizu</b></center>
+        <br>
+      after: |
+        <li><a href="https://agronomiar.github.io/livroagro1/" target="blank">Anterior</a></li>
+    download: ["pdf", "epub"]

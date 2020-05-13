@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title> 2 Análise de sobrevivência | Aplicações práticas do software R para Agronomia</title>
+  <meta name="description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content=" 2 Análise de sobrevivência | Aplicações práticas do software R para Agronomia" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content=" 2 Análise de sobrevivência | Aplicações práticas do software R para Agronomia" />
+  
+  <meta name="twitter:description" content="Este é um livro virtual desenvolvido com a finalidade de fornecer tutoriais práticos das principais análises estatísticas e apresentação de dados utilizando o software R" />
+  
+
+<meta name="author" content="Gabriel Danilo Shimizu" />
+
+
+<meta name="date" content="2020-05-13" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="modelo-linear-generalizado.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Aplicações práticas do software R para Agronomia</a></li>
+<br>
+<center><b>Gabriel Danilo Shimizu</b></center>
+<br>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Análise de regressão linear e não-linear</a><ul>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#conjunto-de-dados"><i class="fa fa-check"></i><b>1.1</b> Conjunto de dados</a><ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#média-e-desvio-padrão-amostral"><i class="fa fa-check"></i><b>1.1.1</b> Média e desvio-padrão amostral</a></li>
+<li class="chapter" data-level="1.1.2" data-path="index.html"><a href="index.html#gráficos-exploratórios"><i class="fa fa-check"></i><b>1.1.2</b> Gráficos exploratórios</a></li>
+<li class="chapter" data-level="1.1.3" data-path="index.html"><a href="index.html#gráfico-de-caixas"><i class="fa fa-check"></i><b>1.1.3</b> Gráfico de caixas</a></li>
+<li class="chapter" data-level="1.1.4" data-path="index.html"><a href="index.html#gráfico-de-dispersão"><i class="fa fa-check"></i><b>1.1.4</b> Gráfico de dispersão</a></li>
+<li class="chapter" data-level="1.1.5" data-path="index.html"><a href="index.html#gráfico-de-dispersão-com-médias"><i class="fa fa-check"></i><b>1.1.5</b> Gráfico de dispersão com médias</a></li>
+<li class="chapter" data-level="1.1.6" data-path="index.html"><a href="index.html#gráfico-de-linhas-com-as-médias"><i class="fa fa-check"></i><b>1.1.6</b> Gráfico de linhas com as médias</a></li>
+<li class="chapter" data-level="1.1.7" data-path="index.html"><a href="index.html#histograma"><i class="fa fa-check"></i><b>1.1.7</b> Histograma</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#linear-simples"><i class="fa fa-check"></i><b>1.2</b> Linear Simples</a><ul>
+<li class="chapter" data-level="1.2.1" data-path="index.html"><a href="index.html#criando-o-modelo-de-regressão"><i class="fa fa-check"></i><b>1.2.1</b> Criando o modelo de regressão</a></li>
+<li class="chapter" data-level="1.2.2" data-path="index.html"><a href="index.html#diagnóstico"><i class="fa fa-check"></i><b>1.2.2</b> Diagnóstico</a></li>
+<li class="chapter" data-level="1.2.3" data-path="index.html"><a href="index.html#normalidade-dos-erros"><i class="fa fa-check"></i><b>1.2.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.2.4" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão"><i class="fa fa-check"></i><b>1.2.4</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.2.5" data-path="index.html"><a href="index.html#construindo-gráfico"><i class="fa fa-check"></i><b>1.2.5</b> Construindo gráfico</a></li>
+<li class="chapter" data-level="1.2.6" data-path="index.html"><a href="index.html#ggplot2"><i class="fa fa-check"></i><b>1.2.6</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.3" data-path="index.html"><a href="index.html#quadrático"><i class="fa fa-check"></i><b>1.3</b> Quadrático</a><ul>
+<li class="chapter" data-level="1.3.1" data-path="index.html"><a href="index.html#criando-modelo-de-regressão"><i class="fa fa-check"></i><b>1.3.1</b> Criando modelo de regressão</a></li>
+<li class="chapter" data-level="1.3.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo"><i class="fa fa-check"></i><b>1.3.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.3.3" data-path="index.html"><a href="index.html#normalidade-dos-erros-1"><i class="fa fa-check"></i><b>1.3.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.3.4" data-path="index.html"><a href="index.html#fator-de-inflação-de-variância-multicolinearidade"><i class="fa fa-check"></i><b>1.3.4</b> Fator de inflação de variância (Multicolinearidade)</a></li>
+<li class="chapter" data-level="1.3.5" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão-1"><i class="fa fa-check"></i><b>1.3.5</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.3.6" data-path="index.html"><a href="index.html#construindo-gráfico-1"><i class="fa fa-check"></i><b>1.3.6</b> Construindo gráfico</a></li>
+<li class="chapter" data-level="1.3.7" data-path="index.html"><a href="index.html#ponto-de-máximo-ou-mínimo"><i class="fa fa-check"></i><b>1.3.7</b> Ponto de máximo (Ou mínimo)</a></li>
+<li class="chapter" data-level="1.3.8" data-path="index.html"><a href="index.html#manualmente"><i class="fa fa-check"></i><b>1.3.8</b> Manualmente</a></li>
+<li class="chapter" data-level="1.3.9" data-path="index.html"><a href="index.html#usando-o-which.max-ou-which.min"><i class="fa fa-check"></i><b>1.3.9</b> Usando o which.max ou which.min</a></li>
+<li class="chapter" data-level="1.3.10" data-path="index.html"><a href="index.html#ggplot2-1"><i class="fa fa-check"></i><b>1.3.10</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.4" data-path="index.html"><a href="index.html#cúbico"><i class="fa fa-check"></i><b>1.4</b> Cúbico</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="index.html"><a href="index.html#construindo-o-modelo"><i class="fa fa-check"></i><b>1.4.1</b> Construindo o modelo</a></li>
+<li class="chapter" data-level="1.4.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-1"><i class="fa fa-check"></i><b>1.4.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.4.3" data-path="index.html"><a href="index.html#normalidade-dos-erros-2"><i class="fa fa-check"></i><b>1.4.3</b> Normalidade dos erros</a></li>
+<li class="chapter" data-level="1.4.4" data-path="index.html"><a href="index.html#fator-de-inflação-de-variância-multicolinearidade-1"><i class="fa fa-check"></i><b>1.4.4</b> Fator de inflação de variância (Multicolinearidade)</a></li>
+<li class="chapter" data-level="1.4.5" data-path="index.html"><a href="index.html#falta-de-ajuste-desvio-da-regressão-2"><i class="fa fa-check"></i><b>1.4.5</b> Falta de ajuste (Desvio da regressão)</a></li>
+<li class="chapter" data-level="1.4.6" data-path="index.html"><a href="index.html#construindo-o-gráfico"><i class="fa fa-check"></i><b>1.4.6</b> Construindo o gráfico</a></li>
+<li class="chapter" data-level="1.4.7" data-path="index.html"><a href="index.html#ponto-de-máximo-mínimo-e-inflexão"><i class="fa fa-check"></i><b>1.4.7</b> ponto de máximo, mínimo e inflexão</a></li>
+<li class="chapter" data-level="1.4.8" data-path="index.html"><a href="index.html#ggplot2-2"><i class="fa fa-check"></i><b>1.4.8</b> ggplot2</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="index.html"><a href="index.html#logarítmico"><i class="fa fa-check"></i><b>1.5</b> Logarítmico</a><ul>
+<li class="chapter" data-level="1.5.1" data-path="index.html"><a href="index.html#construindo-modelo"><i class="fa fa-check"></i><b>1.5.1</b> Construindo modelo</a></li>
+<li class="chapter" data-level="1.5.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-2"><i class="fa fa-check"></i><b>1.5.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.5.3" data-path="index.html"><a href="index.html#construindo-gráfico-2"><i class="fa fa-check"></i><b>1.5.3</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.6" data-path="index.html"><a href="index.html#michaelis-menten-mm"><i class="fa fa-check"></i><b>1.6</b> Michaelis-Menten (MM)</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="index.html"><a href="index.html#construindo-o-modelo-1"><i class="fa fa-check"></i><b>1.6.1</b> Construindo o modelo</a></li>
+<li class="chapter" data-level="1.6.2" data-path="index.html"><a href="index.html#diagnóstico-do-modelo-3"><i class="fa fa-check"></i><b>1.6.2</b> Diagnóstico do modelo</a></li>
+<li class="chapter" data-level="1.6.3" data-path="index.html"><a href="index.html#construindo-o-gráfico-1"><i class="fa fa-check"></i><b>1.6.3</b> Construindo o gráfico</a></li>
+<li class="chapter" data-level="1.6.4" data-path="index.html"><a href="index.html#utilizando-outro-método"><i class="fa fa-check"></i><b>1.6.4</b> Utilizando outro método</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="index.html"><a href="index.html#mm-modificado"><i class="fa fa-check"></i><b>1.7</b> MM Modificado</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="index.html"><a href="index.html#construindo-modelo-1"><i class="fa fa-check"></i><b>1.7.1</b> Construindo modelo</a></li>
+<li class="chapter" data-level="1.7.2" data-path="index.html"><a href="index.html#construindo-gráfico-3"><i class="fa fa-check"></i><b>1.7.2</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="index.html"><a href="index.html#segmentada-linear"><i class="fa fa-check"></i><b>1.8</b> Segmentada linear</a><ul>
+<li class="chapter" data-level="1.8.1" data-path="index.html"><a href="index.html#construindo-o-modelo-linear"><i class="fa fa-check"></i><b>1.8.1</b> Construindo o modelo linear</a></li>
+<li class="chapter" data-level="1.8.2" data-path="index.html"><a href="index.html#construindo-o-modelo-segmentado"><i class="fa fa-check"></i><b>1.8.2</b> Construindo o modelo segmentado</a></li>
+<li class="chapter" data-level="1.8.3" data-path="index.html"><a href="index.html#definindo-limite-com-base-no-platô"><i class="fa fa-check"></i><b>1.8.3</b> Definindo limite com base no platô</a></li>
+<li class="chapter" data-level="1.8.4" data-path="index.html"><a href="index.html#curva-do-primeiro-segmento"><i class="fa fa-check"></i><b>1.8.4</b> Curva do primeiro segmento</a></li>
+<li class="chapter" data-level="1.8.5" data-path="index.html"><a href="index.html#construindo-gráfico-4"><i class="fa fa-check"></i><b>1.8.5</b> Construindo gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.9" data-path="index.html"><a href="index.html#segmentada-quadrático"><i class="fa fa-check"></i><b>1.9</b> Segmentada quadrático</a><ul>
+<li class="chapter" data-level="1.9.1" data-path="index.html"><a href="index.html#construindo-o-modelo-quadrático"><i class="fa fa-check"></i><b>1.9.1</b> Construindo o modelo quadrático</a></li>
+<li class="chapter" data-level="1.9.2" data-path="index.html"><a href="index.html#construindo-o-modelo-segmentado-1"><i class="fa fa-check"></i><b>1.9.2</b> Construindo o modelo segmentado</a></li>
+<li class="chapter" data-level="1.9.3" data-path="index.html"><a href="index.html#valores-para-o-primeiro-segmento"><i class="fa fa-check"></i><b>1.9.3</b> Valores para o primeiro segmento</a></li>
+<li class="chapter" data-level="1.9.4" data-path="index.html"><a href="index.html#construindo-o-gráfico-2"><i class="fa fa-check"></i><b>1.9.4</b> Construindo o gráfico</a></li>
+</ul></li>
+<li class="chapter" data-level="1.10" data-path="index.html"><a href="index.html#mitscherlich"><i class="fa fa-check"></i><b>1.10</b> Mitscherlich</a></li>
+<li class="chapter" data-level="1.11" data-path="index.html"><a href="index.html#logística-de-3-termos"><i class="fa fa-check"></i><b>1.11</b> Logística de 3 termos</a><ul>
+<li class="chapter" data-level="1.11.1" data-path="index.html"><a href="index.html#ed-dl-ou-ec"><i class="fa fa-check"></i><b>1.11.1</b> ED, DL ou EC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.12" data-path="index.html"><a href="index.html#logística-de-4-termos"><i class="fa fa-check"></i><b>1.12</b> Logística de 4 termos</a><ul>
+<li class="chapter" data-level="1.12.1" data-path="index.html"><a href="index.html#ed-dl-ou-ec-1"><i class="fa fa-check"></i><b>1.12.1</b> ED, DL ou EC</a></li>
+</ul></li>
+<li class="chapter" data-level="1.13" data-path="index.html"><a href="index.html#yield-loss"><i class="fa fa-check"></i><b>1.13</b> Yield Loss</a></li>
+<li class="chapter" data-level="1.14" data-path="index.html"><a href="index.html#weibull-3"><i class="fa fa-check"></i><b>1.14</b> Weibull 3</a></li>
+<li class="chapter" data-level="1.15" data-path="index.html"><a href="index.html#weibul-4"><i class="fa fa-check"></i><b>1.15</b> Weibul 4</a></li>
+<li class="chapter" data-level="1.16" data-path="index.html"><a href="index.html#assintótica-2"><i class="fa fa-check"></i><b>1.16</b> Assintótica 2</a></li>
+<li class="chapter" data-level="1.17" data-path="index.html"><a href="index.html#assintótica-3"><i class="fa fa-check"></i><b>1.17</b> Assintótica 3</a></li>
+<li class="chapter" data-level="1.18" data-path="index.html"><a href="index.html#brain-counsens-4"><i class="fa fa-check"></i><b>1.18</b> Brain-Counsens 4</a></li>
+<li class="chapter" data-level="1.19" data-path="index.html"><a href="index.html#brain-counsens-5"><i class="fa fa-check"></i><b>1.19</b> Brain-Counsens 5</a></li>
+<li class="chapter" data-level="1.20" data-path="index.html"><a href="index.html#cedergreen-ritz-streibig-3"><i class="fa fa-check"></i><b>1.20</b> Cedergreen-Ritz-Streibig 3</a></li>
+<li class="chapter" data-level="1.21" data-path="index.html"><a href="index.html#cedergreen-ritz-streibig-4"><i class="fa fa-check"></i><b>1.21</b> Cedergreen-Ritz-Streibig 4</a></li>
+<li class="chapter" data-level="1.22" data-path="index.html"><a href="index.html#modelo-exponencial"><i class="fa fa-check"></i><b>1.22</b> Modelo exponencial</a></li>
+<li class="chapter" data-level="1.23" data-path="index.html"><a href="index.html#modelo-loess"><i class="fa fa-check"></i><b>1.23</b> Modelo loess</a></li>
+<li class="chapter" data-level="1.24" data-path="index.html"><a href="index.html#coef.-de-determinação-r2"><i class="fa fa-check"></i><b>1.24</b> Coef. de determinação (<span class="math inline">\(R^2\)</span>)</a></li>
+<li class="chapter" data-level="1.25" data-path="index.html"><a href="index.html#aic"><i class="fa fa-check"></i><b>1.25</b> AIC</a></li>
+<li class="chapter" data-level="1.26" data-path="index.html"><a href="index.html#bic"><i class="fa fa-check"></i><b>1.26</b> BIC</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html"><i class="fa fa-check"></i><b>2</b> Análise de sobrevivência</a><ul>
+<li class="chapter" data-level="2.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#conjunto-de-dados-1"><i class="fa fa-check"></i><b>2.1</b> Conjunto de dados</a></li>
+<li class="chapter" data-level="2.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#histograma-1"><i class="fa fa-check"></i><b>2.2</b> Histograma</a></li>
+<li class="chapter" data-level="2.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#método-não-paramétrico-de-kaplan-meier"><i class="fa fa-check"></i><b>2.3</b> Método não-paramétrico de Kaplan-meier</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos"><i class="fa fa-check"></i><b>2.3.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.3.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#tempo-médio-de-sobrevivência"><i class="fa fa-check"></i><b>2.3.2</b> Tempo médio de sobrevivência</a></li>
+<li class="chapter" data-level="2.3.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos"><i class="fa fa-check"></i><b>2.3.3</b> Considerando tratamentos</a></li>
+<li class="chapter" data-level="2.3.4" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#conferindo-diferenças-par-a-par"><i class="fa fa-check"></i><b>2.3.4</b> Conferindo diferenças par a par</a></li>
+<li class="chapter" data-level="2.3.5" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#grafico-por-tratamento-usando-o-método-de-kaplan-meier"><i class="fa fa-check"></i><b>2.3.5</b> Grafico por tratamento usando o método de Kaplan-Meier</a></li>
+<li class="chapter" data-level="2.3.6" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#tempo-médio-de-sobrevivência-1"><i class="fa fa-check"></i><b>2.3.6</b> Tempo médio de sobrevivência</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#modelo-paramétrico"><i class="fa fa-check"></i><b>2.4</b> Modelo paramétrico</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-exponencial"><i class="fa fa-check"></i><b>2.4.1</b> Distribuição exponencial</a></li>
+<li class="chapter" data-level="2.4.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-1"><i class="fa fa-check"></i><b>2.4.2</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.4.3" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-1"><i class="fa fa-check"></i><b>2.4.3</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-gaussiano"><i class="fa fa-check"></i><b>2.5</b> Distribuição gaussiano</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-2"><i class="fa fa-check"></i><b>2.5.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.5.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-2"><i class="fa fa-check"></i><b>2.5.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-logistico"><i class="fa fa-check"></i><b>2.6</b> Distribuição logistico</a><ul>
+<li class="chapter" data-level="2.6.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-3"><i class="fa fa-check"></i><b>2.6.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.6.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-3"><i class="fa fa-check"></i><b>2.6.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.7" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-log-normal"><i class="fa fa-check"></i><b>2.7</b> Distribuição Log normal</a><ul>
+<li class="chapter" data-level="2.7.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-4"><i class="fa fa-check"></i><b>2.7.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.7.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-4"><i class="fa fa-check"></i><b>2.7.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.8" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-log-logístico"><i class="fa fa-check"></i><b>2.8</b> Distribuição Log-Logístico</a><ul>
+<li class="chapter" data-level="2.8.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-5"><i class="fa fa-check"></i><b>2.8.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.8.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-5"><i class="fa fa-check"></i><b>2.8.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.9" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#distribuição-weibull-default"><i class="fa fa-check"></i><b>2.9</b> Distribuição Weibull (default)</a><ul>
+<li class="chapter" data-level="2.9.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-6"><i class="fa fa-check"></i><b>2.9.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.9.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-6"><i class="fa fa-check"></i><b>2.9.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.10" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#gompertz"><i class="fa fa-check"></i><b>2.10</b> Gompertz</a></li>
+<li class="chapter" data-level="2.11" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#gamma"><i class="fa fa-check"></i><b>2.11</b> Gamma</a></li>
+<li class="chapter" data-level="2.12" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#método-semi-paramétrico-de-cox"><i class="fa fa-check"></i><b>2.12</b> Método semi-paramétrico de Cox</a><ul>
+<li class="chapter" data-level="2.12.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#sem-considerar-tratamentos-7"><i class="fa fa-check"></i><b>2.12.1</b> Sem considerar tratamentos</a></li>
+<li class="chapter" data-level="2.12.2" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-tratamentos-7"><i class="fa fa-check"></i><b>2.12.2</b> Considerando tratamentos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.13" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#modelo-de-riscos-proporcionais-de-cox"><i class="fa fa-check"></i><b>2.13</b> Modelo de riscos proporcionais de COX</a><ul>
+<li class="chapter" data-level="2.13.1" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#considerando-trat"><i class="fa fa-check"></i><b>2.13.1</b> Considerando trat</a></li>
+</ul></li>
+<li class="chapter" data-level="2.14" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#critério-de-inferência-de-akaike"><i class="fa fa-check"></i><b>2.14</b> Critério de inferência de Akaike</a></li>
+<li class="chapter" data-level="2.15" data-path="análise-de-sobrevivência.html"><a href="análise-de-sobrevivência.html#resíduo"><i class="fa fa-check"></i><b>2.15</b> Resíduo</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html"><i class="fa fa-check"></i><b>3</b> Modelo linear generalizado</a><ul>
+<li class="chapter" data-level="3.1" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#conjunto-de-dados-2"><i class="fa fa-check"></i><b>3.1</b> Conjunto de dados</a></li>
+<li class="chapter" data-level="3.2" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-linear-generalizado-1"><i class="fa fa-check"></i><b>3.2</b> Modelo linear generalizado</a></li>
+<li class="chapter" data-level="3.3" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance"><i class="fa fa-check"></i><b>3.3</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.4" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-1"><i class="fa fa-check"></i><b>3.4</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.5" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot"><i class="fa fa-check"></i><b>3.5</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.6" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes"><i class="fa fa-check"></i><b>3.6</b> Constrastes</a></li>
+<li class="chapter" data-level="3.7" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica"><i class="fa fa-check"></i><b>3.7</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.8" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#supondo-que-não-sabemos-o-total-de-cada-repetição"><i class="fa fa-check"></i><b>3.8</b> Supondo que não sabemos o total de cada repetição</a></li>
+<li class="chapter" data-level="3.9" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-1"><i class="fa fa-check"></i><b>3.9</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.10" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-2"><i class="fa fa-check"></i><b>3.10</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.11" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-1"><i class="fa fa-check"></i><b>3.11</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.12" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-1"><i class="fa fa-check"></i><b>3.12</b> Constrastes</a></li>
+<li class="chapter" data-level="3.13" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-1"><i class="fa fa-check"></i><b>3.13</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.14" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#analisando-sobredispersão"><i class="fa fa-check"></i><b>3.14</b> Analisando sobredispersão</a></li>
+<li class="chapter" data-level="3.15" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-2"><i class="fa fa-check"></i><b>3.15</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.16" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-3"><i class="fa fa-check"></i><b>3.16</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.17" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-2"><i class="fa fa-check"></i><b>3.17</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.18" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-2"><i class="fa fa-check"></i><b>3.18</b> Constrastes</a></li>
+<li class="chapter" data-level="3.19" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-2"><i class="fa fa-check"></i><b>3.19</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.20" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#distribuição-quasibinomial"><i class="fa fa-check"></i><b>3.20</b> Distribuição quasibinomial</a></li>
+<li class="chapter" data-level="3.21" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#análise-de-deviance-3"><i class="fa fa-check"></i><b>3.21</b> Análise de deviance</a></li>
+<li class="chapter" data-level="3.22" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#diagnóstico-4"><i class="fa fa-check"></i><b>3.22</b> Diagnóstico</a></li>
+<li class="chapter" data-level="3.23" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#halfnormaplot-3"><i class="fa fa-check"></i><b>3.23</b> Halfnormaplot</a></li>
+<li class="chapter" data-level="3.24" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#constrastes-3"><i class="fa fa-check"></i><b>3.24</b> Constrastes</a></li>
+<li class="chapter" data-level="3.25" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#retornando-a-função-logistica-3"><i class="fa fa-check"></i><b>3.25</b> Retornando a função logistica</a></li>
+<li class="chapter" data-level="3.26" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#fatorial-qualitativo-e-quantitativo"><i class="fa fa-check"></i><b>3.26</b> Fatorial qualitativo e quantitativo</a></li>
+<li class="chapter" data-level="3.27" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo"><i class="fa fa-check"></i><b>3.27</b> Modelo</a></li>
+<li class="chapter" data-level="3.28" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#deviance"><i class="fa fa-check"></i><b>3.28</b> Deviance</a></li>
+<li class="chapter" data-level="3.29" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#teste-de-comparação"><i class="fa fa-check"></i><b>3.29</b> Teste de comparação</a></li>
+<li class="chapter" data-level="3.30" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#regressão"><i class="fa fa-check"></i><b>3.30</b> Regressão</a></li>
+<li class="chapter" data-level="3.31" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#dividindo-o-conjunto-de-dados"><i class="fa fa-check"></i><b>3.31</b> Dividindo o conjunto de dados</a></li>
+<li class="chapter" data-level="3.32" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-para-t1"><i class="fa fa-check"></i><b>3.32</b> modelo para T1</a></li>
+<li class="chapter" data-level="3.33" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#modelo-para-t2"><i class="fa fa-check"></i><b>3.33</b> modelo para T2</a></li>
+<li class="chapter" data-level="3.34" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#gráfico"><i class="fa fa-check"></i><b>3.34</b> Gráfico</a><ul>
+<li class="chapter" data-level="3.34.1" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#calculando-vetores"><i class="fa fa-check"></i><b>3.34.1</b> Calculando vetores</a></li>
+<li class="chapter" data-level="3.34.2" data-path="modelo-linear-generalizado.html"><a href="modelo-linear-generalizado.html#gráfico-final"><i class="fa fa-check"></i><b>3.34.2</b> Gráfico final</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><a href="https://agronomiar.github.io/livroagro1/" target="blank">Anterior</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Aplicações práticas do software R para Agronomia</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="análise-de-sobrevivência" class="section level1">
+<h1><span class="header-section-number"> 2</span> Análise de sobrevivência</h1>
+<hr />
+<p><br><br></p>
+<p><img src="index_files/figure-html/unnamed-chunk-67-1.png" width="480" /></p>
+<p>Análise de sobrevivência, também denominada análise de sobrevida, é um ramo da estatística que estuda o tempo de duração esperado até a ocorrência de um ou mais eventos, tais como morte em organismos biológicos ou falha em sistemas mecânicos. Na agronomia, tem sido bastante utilizada na avaliação residual de produtos fitossanitários em insetos, tempo até a morte em função de um doença, etc.</p>
+<p><br><br></p>
+<hr />
+<hr />
+<div id="conjunto-de-dados-1" class="section level2">
+<h2><span class="header-section-number">2.1</span> Conjunto de dados</h2>
+<hr />
+<p>O conjunto de dados é de um experimento cujo objetivo é avaliar a mortalidade de insetos em função de alguns produtos comerciais.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="análise-de-sobrevivência.html#cb160-1"></a>tempo=<span class="kw">c</span>(<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">48</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">48</span>,<span class="dv">48</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">96</span>,<span class="dv">96</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">48</span>,<span class="dv">96</span>,<span class="dv">96</span>,<span class="dv">144</span>,<span class="dv">144</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">72</span>,<span class="dv">96</span>,<span class="dv">96</span>,<span class="dv">120</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">48</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">24</span>,<span class="dv">120</span>,<span class="dv">120</span>,<span class="dv">144</span>,<span class="dv">144</span>,<span class="dv">144</span>,<span class="dv">144</span>,<span class="dv">144</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">144</span>,<span class="dv">144</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">24</span>,<span class="dv">72</span>,<span class="dv">96</span>,<span class="dv">96</span>,<span class="dv">120</span>,<span class="dv">144</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">24</span>,<span class="dv">72</span>,<span class="dv">96</span>,<span class="dv">120</span>,<span class="dv">144</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">10</span>,<span class="dv">24</span>,<span class="dv">72</span>,<span class="dv">96</span>,<span class="dv">168</span>,<span class="dv">168</span>,<span class="dv">168</span>)</span>
+<span id="cb160-2"><a href="análise-de-sobrevivência.html#cb160-2"></a><span class="co"># criando vetor de status (Ocorreu ou nao o evento)</span></span>
+<span id="cb160-3"><a href="análise-de-sobrevivência.html#cb160-3"></a>status=<span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">0</span>,<span class="dv">0</span>)</span>
+<span id="cb160-4"><a href="análise-de-sobrevivência.html#cb160-4"></a>trat=<span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>,<span class="st">&quot;T2&quot;</span>,<span class="st">&#39;T3&#39;</span>),<span class="dt">e=</span><span class="dv">48</span>)</span>
+<span id="cb160-5"><a href="análise-de-sobrevivência.html#cb160-5"></a>dados=<span class="kw">data.frame</span>(trat,tempo,status)</span></code></pre></div>
+<p><br><br></p>
+</div>
+<div id="histograma-1" class="section level2">
+<h2><span class="header-section-number">2.2</span> Histograma</h2>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="análise-de-sobrevivência.html#cb161-1"></a><span class="kw">hist</span>(tempo)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p><br><br></p>
+<hr />
+</div>
+<div id="método-não-paramétrico-de-kaplan-meier" class="section level2">
+<h2><span class="header-section-number">2.3</span> Método não-paramétrico de Kaplan-meier</h2>
+<hr />
+<p><br><br></p>
+<div id="sem-considerar-tratamentos" class="section level3">
+<h3><span class="header-section-number">2.3.1</span> Sem considerar tratamentos</h3>
+<p>Somente uma análise exploratória geral</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="análise-de-sobrevivência.html#cb162-1"></a><span class="kw">library</span>(survival)</span>
+<span id="cb162-2"><a href="análise-de-sobrevivência.html#cb162-2"></a><span class="kw">library</span>(survminer)</span>
+<span id="cb162-3"><a href="análise-de-sobrevivência.html#cb162-3"></a>KM &lt;-<span class="st"> </span><span class="kw">survfit</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">type=</span><span class="st">&quot;kaplan-meier&quot;</span>)</span>
+<span id="cb162-4"><a href="análise-de-sobrevivência.html#cb162-4"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## Call: survfit(formula = Surv(tempo, status) ~ 1, type = &quot;kaplan-meier&quot;)
+## 
+##  time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##    10    144      44    0.694  0.0384       0.6231        0.774
+##    24    100      19    0.562  0.0413       0.4870        0.650
+##    48     81       5    0.528  0.0416       0.4522        0.616
+##    72     76      20    0.389  0.0406       0.3169        0.477
+##    96     56      10    0.319  0.0389       0.2517        0.405
+##   120     46       5    0.285  0.0376       0.2198        0.369
+##   144     41      11    0.208  0.0338       0.1515        0.286
+##   168     30      12    0.125  0.0276       0.0811        0.193</code></pre>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="análise-de-sobrevivência.html#cb164-1"></a><span class="kw">ggsurvplot</span>(</span>
+<span id="cb164-2"><a href="análise-de-sobrevivência.html#cb164-2"></a>  <span class="dt">fit =</span> <span class="kw">survfit</span>(<span class="kw">Surv</span>(tempo, status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>),<span class="dt">data=</span>dados, </span>
+<span id="cb164-3"><a href="análise-de-sobrevivência.html#cb164-3"></a>  <span class="dt">xlab =</span> <span class="st">&quot;Time (hours)&quot;</span>, </span>
+<span id="cb164-4"><a href="análise-de-sobrevivência.html#cb164-4"></a>  <span class="dt">ylab =</span> <span class="st">&quot;Overall survival probability&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-70-1.png" width="1152" /></p>
+</div>
+<div id="tempo-médio-de-sobrevivência" class="section level3">
+<h3><span class="header-section-number">2.3.2</span> Tempo médio de sobrevivência</h3>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="análise-de-sobrevivência.html#cb165-1"></a>a=survival<span class="op">:::</span><span class="kw">survmean</span>(KM, <span class="dt">rmean=</span><span class="dv">48</span>)</span>
+<span id="cb165-2"><a href="análise-de-sobrevivência.html#cb165-2"></a>a<span class="op">$</span>matrix[<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##   *rmean 
+## 33.22222</code></pre>
+<p><br><br></p>
+</div>
+<div id="considerando-tratamentos" class="section level3">
+<h3><span class="header-section-number">2.3.3</span> Considerando tratamentos</h3>
+</div>
+<div id="conferindo-diferenças-par-a-par" class="section level3">
+<h3><span class="header-section-number">2.3.4</span> Conferindo diferenças par a par</h3>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="análise-de-sobrevivência.html#cb167-1"></a>pvalor=<span class="kw">pairwise_survdiff</span>(<span class="kw">Surv</span>(tempo,status)<span class="op">~</span>trat,<span class="dt">data=</span>dados, <span class="dt">rho=</span><span class="dv">0</span>)</span>
+<span id="cb167-2"><a href="análise-de-sobrevivência.html#cb167-2"></a>knitr<span class="op">::</span><span class="kw">kable</span>(pvalor<span class="op">$</span>p.value)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="right">T1</th>
+<th align="right">T2</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>T2</td>
+<td align="right">0.0003111</td>
+<td align="right"></td>
+</tr>
+<tr class="even">
+<td>T3</td>
+<td align="right">0.0000000</td>
+<td align="right">0.0006521</td>
+</tr>
+</tbody>
+</table>
+<p>Todos diferem entre si</p>
+</div>
+<div id="grafico-por-tratamento-usando-o-método-de-kaplan-meier" class="section level3">
+<h3><span class="header-section-number">2.3.5</span> Grafico por tratamento usando o método de Kaplan-Meier</h3>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="análise-de-sobrevivência.html#cb168-1"></a>KM1 &lt;-<span class="st"> </span><span class="kw">survfit</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">type=</span><span class="st">&quot;kaplan-meier&quot;</span>)</span>
+<span id="cb168-2"><a href="análise-de-sobrevivência.html#cb168-2"></a><span class="kw">ggsurvplot</span>(</span>
+<span id="cb168-3"><a href="análise-de-sobrevivência.html#cb168-3"></a>  <span class="dt">fit =</span> <span class="kw">survfit</span>(<span class="kw">Surv</span>(tempo, status) <span class="op">~</span><span class="st"> </span>trat),<span class="dt">data=</span>dados, </span>
+<span id="cb168-4"><a href="análise-de-sobrevivência.html#cb168-4"></a>  <span class="dt">xlab =</span> <span class="st">&quot;Time (hours)&quot;</span>, </span>
+<span id="cb168-5"><a href="análise-de-sobrevivência.html#cb168-5"></a>  <span class="dt">ylab =</span> <span class="st">&quot;Overall survival probability&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-73-1.png" width="1152" /></p>
+</div>
+<div id="tempo-médio-de-sobrevivência-1" class="section level3">
+<h3><span class="header-section-number">2.3.6</span> Tempo médio de sobrevivência</h3>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="análise-de-sobrevivência.html#cb169-1"></a>survival<span class="op">:::</span><span class="kw">survmean</span>(KM1, <span class="dt">rmean=</span><span class="dv">48</span>)<span class="op">$</span>matrix[,<span class="dv">5</span>]</span></code></pre></div>
+<pre><code>##  trat=T1  trat=T2  trat=T3 
+## 27.37500 32.12500 40.16667</code></pre>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="modelo-paramétrico" class="section level2">
+<h2><span class="header-section-number">2.4</span> Modelo paramétrico</h2>
+<hr />
+<p><br><br></p>
+<hr />
+<div id="distribuição-exponencial" class="section level3">
+<h3><span class="header-section-number">2.4.1</span> Distribuição exponencial</h3>
+<hr />
+<p><br><br></p>
+</div>
+<div id="sem-considerar-tratamentos-1" class="section level3">
+<h3><span class="header-section-number">2.4.2</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="análise-de-sobrevivência.html#cb171-1"></a>KM &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;exponential&quot;</span>)</span>
+<span id="cb171-2"><a href="análise-de-sobrevivência.html#cb171-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;exponential&quot;)
+##              Value Std. Error    z      p
+## (Intercept) 4.4473     0.0891 49.9 &lt;2e-16
+## 
+## Scale fixed at 1 
+## 
+## Exponential distribution
+## Loglik(model)= -686.4   Loglik(intercept only)= -686.4
+## Number of Newton-Raphson Iterations: 4 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="análise-de-sobrevivência.html#cb173-1"></a>s &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">01</span>, <span class="fl">.99</span>, <span class="dt">by =</span> <span class="fl">.01</span>)</span>
+<span id="cb173-2"><a href="análise-de-sobrevivência.html#cb173-2"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat=</span><span class="kw">paste</span>(<span class="st">&quot;T1&quot;</span>,<span class="st">&quot;T2&quot;</span>,<span class="st">&quot;T3&quot;</span>)), </span>
+<span id="cb173-3"><a href="análise-de-sobrevivência.html#cb173-3"></a>                 <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb173-4"><a href="análise-de-sobrevivência.html#cb173-4"></a>smod &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">time =</span> <span class="kw">c</span>(t_<span class="dv">0</span>), <span class="co"># acrescentar os tratamentos </span></span>
+<span id="cb173-5"><a href="análise-de-sobrevivência.html#cb173-5"></a>                   <span class="dt">surv =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>s, <span class="dt">times =</span> <span class="dv">1</span>), <span class="co"># mudar o times</span></span>
+<span id="cb173-6"><a href="análise-de-sobrevivência.html#cb173-6"></a>                   <span class="dt">upper =</span> <span class="ot">NA</span>, <span class="dt">lower =</span> <span class="ot">NA</span>)</span>
+<span id="cb173-7"><a href="análise-de-sobrevivência.html#cb173-7"></a><span class="kw">ggsurvplot</span>(smod)  </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-75-1.png" width="1152" /></p>
+</div>
+<div id="considerando-tratamentos-1" class="section level3">
+<h3><span class="header-section-number">2.4.3</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="análise-de-sobrevivência.html#cb174-1"></a><span class="kw">library</span>(survival)</span>
+<span id="cb174-2"><a href="análise-de-sobrevivência.html#cb174-2"></a><span class="kw">library</span>(survminer)</span>
+<span id="cb174-3"><a href="análise-de-sobrevivência.html#cb174-3"></a>KM2 &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">dist=</span><span class="st">&quot;exponential&quot;</span>)</span>
+<span id="cb174-4"><a href="análise-de-sobrevivência.html#cb174-4"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;exponential&quot;)
+##              Value Std. Error    z      p
+## (Intercept) 4.4473     0.0891 49.9 &lt;2e-16
+## 
+## Scale fixed at 1 
+## 
+## Exponential distribution
+## Loglik(model)= -686.4   Loglik(intercept only)= -686.4
+## Number of Newton-Raphson Iterations: 4 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="análise-de-sobrevivência.html#cb176-1"></a><span class="kw">anova</span>(KM2)</span></code></pre></div>
+<pre><code>##      Df Deviance Resid. Df    -2*LL     Pr(&gt;Chi)
+## NULL NA       NA       143 1372.722           NA
+## trat  2 44.24522       141 1328.477 2.467593e-10</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="análise-de-sobrevivência.html#cb178-1"></a>s &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">01</span>, <span class="fl">.99</span>, <span class="dt">by =</span> <span class="fl">.01</span>)</span>
+<span id="cb178-2"><a href="análise-de-sobrevivência.html#cb178-2"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM2, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T1&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb178-3"><a href="análise-de-sobrevivência.html#cb178-3"></a>t_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM2, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T2&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb178-4"><a href="análise-de-sobrevivência.html#cb178-4"></a>t_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM2, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T3&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb178-5"><a href="análise-de-sobrevivência.html#cb178-5"></a>smod &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">time =</span> <span class="kw">c</span>(t_<span class="dv">0</span>, t_<span class="dv">1</span>, t_<span class="dv">2</span>), <span class="co"># acrescentar os tratamentos </span></span>
+<span id="cb178-6"><a href="análise-de-sobrevivência.html#cb178-6"></a>                   <span class="dt">surv =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>s, <span class="dt">times =</span> <span class="dv">3</span>), <span class="co"># mudar o times</span></span>
+<span id="cb178-7"><a href="análise-de-sobrevivência.html#cb178-7"></a>                   <span class="dt">strata =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>), <span class="dt">each =</span> <span class="kw">length</span>(s)),</span>
+<span id="cb178-8"><a href="análise-de-sobrevivência.html#cb178-8"></a>                   <span class="dt">upper =</span> <span class="ot">NA</span>, <span class="dt">lower =</span> <span class="ot">NA</span>)</span>
+<span id="cb178-9"><a href="análise-de-sobrevivência.html#cb178-9"></a><span class="kw">ggsurvplot</span>(smod)  </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-76-1.png" width="1152" /></p>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="distribuição-gaussiano" class="section level2">
+<h2><span class="header-section-number">2.5</span> Distribuição gaussiano</h2>
+<hr />
+<div id="sem-considerar-tratamentos-2" class="section level3">
+<h3><span class="header-section-number">2.5.1</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="análise-de-sobrevivência.html#cb179-1"></a>KM &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb179-2"><a href="análise-de-sobrevivência.html#cb179-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;gaussian&quot;)
+##               Value Std. Error    z      p
+## (Intercept) 78.8982     5.9303 13.3 &lt;2e-16
+## Log(scale)   4.2519     0.0652 65.2 &lt;2e-16
+## 
+## Scale= 70.2 
+## 
+## Gaussian distribution
+## Loglik(model)= -735.6   Loglik(intercept only)= -735.6
+## Number of Newton-Raphson Iterations: 5 
+## n= 144</code></pre>
+</div>
+<div id="considerando-tratamentos-2" class="section level3">
+<h3><span class="header-section-number">2.5.2</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="análise-de-sobrevivência.html#cb181-1"></a>KM3 &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">dist=</span><span class="st">&quot;gaussian&quot;</span>)</span>
+<span id="cb181-2"><a href="análise-de-sobrevivência.html#cb181-2"></a><span class="kw">summary</span>(KM3)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ trat, dist = &quot;gaussian&quot;)
+##               Value Std. Error     z       p
+## (Intercept) 36.3750     8.5829  4.24 2.3e-05
+## tratT2      37.3906    12.1867  3.07  0.0022
+## tratT3      89.7879    12.3737  7.26 4.0e-13
+## Log(scale)   4.0854     0.0649 62.96 &lt; 2e-16
+## 
+## Scale= 59.5 
+## 
+## Gaussian distribution
+## Loglik(model)= -712.5   Loglik(intercept only)= -735.6
+##  Chisq= 46.23 on 2 degrees of freedom, p= 9.2e-11 
+## Number of Newton-Raphson Iterations: 4 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="análise-de-sobrevivência.html#cb183-1"></a><span class="kw">anova</span>(KM3)</span></code></pre></div>
+<pre><code>##      Df Deviance Resid. Df    -2*LL     Pr(&gt;Chi)
+## NULL NA       NA       142 1471.295           NA
+## trat  2 46.22645       140 1425.069 9.163355e-11</code></pre>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="análise-de-sobrevivência.html#cb185-1"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM3, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T1&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;lp&quot;</span>)</span>
+<span id="cb185-2"><a href="análise-de-sobrevivência.html#cb185-2"></a>t_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM3, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T2&quot;</span>),<span class="dt">type =</span> <span class="st">&quot;lp&quot;</span>)</span>
+<span id="cb185-3"><a href="análise-de-sobrevivência.html#cb185-3"></a>t_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM3, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T3&quot;</span>),<span class="dt">type =</span> <span class="st">&quot;lp&quot;</span>)</span>
+<span id="cb185-4"><a href="análise-de-sobrevivência.html#cb185-4"></a>x_grid &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">400</span></span>
+<span id="cb185-5"><a href="análise-de-sobrevivência.html#cb185-5"></a>sur_curves &lt;-<span class="st"> </span><span class="kw">sapply</span>(t_<span class="dv">0</span>, <span class="cf">function</span>(x)survreg.distributions[[KM3<span class="op">$</span>dist]]<span class="op">$</span><span class="kw">density</span>((x <span class="op">-</span><span class="st"> </span>x_grid)<span class="op">/</span>KM3<span class="op">$</span>scale)[, <span class="dv">1</span>])</span>
+<span id="cb185-6"><a href="análise-de-sobrevivência.html#cb185-6"></a>sur_curves1 &lt;-<span class="st"> </span><span class="kw">sapply</span>(t_<span class="dv">1</span>, <span class="cf">function</span>(x)survreg.distributions[[KM3<span class="op">$</span>dist]]<span class="op">$</span><span class="kw">density</span>((x <span class="op">-</span><span class="st"> </span>x_grid)<span class="op">/</span>KM3<span class="op">$</span>scale)[, <span class="dv">1</span>])</span>
+<span id="cb185-7"><a href="análise-de-sobrevivência.html#cb185-7"></a>sur_curves2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(t_<span class="dv">2</span>, <span class="cf">function</span>(x)survreg.distributions[[KM3<span class="op">$</span>dist]]<span class="op">$</span><span class="kw">density</span>((x <span class="op">-</span><span class="st"> </span>x_grid)<span class="op">/</span>KM3<span class="op">$</span>scale)[, <span class="dv">1</span>])</span>
+<span id="cb185-8"><a href="análise-de-sobrevivência.html#cb185-8"></a><span class="kw">matplot</span>(x_grid, sur_curves, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">lty =</span> <span class="dv">1</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb185-9"><a href="análise-de-sobrevivência.html#cb185-9"></a><span class="kw">lines</span>(x_grid,sur_curves1,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb185-10"><a href="análise-de-sobrevivência.html#cb185-10"></a><span class="kw">lines</span>(x_grid,sur_curves2,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-78-1.png" width="1152" /></p>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="distribuição-logistico" class="section level2">
+<h2><span class="header-section-number">2.6</span> Distribuição logistico</h2>
+<hr />
+<div id="sem-considerar-tratamentos-3" class="section level3">
+<h3><span class="header-section-number">2.6.1</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="análise-de-sobrevivência.html#cb186-1"></a>KM &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;logistic&quot;</span>)</span>
+<span id="cb186-2"><a href="análise-de-sobrevivência.html#cb186-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;logistic&quot;)
+##               Value Std. Error    z      p
+## (Intercept) 72.5020     6.3768 11.4 &lt;2e-16
+## Log(scale)   3.7594     0.0722 52.0 &lt;2e-16
+## 
+## Scale= 42.9 
+## 
+## Logistic distribution
+## Loglik(model)= -739.5   Loglik(intercept only)= -739.5
+## Number of Newton-Raphson Iterations: 5 
+## n= 144</code></pre>
+</div>
+<div id="considerando-tratamentos-3" class="section level3">
+<h3><span class="header-section-number">2.6.2</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="análise-de-sobrevivência.html#cb188-1"></a>KM4 &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">dist=</span><span class="st">&quot;logistic&quot;</span>)</span>
+<span id="cb188-2"><a href="análise-de-sobrevivência.html#cb188-2"></a><span class="kw">summary</span>(KM4)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ trat, dist = &quot;logistic&quot;)
+##               Value Std. Error     z       p
+## (Intercept) 35.4968     7.7296  4.59 4.4e-06
+## tratT2      31.3587    12.2695  2.56   0.011
+## tratT3      98.9211    12.4589  7.94 2.0e-15
+## Log(scale)   3.5544     0.0737 48.20 &lt; 2e-16
+## 
+## Scale= 35 
+## 
+## Logistic distribution
+## Loglik(model)= -714.3   Loglik(intercept only)= -739.5
+##  Chisq= 50.45 on 2 degrees of freedom, p= 1.1e-11 
+## Number of Newton-Raphson Iterations: 4 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="análise-de-sobrevivência.html#cb190-1"></a><span class="kw">anova</span>(KM4)</span></code></pre></div>
+<pre><code>##      Df Deviance Resid. Df    -2*LL     Pr(&gt;Chi)
+## NULL NA       NA       142 1479.091           NA
+## trat  2 50.45218       140 1428.639 1.107765e-11</code></pre>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="análise-de-sobrevivência.html#cb192-1"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM4, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T1&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;lp&quot;</span>)</span>
+<span id="cb192-2"><a href="análise-de-sobrevivência.html#cb192-2"></a>t_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM4, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T2&quot;</span>),<span class="dt">type =</span> <span class="st">&quot;lp&quot;</span>)</span>
+<span id="cb192-3"><a href="análise-de-sobrevivência.html#cb192-3"></a>t_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM4, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T3&quot;</span>),<span class="dt">type =</span> <span class="st">&quot;lp&quot;</span>)</span>
+<span id="cb192-4"><a href="análise-de-sobrevivência.html#cb192-4"></a>x_grid &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">400</span></span>
+<span id="cb192-5"><a href="análise-de-sobrevivência.html#cb192-5"></a>sur_curves &lt;-<span class="st"> </span><span class="kw">sapply</span>(t_<span class="dv">0</span>, <span class="cf">function</span>(x)survreg.distributions[[KM4<span class="op">$</span>dist]]<span class="op">$</span><span class="kw">density</span>((x <span class="op">-</span><span class="st"> </span>x_grid)<span class="op">/</span>KM4<span class="op">$</span>scale)[, <span class="dv">1</span>])</span>
+<span id="cb192-6"><a href="análise-de-sobrevivência.html#cb192-6"></a>sur_curves1 &lt;-<span class="st"> </span><span class="kw">sapply</span>(t_<span class="dv">1</span>, <span class="cf">function</span>(x)survreg.distributions[[KM4<span class="op">$</span>dist]]<span class="op">$</span><span class="kw">density</span>((x <span class="op">-</span><span class="st"> </span>x_grid)<span class="op">/</span>KM4<span class="op">$</span>scale)[, <span class="dv">1</span>])</span>
+<span id="cb192-7"><a href="análise-de-sobrevivência.html#cb192-7"></a>sur_curves2 &lt;-<span class="st"> </span><span class="kw">sapply</span>(t_<span class="dv">2</span>, <span class="cf">function</span>(x)survreg.distributions[[KM4<span class="op">$</span>dist]]<span class="op">$</span><span class="kw">density</span>((x <span class="op">-</span><span class="st"> </span>x_grid)<span class="op">/</span>KM4<span class="op">$</span>scale)[, <span class="dv">1</span>])</span>
+<span id="cb192-8"><a href="análise-de-sobrevivência.html#cb192-8"></a><span class="kw">matplot</span>(x_grid, sur_curves, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">lty =</span> <span class="dv">1</span>,<span class="dt">ylim=</span><span class="kw">c</span>(<span class="dv">0</span>,<span class="dv">1</span>))</span>
+<span id="cb192-9"><a href="análise-de-sobrevivência.html#cb192-9"></a><span class="kw">lines</span>(x_grid,sur_curves1,<span class="dt">col=</span><span class="st">&quot;red&quot;</span>)</span>
+<span id="cb192-10"><a href="análise-de-sobrevivência.html#cb192-10"></a><span class="kw">lines</span>(x_grid,sur_curves2,<span class="dt">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-80-1.png" width="1152" /></p>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="distribuição-log-normal" class="section level2">
+<h2><span class="header-section-number">2.7</span> Distribuição Log normal</h2>
+<hr />
+<div id="sem-considerar-tratamentos-4" class="section level3">
+<h3><span class="header-section-number">2.7.1</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="análise-de-sobrevivência.html#cb193-1"></a>KM &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb193-2"><a href="análise-de-sobrevivência.html#cb193-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;lognormal&quot;)
+##              Value Std. Error     z       p
+## (Intercept) 3.8658     0.1080 35.80 &lt; 2e-16
+## Log(scale)  0.2438     0.0648  3.76 0.00017
+## 
+## Scale= 1.28 
+## 
+## Log Normal distribution
+## Loglik(model)= -681.1   Loglik(intercept only)= -681.1
+## Number of Newton-Raphson Iterations: 5 
+## n= 144</code></pre>
+</div>
+<div id="considerando-tratamentos-4" class="section level3">
+<h3><span class="header-section-number">2.7.2</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="análise-de-sobrevivência.html#cb195-1"></a>KM5 &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">dist=</span><span class="st">&quot;lognormal&quot;</span>)</span>
+<span id="cb195-2"><a href="análise-de-sobrevivência.html#cb195-2"></a><span class="kw">summary</span>(KM5)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ trat, dist = &quot;lognormal&quot;)
+##              Value Std. Error     z      p
+## (Intercept) 3.2165     0.1655 19.43 &lt;2e-16
+## tratT2      0.5650     0.2352  2.40  0.016
+## tratT3      1.3925     0.2394  5.82  6e-09
+## Log(scale)  0.1369     0.0644  2.12  0.034
+## 
+## Scale= 1.15 
+## 
+## Log Normal distribution
+## Loglik(model)= -665.4   Loglik(intercept only)= -681.1
+##  Chisq= 31.54 on 2 degrees of freedom, p= 1.4e-07 
+## Number of Newton-Raphson Iterations: 4 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="análise-de-sobrevivência.html#cb197-1"></a><span class="kw">anova</span>(KM5)</span></code></pre></div>
+<pre><code>##      Df Deviance Resid. Df    -2*LL     Pr(&gt;Chi)
+## NULL NA       NA       142 1362.288           NA
+## trat  2 31.54326       140 1330.744 1.414059e-07</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="análise-de-sobrevivência.html#cb199-1"></a>s &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">01</span>, <span class="fl">.99</span>, <span class="dt">by =</span> <span class="fl">.01</span>)</span>
+<span id="cb199-2"><a href="análise-de-sobrevivência.html#cb199-2"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM5, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T1&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb199-3"><a href="análise-de-sobrevivência.html#cb199-3"></a>t_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM5, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T2&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb199-4"><a href="análise-de-sobrevivência.html#cb199-4"></a>t_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM5, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T3&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb199-5"><a href="análise-de-sobrevivência.html#cb199-5"></a>smod &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">time =</span> <span class="kw">c</span>(t_<span class="dv">0</span>, t_<span class="dv">1</span>, t_<span class="dv">2</span>), <span class="co"># acrescentar os tratamentos </span></span>
+<span id="cb199-6"><a href="análise-de-sobrevivência.html#cb199-6"></a>                   <span class="dt">surv =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>s, <span class="dt">times =</span> <span class="dv">3</span>), <span class="co"># mudar o times</span></span>
+<span id="cb199-7"><a href="análise-de-sobrevivência.html#cb199-7"></a>                   <span class="dt">strata =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>), <span class="dt">each =</span> <span class="kw">length</span>(s)),</span>
+<span id="cb199-8"><a href="análise-de-sobrevivência.html#cb199-8"></a>                   <span class="dt">upper =</span> <span class="ot">NA</span>, <span class="dt">lower =</span> <span class="ot">NA</span>)</span>
+<span id="cb199-9"><a href="análise-de-sobrevivência.html#cb199-9"></a><span class="kw">ggsurvplot</span>(smod)  </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-82-1.png" width="1152" /></p>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="distribuição-log-logístico" class="section level2">
+<h2><span class="header-section-number">2.8</span> Distribuição Log-Logístico</h2>
+<hr />
+<div id="sem-considerar-tratamentos-5" class="section level3">
+<h3><span class="header-section-number">2.8.1</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="análise-de-sobrevivência.html#cb200-1"></a>KM &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;loglogistic&quot;</span>)</span>
+<span id="cb200-2"><a href="análise-de-sobrevivência.html#cb200-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;loglogistic&quot;)
+##               Value Std. Error     z      p
+## (Intercept)  3.8717     0.1192 32.49 &lt;2e-16
+## Log(scale)  -0.2265     0.0711 -3.19 0.0014
+## 
+## Scale= 0.797 
+## 
+## Log logistic distribution
+## Loglik(model)= -687   Loglik(intercept only)= -687
+## Number of Newton-Raphson Iterations: 5 
+## n= 144</code></pre>
+</div>
+<div id="considerando-tratamentos-5" class="section level3">
+<h3><span class="header-section-number">2.8.2</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="análise-de-sobrevivência.html#cb202-1"></a>KM6 &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">dist=</span><span class="st">&quot;loglogistic&quot;</span>)</span>
+<span id="cb202-2"><a href="análise-de-sobrevivência.html#cb202-2"></a><span class="kw">summary</span>(KM6)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ trat, dist = &quot;loglogistic&quot;)
+##               Value Std. Error     z       p
+## (Intercept)  3.1947     0.1689 18.92 &lt; 2e-16
+## tratT2       0.5839     0.2530  2.31   0.021
+## tratT3       1.5687     0.2441  6.43 1.3e-10
+## Log(scale)  -0.3709     0.0725 -5.11 3.2e-07
+## 
+## Scale= 0.69 
+## 
+## Log logistic distribution
+## Loglik(model)= -669.2   Loglik(intercept only)= -687
+##  Chisq= 35.64 on 2 degrees of freedom, p= 1.8e-08 
+## Number of Newton-Raphson Iterations: 4 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="análise-de-sobrevivência.html#cb204-1"></a><span class="kw">anova</span>(KM6)</span></code></pre></div>
+<pre><code>##      Df Deviance Resid. Df    -2*LL     Pr(&gt;Chi)
+## NULL NA       NA       142 1373.973           NA
+## trat  2 35.64462       140 1338.328 1.819156e-08</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="análise-de-sobrevivência.html#cb206-1"></a>s &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">01</span>, <span class="fl">.99</span>, <span class="dt">by =</span> <span class="fl">.01</span>)</span>
+<span id="cb206-2"><a href="análise-de-sobrevivência.html#cb206-2"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM6, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T1&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb206-3"><a href="análise-de-sobrevivência.html#cb206-3"></a>t_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM6, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T2&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb206-4"><a href="análise-de-sobrevivência.html#cb206-4"></a>t_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM6, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T3&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb206-5"><a href="análise-de-sobrevivência.html#cb206-5"></a>smod &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">time =</span> <span class="kw">c</span>(t_<span class="dv">0</span>, t_<span class="dv">1</span>, t_<span class="dv">2</span>), <span class="co"># acrescentar os tratamentos </span></span>
+<span id="cb206-6"><a href="análise-de-sobrevivência.html#cb206-6"></a>                   <span class="dt">surv =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>s, <span class="dt">times =</span> <span class="dv">3</span>), <span class="co"># mudar o times</span></span>
+<span id="cb206-7"><a href="análise-de-sobrevivência.html#cb206-7"></a>                   <span class="dt">strata =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>), <span class="dt">each =</span> <span class="kw">length</span>(s)),</span>
+<span id="cb206-8"><a href="análise-de-sobrevivência.html#cb206-8"></a>                   <span class="dt">upper =</span> <span class="ot">NA</span>, <span class="dt">lower =</span> <span class="ot">NA</span>)</span>
+<span id="cb206-9"><a href="análise-de-sobrevivência.html#cb206-9"></a><span class="kw">ggsurvplot</span>(smod)  </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-84-1.png" width="1152" /></p>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="distribuição-weibull-default" class="section level2">
+<h2><span class="header-section-number">2.9</span> Distribuição Weibull (default)</h2>
+<hr />
+<div id="sem-considerar-tratamentos-6" class="section level3">
+<h3><span class="header-section-number">2.9.1</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="análise-de-sobrevivência.html#cb207-1"></a>KM &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">dist=</span><span class="st">&quot;weibull&quot;</span>)</span>
+<span id="cb207-2"><a href="análise-de-sobrevivência.html#cb207-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ 1, dist = &quot;weibull&quot;)
+##              Value Std. Error     z      p
+## (Intercept) 4.4310     0.0969 45.72 &lt;2e-16
+## Log(scale)  0.0685     0.0740  0.93   0.35
+## 
+## Scale= 1.07 
+## 
+## Weibull distribution
+## Loglik(model)= -685.9   Loglik(intercept only)= -685.9
+## Number of Newton-Raphson Iterations: 6 
+## n= 144</code></pre>
+</div>
+<div id="considerando-tratamentos-6" class="section level3">
+<h3><span class="header-section-number">2.9.2</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="análise-de-sobrevivência.html#cb209-1"></a>KM7 &lt;-<span class="st"> </span><span class="kw">survreg</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span>trat, <span class="dt">dist=</span><span class="st">&quot;weibull&quot;</span>)</span>
+<span id="cb209-2"><a href="análise-de-sobrevivência.html#cb209-2"></a><span class="kw">summary</span>(KM7)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## survreg(formula = Surv(tempo, status) ~ trat, dist = &quot;weibull&quot;)
+##               Value Std. Error     z       p
+## (Intercept)  3.6259     0.1334 27.18 &lt; 2e-16
+## tratT2       0.7769     0.1906  4.08 4.6e-05
+## tratT3       1.4392     0.2043  7.05 1.8e-12
+## Log(scale)  -0.0969     0.0744 -1.30    0.19
+## 
+## Scale= 0.908 
+## 
+## Weibull distribution
+## Loglik(model)= -663.4   Loglik(intercept only)= -685.9
+##  Chisq= 45 on 2 degrees of freedom, p= 1.7e-10 
+## Number of Newton-Raphson Iterations: 5 
+## n= 144</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="análise-de-sobrevivência.html#cb211-1"></a><span class="kw">anova</span>(KM7)</span></code></pre></div>
+<pre><code>##      Df Deviance Resid. Df    -2*LL     Pr(&gt;Chi)
+## NULL NA       NA       142 1371.840           NA
+## trat  2 44.99626       140 1326.844 1.695061e-10</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="análise-de-sobrevivência.html#cb213-1"></a>s &lt;-<span class="st"> </span><span class="kw">seq</span>(.<span class="dv">01</span>, <span class="fl">.99</span>, <span class="dt">by =</span> <span class="fl">.01</span>)</span>
+<span id="cb213-2"><a href="análise-de-sobrevivência.html#cb213-2"></a>t_<span class="dv">0</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM7, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T1&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb213-3"><a href="análise-de-sobrevivência.html#cb213-3"></a>t_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM7, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T2&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb213-4"><a href="análise-de-sobrevivência.html#cb213-4"></a>t_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">predict</span>(KM7, <span class="dt">newdata =</span> <span class="kw">data.frame</span>(<span class="dt">trat =</span> <span class="st">&quot;T3&quot;</span>), <span class="dt">type =</span> <span class="st">&quot;quantile&quot;</span>, <span class="dt">p =</span> s)</span>
+<span id="cb213-5"><a href="análise-de-sobrevivência.html#cb213-5"></a>smod &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">time =</span> <span class="kw">c</span>(t_<span class="dv">0</span>, t_<span class="dv">1</span>, t_<span class="dv">2</span>), <span class="co"># acrescentar os tratamentos </span></span>
+<span id="cb213-6"><a href="análise-de-sobrevivência.html#cb213-6"></a>                   <span class="dt">surv =</span> <span class="kw">rep</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>s, <span class="dt">times =</span> <span class="dv">3</span>), <span class="co"># mudar o times</span></span>
+<span id="cb213-7"><a href="análise-de-sobrevivência.html#cb213-7"></a>                   <span class="dt">strata =</span> <span class="kw">rep</span>(<span class="kw">c</span>(<span class="st">&quot;T1&quot;</span>, <span class="st">&quot;T2&quot;</span>, <span class="st">&quot;T3&quot;</span>), <span class="dt">each =</span> <span class="kw">length</span>(s)),</span>
+<span id="cb213-8"><a href="análise-de-sobrevivência.html#cb213-8"></a>                   <span class="dt">upper =</span> <span class="ot">NA</span>, <span class="dt">lower =</span> <span class="ot">NA</span>)</span>
+<span id="cb213-9"><a href="análise-de-sobrevivência.html#cb213-9"></a><span class="kw">ggsurvplot</span>(smod)  </span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-86-1.png" width="1152" /></p>
+<p><br><br><br></p>
+<hr />
+</div>
+</div>
+<div id="gompertz" class="section level2">
+<h2><span class="header-section-number">2.10</span> Gompertz</h2>
+<hr />
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="análise-de-sobrevivência.html#cb214-1"></a><span class="kw">library</span>(flexsurv)</span>
+<span id="cb214-2"><a href="análise-de-sobrevivência.html#cb214-2"></a>KM9=<span class="kw">flexsurvreg</span>(<span class="kw">Surv</span>(tempo,status)<span class="op">~</span>trat,<span class="dt">dist=</span><span class="st">&quot;Gompertz&quot;</span>)</span>
+<span id="cb214-3"><a href="análise-de-sobrevivência.html#cb214-3"></a><span class="kw">summary</span>(KM9)</span></code></pre></div>
+<pre><code>## trat=T1 
+##   time         est          lcl        ucl
+## 1   10 0.786371074 0.7212962646 0.83908831
+## 2   24 0.549854904 0.4482283222 0.64390353
+## 3   48 0.279640531 0.1807022645 0.38649687
+## 4   72 0.130206542 0.0651080444 0.21562658
+## 5   96 0.054871360 0.0202896049 0.11486513
+## 6  120 0.020657887 0.0052607589 0.06006045
+## 7  144 0.006846406 0.0009263521 0.02993565
+## 8  168 0.001964497 0.0001036584 0.01487055
+## 
+## trat=T2 
+##   time        est        lcl       ucl
+## 1   10 0.91229451 0.86954207 0.9426026
+## 2   24 0.79577094 0.71039475 0.8602800
+## 3   48 0.61465240 0.49421029 0.7141952
+## 4   72 0.45902365 0.33360484 0.5723619
+## 5   96 0.32998531 0.21528090 0.4451140
+## 6  120 0.22722132 0.13196551 0.3322351
+## 7  144 0.14902446 0.07658857 0.2433732
+## 8  168 0.09250403 0.03832769 0.1778427
+## 
+## trat=T3 
+##   time       est       lcl       ucl
+## 1   10 0.9585577 0.9311399 0.9752523
+## 2   24 0.9000225 0.8398277 0.9381615
+## 3   48 0.7989822 0.7006581 0.8679044
+## 4   72 0.6983485 0.5749199 0.7885047
+## 5   96 0.5997606 0.4644740 0.7032079
+## 6  120 0.5049620 0.3664177 0.6181826
+## 7  144 0.4157087 0.2790884 0.5343401
+## 8  168 0.3336543 0.2089131 0.4537113</code></pre>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="análise-de-sobrevivência.html#cb216-1"></a><span class="kw">plot</span>(KM9,<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-87-1.png" width="672" /></p>
+<hr />
+</div>
+<div id="gamma" class="section level2">
+<h2><span class="header-section-number">2.11</span> Gamma</h2>
+<hr />
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="análise-de-sobrevivência.html#cb217-1"></a><span class="kw">library</span>(flexsurv)</span>
+<span id="cb217-2"><a href="análise-de-sobrevivência.html#cb217-2"></a>KM10=<span class="kw">flexsurvreg</span>(<span class="kw">Surv</span>(tempo,status)<span class="op">~</span>trat,<span class="dt">dist=</span><span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb217-3"><a href="análise-de-sobrevivência.html#cb217-3"></a><span class="kw">summary</span>(KM10)</span></code></pre></div>
+<pre><code>## trat=T1 
+##   time         est         lcl        ucl
+## 1   10 0.790201487 0.714410643 0.85755856
+## 2   24 0.537681788 0.435613457 0.63911386
+## 3   48 0.267748022 0.178419123 0.37173418
+## 4   72 0.130741530 0.067492304 0.21312123
+## 5   96 0.063206831 0.025670578 0.12249389
+## 6  120 0.030369861 0.009266242 0.07327475
+## 7  144 0.014531118 0.003397033 0.04191045
+## 8  168 0.006931519 0.001213200 0.02514045
+## 
+## trat=T2 
+##   time       est        lcl       ucl
+## 1   10 0.9055576 0.85651527 0.9447867
+## 2   24 0.7671054 0.68681241 0.8381987
+## 3   48 0.5650288 0.45865632 0.6608188
+## 4   72 0.4110387 0.29885144 0.5176431
+## 5   96 0.2969771 0.19129857 0.4058091
+## 6  120 0.2136179 0.12246631 0.3184044
+## 7  144 0.1531754 0.07715774 0.2522001
+## 8  168 0.1095770 0.04820476 0.1976562
+## 
+## trat=T3 
+##   time       est       lcl       ucl
+## 1   10 0.9552715 0.9223050 0.9756613
+## 2   24 0.8838874 0.8261307 0.9262294
+## 3   48 0.7645536 0.6834676 0.8336528
+## 4   72 0.6563859 0.5524634 0.7452897
+## 5   96 0.5610497 0.4461918 0.6645120
+## 6  120 0.4781342 0.3540224 0.5901300
+## 7  144 0.4065841 0.2807833 0.5226068
+## 8  168 0.3451603 0.2217910 0.4650993</code></pre>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="análise-de-sobrevivência.html#cb219-1"></a><span class="kw">plot</span>(KM10,<span class="dt">col=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-88-1.png" width="672" /></p>
+<p><br><br></p>
+<hr />
+</div>
+<div id="método-semi-paramétrico-de-cox" class="section level2">
+<h2><span class="header-section-number">2.12</span> Método semi-paramétrico de Cox</h2>
+<hr />
+<p>Serve para um modelo de regressão de riscos proporcionais de Cox. Variáveis dependentes do tempo, estratos dependentes do tempo, vários eventos por assunto e outras extensões são incorporadas usando a formulação do processo de contagem de Andersen e Gill.</p>
+<p><strong>Reference</strong>: Andersen, P. and Gill, R. (1982). Cox’s regression model for counting processes, a large sample study. Annals of Statistics 10, 1100-1120.</p>
+<div id="sem-considerar-tratamentos-7" class="section level3">
+<h3><span class="header-section-number">2.12.1</span> Sem considerar tratamentos</h3>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="análise-de-sobrevivência.html#cb220-1"></a>KM &lt;-<span class="st"> </span><span class="kw">coxph</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb220-2"><a href="análise-de-sobrevivência.html#cb220-2"></a><span class="kw">summary</span>(KM)</span></code></pre></div>
+<pre><code>## Call:  coxph(formula = Surv(tempo, status) ~ 1)
+## 
+## Null model
+##   log likelihood= -538.6621 
+##   n= 144</code></pre>
+</div>
+<div id="considerando-tratamentos-7" class="section level3">
+<h3><span class="header-section-number">2.12.2</span> Considerando tratamentos</h3>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="análise-de-sobrevivência.html#cb222-1"></a>KM8 &lt;-<span class="st"> </span><span class="kw">coxph</span>(<span class="kw">Surv</span>(tempo,status) <span class="op">~</span><span class="st"> </span><span class="kw">strata</span>(trat),<span class="dt">data=</span>dados)</span>
+<span id="cb222-2"><a href="análise-de-sobrevivência.html#cb222-2"></a><span class="kw">summary</span>(KM8)</span></code></pre></div>
+<pre><code>## Call:  coxph(formula = Surv(tempo, status) ~ strata(trat), data = dados)
+## 
+## Null model
+##   log likelihood= -394.6821 
+##   n= 144</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="análise-de-sobrevivência.html#cb224-1"></a><span class="kw">library</span>(ggfortify)</span>
+<span id="cb224-2"><a href="análise-de-sobrevivência.html#cb224-2"></a><span class="kw">autoplot</span>(<span class="kw">survfit</span>(KM8),<span class="dt">conf.int =</span> F)<span class="op">+</span><span class="kw">theme_classic</span>()</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-90-1.png" width="1152" /></p>
+<p><br><br></p>
+<hr />
+</div>
+</div>
+<div id="modelo-de-riscos-proporcionais-de-cox" class="section level2">
+<h2><span class="header-section-number">2.13</span> Modelo de riscos proporcionais de COX</h2>
+<hr />
+<p><br><br></p>
+<p>Mostra as taxas de risco (HR) derivadas do modelo para todas as covariáveis incluídas na fórmula coxph. Resumidamente, uma FC&gt; 1 indica um risco aumentado de morte (de acordo com a definição de h(t)) se uma condição específica for atendida por um paciente. Uma FC &lt;1, por outro lado, indica uma diminuição do risco.</p>
+<p><br><br></p>
+<div id="considerando-trat" class="section level3">
+<h3><span class="header-section-number">2.13.1</span> Considerando trat</h3>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="análise-de-sobrevivência.html#cb225-1"></a><span class="kw">library</span>(forestmodel)</span>
+<span id="cb225-2"><a href="análise-de-sobrevivência.html#cb225-2"></a><span class="kw">colnames</span>(dados)=<span class="kw">c</span>(<span class="st">&quot;Treatments&quot;</span>,<span class="st">&quot;tempo&quot;</span>,<span class="st">&quot;status&quot;</span>)</span>
+<span id="cb225-3"><a href="análise-de-sobrevivência.html#cb225-3"></a>fit.coxph &lt;-<span class="st"> </span><span class="kw">coxph</span>(<span class="kw">Surv</span>(tempo, status) <span class="op">~</span><span class="st"> </span>Treatments, <span class="dt">data =</span> dados)</span>
+<span id="cb225-4"><a href="análise-de-sobrevivência.html#cb225-4"></a><span class="co">#ggforest(fit.coxph, data = dados)</span></span>
+<span id="cb225-5"><a href="análise-de-sobrevivência.html#cb225-5"></a><span class="kw">print</span>(<span class="kw">forest_model</span>(fit.coxph, <span class="dt">limits=</span><span class="kw">log</span>( <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="dv">5</span>))))</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-91-1.png" width="1152" /></p>
+</div>
+</div>
+<div id="critério-de-inferência-de-akaike" class="section level2">
+<h2><span class="header-section-number">2.14</span> Critério de inferência de Akaike</h2>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="análise-de-sobrevivência.html#cb226-1"></a><span class="kw">library</span>(car)</span>
+<span id="cb226-2"><a href="análise-de-sobrevivência.html#cb226-2"></a><span class="kw">AIC</span>(KM2) <span class="co"># exponencial</span></span></code></pre></div>
+<pre><code>## [1] 1334.477</code></pre>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="análise-de-sobrevivência.html#cb228-1"></a><span class="kw">AIC</span>(KM3) <span class="co"># normal</span></span></code></pre></div>
+<pre><code>## [1] 1433.069</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="análise-de-sobrevivência.html#cb230-1"></a><span class="kw">AIC</span>(KM4) <span class="co"># logistico</span></span></code></pre></div>
+<pre><code>## [1] 1436.639</code></pre>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="análise-de-sobrevivência.html#cb232-1"></a><span class="kw">AIC</span>(KM5) <span class="co"># lognormal</span></span></code></pre></div>
+<pre><code>## [1] 1338.744</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="análise-de-sobrevivência.html#cb234-1"></a><span class="kw">AIC</span>(KM6) <span class="co"># loglogistic</span></span></code></pre></div>
+<pre><code>## [1] 1346.328</code></pre>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="análise-de-sobrevivência.html#cb236-1"></a><span class="kw">AIC</span>(KM7) <span class="co"># weibull</span></span></code></pre></div>
+<pre><code>## [1] 1334.844</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="análise-de-sobrevivência.html#cb238-1"></a><span class="kw">AIC</span>(KM8) <span class="co"># coxph</span></span></code></pre></div>
+<pre><code>## [1] 789.3642</code></pre>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="análise-de-sobrevivência.html#cb240-1"></a><span class="kw">AIC</span>(KM9) <span class="co"># Gompertz</span></span></code></pre></div>
+<pre><code>## [1] 1331.275</code></pre>
+</div>
+<div id="resíduo" class="section level2">
+<h2><span class="header-section-number">2.15</span> Resíduo</h2>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="análise-de-sobrevivência.html#cb242-1"></a>residuo2 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM2, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-2"><a href="análise-de-sobrevivência.html#cb242-2"></a>g2=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo2)) <span class="op">+</span></span>
+<span id="cb242-3"><a href="análise-de-sobrevivência.html#cb242-3"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Exponential&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-4"><a href="análise-de-sobrevivência.html#cb242-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-5"><a href="análise-de-sobrevivência.html#cb242-5"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-6"><a href="análise-de-sobrevivência.html#cb242-6"></a>residuo3 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM3, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-7"><a href="análise-de-sobrevivência.html#cb242-7"></a>g3=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo3)) <span class="op">+</span></span>
+<span id="cb242-8"><a href="análise-de-sobrevivência.html#cb242-8"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Normal&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-9"><a href="análise-de-sobrevivência.html#cb242-9"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-10"><a href="análise-de-sobrevivência.html#cb242-10"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-11"><a href="análise-de-sobrevivência.html#cb242-11"></a>residuo4 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM4, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-12"><a href="análise-de-sobrevivência.html#cb242-12"></a>g4=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo4)) <span class="op">+</span></span>
+<span id="cb242-13"><a href="análise-de-sobrevivência.html#cb242-13"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;Logístico&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-14"><a href="análise-de-sobrevivência.html#cb242-14"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-15"><a href="análise-de-sobrevivência.html#cb242-15"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-16"><a href="análise-de-sobrevivência.html#cb242-16"></a>residuo5 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM5, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-17"><a href="análise-de-sobrevivência.html#cb242-17"></a>g5=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo5)) <span class="op">+</span></span>
+<span id="cb242-18"><a href="análise-de-sobrevivência.html#cb242-18"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;lognormal&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-19"><a href="análise-de-sobrevivência.html#cb242-19"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-20"><a href="análise-de-sobrevivência.html#cb242-20"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-21"><a href="análise-de-sobrevivência.html#cb242-21"></a>residuo6 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM6, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-22"><a href="análise-de-sobrevivência.html#cb242-22"></a>g6=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo6)) <span class="op">+</span></span>
+<span id="cb242-23"><a href="análise-de-sobrevivência.html#cb242-23"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;loglogistico&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-24"><a href="análise-de-sobrevivência.html#cb242-24"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-25"><a href="análise-de-sobrevivência.html#cb242-25"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-26"><a href="análise-de-sobrevivência.html#cb242-26"></a>residuo7 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM7, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-27"><a href="análise-de-sobrevivência.html#cb242-27"></a>g7=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo7)) <span class="op">+</span></span>
+<span id="cb242-28"><a href="análise-de-sobrevivência.html#cb242-28"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;weibull&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-29"><a href="análise-de-sobrevivência.html#cb242-29"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-30"><a href="análise-de-sobrevivência.html#cb242-30"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-31"><a href="análise-de-sobrevivência.html#cb242-31"></a>residuo8 &lt;-<span class="st"> </span><span class="kw">residuals</span>(KM8, <span class="dt">type =</span> <span class="st">&quot;deviance&quot;</span>)</span>
+<span id="cb242-32"><a href="análise-de-sobrevivência.html#cb242-32"></a>g8=<span class="kw">ggplot</span>(<span class="dt">data =</span> dados, <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> tempo, <span class="dt">y =</span> residuo8)) <span class="op">+</span></span>
+<span id="cb242-33"><a href="análise-de-sobrevivência.html#cb242-33"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span><span class="kw">labs</span>(<span class="dt">title=</span><span class="st">&quot;coxph&quot;</span>)<span class="op">+</span></span>
+<span id="cb242-34"><a href="análise-de-sobrevivência.html#cb242-34"></a><span class="st">    </span><span class="kw">geom_smooth</span>() <span class="op">+</span></span>
+<span id="cb242-35"><a href="análise-de-sobrevivência.html#cb242-35"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.key =</span> <span class="kw">element_blank</span>())</span>
+<span id="cb242-36"><a href="análise-de-sobrevivência.html#cb242-36"></a><span class="kw">library</span>(gridExtra)</span>
+<span id="cb242-37"><a href="análise-de-sobrevivência.html#cb242-37"></a><span class="kw">grid.arrange</span>(g2,g3,g4,g5,g6,g7,g8,<span class="dt">ncol=</span><span class="dv">4</span>)</span></code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-93-1.png" width="672" /></p>
+<p><br><br><br><br><br><br></p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modelo-linear-generalizado.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["livroagro.pdf", "livroagro.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
