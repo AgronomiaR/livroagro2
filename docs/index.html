@@ -24,7 +24,7 @@
 <meta name="author" content="Gabriel Danilo Shimizu" />
 
 
-<meta name="date" content="2020-05-13" />
+<meta name="date" content="2020-06-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -315,6 +315,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://agronomiar.github.io/livroagro1/" target="blank">Anterior</a></li>
+<li><a href="https://agronomiar.github.io/livroagro3/" target="blank">Próximo</a></li>
 
 </ul>
 
@@ -336,7 +337,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">Aplicações práticas do software R para Agronomia</h1>
 <p class="author"><em>Gabriel Danilo Shimizu</em></p>
-<p class="date"><em>2020-05-13</em></p>
+<p class="date"><em>2020-06-01</em></p>
 </div>
 <div id="análise-de-regressão-linear-e-não-linear" class="section level1">
 <h1><span class="header-section-number"> 1</span> Análise de regressão linear e não-linear</h1>
@@ -945,11 +946,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 
 ## Meaningful coefficients of the linear terms:
 ## (Intercept)            x         U1.x  
-##    15.94664      0.08803     -0.08524  
+##    19.83682      0.06684     -0.06582  
 ## 
 ## Estimated Break-Point(s):
 ## psi1.x  
-##  585.2</code></pre>
+##  751.4</code></pre>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="index.html#cb84-1"></a><span class="kw">summary</span>(modelo_pieciwise)</span></code></pre></div>
 <pre><code>## 
 ##  ***Regression Model with Segmented Relationship(s)***
@@ -958,19 +959,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## segmented.lm(obj = modelo_linear, seg.Z = ~x, psi = 1000)
 ## 
 ## Estimated Break-Point(s):
-##           Est. St.Err
-## psi1.x 585.22 24.498
+##            Est. St.Err
+## psi1.x 751.438 26.797
 ## 
 ## Meaningful coefficients of the linear terms:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 15.946644   1.251665   12.74   &lt;2e-16 ***
-## x            0.088028   0.004850   18.15   &lt;2e-16 ***
-## U1.x        -0.085239   0.004921  -17.32       NA    
+## (Intercept) 19.836818   1.106834   17.92   &lt;2e-16 ***
+## x            0.066839   0.002612   25.59   &lt;2e-16 ***
+## U1.x        -0.065819   0.002873  -22.91       NA    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 3.205 on 60 degrees of freedom
-## Multiple R-Squared: 0.9721,  Adjusted R-squared: 0.9707 
+## Residual standard error: 3.635 on 60 degrees of freedom
+## Multiple R-Squared: 0.9641,  Adjusted R-squared: 0.9623 
 ## 
 ## Convergence attained in 2 iter. (rel. change 0)</code></pre>
 </div>
@@ -988,19 +989,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## lm(formula = y1 ~ x11)
 ## 
 ## Residuals:
-##    Min     1Q Median     3Q    Max 
-## -6.414 -3.174 -0.520  2.435  9.139 
+##     Min      1Q  Median      3Q     Max 
+## -9.0327 -2.9998 -0.7374  2.1557  9.6988 
 ## 
 ## Coefficients:
 ##              Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept) 15.946644   1.854475   8.599 1.74e-08 ***
-## x11          0.088028   0.007186  12.250 2.67e-11 ***
+## (Intercept) 19.836818   1.532481   12.94 8.22e-14 ***
+## x11          0.066839   0.003617   18.48  &lt; 2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 4.749 on 22 degrees of freedom
-## Multiple R-squared:  0.8721, Adjusted R-squared:  0.8663 
-## F-statistic: 150.1 on 1 and 22 DF,  p-value: 2.673e-11</code></pre>
+## Residual standard error: 5.033 on 30 degrees of freedom
+## Multiple R-squared:  0.9193, Adjusted R-squared:  0.9166 
+## F-statistic: 341.6 on 1 and 30 DF,  p-value: &lt; 2.2e-16</code></pre>
 </div>
 <div id="construindo-gráfico-4" class="section level3">
 <h3><span class="header-section-number">1.8.5</span> Construindo gráfico</h3>
@@ -1817,9 +1818,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </tr>
 <tr class="odd">
 <td>Segmentada Linear</td>
-<td align="right">336.5958</td>
-<td align="right">347.3902</td>
-<td align="right">0.9720705</td>
+<td align="right">352.6998</td>
+<td align="right">363.4943</td>
+<td align="right">0.9640795</td>
 </tr>
 <tr class="even">
 <td>Segmentada Quadrática</td>

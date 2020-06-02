@@ -9,4 +9,5 @@ bookdown::gitbook:
         <br>
       after: |
         <li><a href="https://agronomiar.github.io/livroagro1/" target="blank">Anterior</a></li>
+        <li><a href="https://agronomiar.github.io/livroagro3/" target="blank">Próximo</a></li>
     download: ["pdf", "epub"]
