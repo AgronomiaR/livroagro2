@@ -1,7 +1,7 @@
 --- 
 title: "Aplicações práticas do software R para Agronomia"
 author: "Gabriel Danilo Shimizu"
-date: "2020-06-01"
+date: "2020-11-22"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -1405,43 +1405,21 @@ $$\hat{Y}=\frac{i\times x}{1+\frac{i\times x}{A}}$$
 
 
 ```r
-#library(devtools)
-#install_github("OnofriAndreaPG/aomisc")
-par(family="serif")
-library(aomisc)
-model2 <- drm(y ~ x, fct = DRC.YL(), data = data)
-summary(model2)
+# library(devtools)
+# install_github("OnofriAndreaPG/aomisc")
+# par(family="serif")
+# library(aomisc)
+# model2 <- drm(y ~ x, fct = DRC.YL(), data = data)
+# summary(model2)
+# plot(model2,main="Yield Loss",
+#      las=1, cex=1.3,
+#      ylab="Weight loss (%)", 
+#      xlab="Time (Minutes)", 
+#      pch=16,lty=2)
+# legend("topleft",
+#        legend=expression(hat(YL)==frac(0.376483*x,
+#                                        1+frac(0.376483*x,81.021705))), bty="n")
 ```
-
-```
-## 
-## Model fitted: Yield-Loss function (Cousens, 1985) (2 parms)
-## 
-## Parameter estimates:
-## 
-##                Estimate Std. Error t-value   p-value    
-## i:(Intercept)  0.376483   0.016637  22.629 < 2.2e-16 ***
-## A:(Intercept) 81.021404   0.996137  81.336 < 2.2e-16 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## Residual standard error:
-## 
-##  3.337955 (62 degrees of freedom)
-```
-
-```r
-plot(model2,main="Yield Loss",
-     las=1, cex=1.3,
-     ylab="Weight loss (%)", 
-     xlab="Time (Minutes)", 
-     pch=16,lty=2)
-legend("topleft",
-       legend=expression(hat(YL)==frac(0.376483*x,
-                                       1+frac(0.376483*x,81.021705))), bty="n")
-```
-
-<img src="index_files/figure-html/unnamed-chunk-53-1.png" width="672" />
 
 <br><br><br>
 
@@ -1837,34 +1815,35 @@ modelexp=lm(log(y)~x);summary(modelexp)
 ```r
 alpha=exp(modelexp$coefficients[1])
 beta=modelexp$coefficients[2]
-model11=nls(y~A*exp(x*B),start=list(A=alpha,B=beta))
+model11=nls(y~A*exp(x*B)+C,start=list(A=alpha,B=beta,C=1000))
 summary(model11)
 ```
 
 ```
 ## 
-## Formula: y ~ A * exp(x * B)
+## Formula: y ~ A * exp(x * B) + C
 ## 
 ## Parameters:
-##    Estimate Std. Error t value Pr(>|t|)    
-## A 4.237e+01  2.255e+00  18.790  < 2e-16 ***
-## B 2.762e-04  3.386e-05   8.156 2.12e-11 ***
+##     Estimate Std. Error t value Pr(>|t|)    
+## A -6.366e+01  1.276e+00  -49.91   <2e-16 ***
+## B -2.874e-03  1.302e-04  -22.07   <2e-16 ***
+## C  7.232e+01  5.606e-01  129.00   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 12.77 on 62 degrees of freedom
+## Residual standard error: 2.63 on 61 degrees of freedom
 ## 
-## Number of iterations to convergence: 6 
-## Achieved convergence tolerance: 5.434e-06
+## Number of iterations to convergence: 8 
+## Achieved convergence tolerance: 4.135e-06
 ```
 
 ```r
-plot(y~x)
-lines(seq(min(x), max(x), length.out = 100), 
-      predict(model11, newdata = data.frame(x = seq(min(x), 
-                                                     max(x), 
-                                                     length.out = 100))),
-      col="red",lwd=2,lty=2)
+plot(media~tempo, log="y",
+     las=1, cex=1.3, 
+     ylab="Weight loss (%)", 
+     xlab="Time (Minutes)", 
+     pch=16)
+curve(coef(model11)[1]*exp(x*coef(model11)[2])+coef(model11)[3],add = T)
 ```
 
 <img src="index_files/figure-html/unnamed-chunk-62-1.png" width="672" />
@@ -1962,7 +1941,7 @@ r2=c(1-var(residuals(modl))/var(residuals(lm(y~1))),
 1-var(residuals(modelo2))/var(residuals(lm(y~1))),
 1-var(residuals(model))/var(residuals(lm(y~1))),
 1-var(residuals(model1))/var(residuals(lm(y~1))),
-1-var(residuals(model2))/var(residuals(lm(y~1))),
+#1-var(residuals(model2))/var(residuals(lm(y~1))),
 1-var(residuals(model3))/var(residuals(lm(y~1))),
 1-var(residuals(model4))/var(residuals(lm(y~1))),
 1-var(residuals(model5))/var(residuals(lm(y~1))),
@@ -1995,7 +1974,7 @@ AIC(modelo_pieciwise1),
 AIC(modelo2),
 AIC(model),
 AIC(model1),
-AIC(model2),
+#AIC(model2),
 AIC(model3),
 AIC(model4),
 AIC(model5),
@@ -2028,7 +2007,7 @@ BIC(modelo_pieciwise1),
 BIC(modelo2),
 BIC(model),
 BIC(model1),
-BIC(model2),
+#BIC(model2),
 BIC(model3),
 BIC(model4),
 BIC(model5),
@@ -2043,7 +2022,8 @@ rownames(analise)=c("Linear","Quadrático","Cúbico","Log",
                     "Michaelis-Mente","Michaelis Menten (Corrigido)",
                     "Segmentada Linear","Segmentada Quadrática",
                     "Mitscherlich","Logístico LL.3","Logístico LL.4",
-                    "Yield Loss", "Weibull 3","Weibull 4",
+                    #"Yield Loss", 
+                    "Weibull 3","Weibull 4",
                     "Assintótica 2","Assintótica 3",
                     "Brain-Counsens 4","Brain-Counsens 5",
                     "Cedergreen-Ritz-Streibig 3",
@@ -2052,29 +2032,30 @@ rownames(analise)=c("Linear","Quadrático","Cúbico","Log",
 knitr::kable(analise)
 ```
 
-                                     aic        bic          r2
------------------------------  ---------  ---------  ----------
-Linear                          499.5847   506.0614   0.6204884
-Quadrático                      402.7620   411.3975   0.9189732
-Cúbico                          317.0989   327.8933   0.9794051
-Log                             384.3339   390.8105   0.9373170
-Michaelis-Mente                 339.8781   346.3547   0.9687055
-Michaelis Menten (Corrigido)    323.8311   332.4667   0.9765013
-Segmentada Linear               352.6998   363.4943   0.9640795
-Segmentada Quadrática           332.1142   345.0675   0.9747606
-Mitscherlich                    310.3357   318.9713   0.9808822
-Logístico LL.3                  340.9449   349.5804   0.9691758
-Logístico LL.4                  325.9732   336.7677   0.9763419
-Yield Loss                      339.8781   346.3547   0.9687055
-Weibull 3                       354.0919   362.7274   0.9621318
-Weibull 4                       333.7306   344.5250   0.9732933
-Assintótica 2                   340.9002   347.3768   0.9688639
-Assintótica 3                   310.3357   318.9713   0.9808822
-Brain-Counsens 4                311.8796   322.6740   0.9810184
-Brain-Counsens 5                312.3284   325.2817   0.9814725
-Cedergreen-Ritz-Streibig 3      325.8427   336.6371   0.9763901
-Cedergreen-Ritz-Streibig 4      277.7064   290.6597   0.9892136
-Exponencial                     511.5978   518.0744   0.5422488
+
+
+|                             |      aic|      bic|        r2|
+|:----------------------------|--------:|--------:|---------:|
+|Linear                       | 499.5847| 506.0614| 0.6204884|
+|Quadrático                   | 402.7620| 411.3975| 0.9189732|
+|Cúbico                       | 317.0989| 327.8933| 0.9794051|
+|Log                          | 384.3339| 390.8105| 0.9373170|
+|Michaelis-Mente              | 339.8781| 346.3547| 0.9687055|
+|Michaelis Menten (Corrigido) | 323.8311| 332.4667| 0.9765013|
+|Segmentada Linear            | 352.6998| 363.4943| 0.9640795|
+|Segmentada Quadrática        | 332.1142| 345.0675| 0.9747606|
+|Mitscherlich                 | 310.3357| 318.9713| 0.9808822|
+|Logístico LL.3               | 340.9449| 349.5804| 0.9691758|
+|Logístico LL.4               | 325.9732| 336.7677| 0.9763419|
+|Weibull 3                    | 354.0919| 362.7274| 0.9621318|
+|Weibull 4                    | 333.7306| 344.5250| 0.9732933|
+|Assintótica 2                | 340.9002| 347.3768| 0.9688639|
+|Assintótica 3                | 310.3357| 318.9713| 0.9808822|
+|Brain-Counsens 4             | 311.8796| 322.6740| 0.9810184|
+|Brain-Counsens 5             | 312.3284| 325.2817| 0.9814725|
+|Cedergreen-Ritz-Streibig 3   | 325.8427| 336.6371| 0.9763901|
+|Cedergreen-Ritz-Streibig 4   | 277.7064| 290.6597| 0.9892136|
+|Exponencial                  | 310.3357| 318.9713| 0.9808822|
 
 
 # Análise de sobrevivência
@@ -2189,10 +2170,12 @@ pvalor=pairwise_survdiff(Surv(tempo,status)~trat,data=dados, rho=0)
 knitr::kable(pvalor$p.value)
 ```
 
-             T1          T2
----  ----------  ----------
-T2    0.0003111            
-T3    0.0000000   0.0006521
+
+
+|   |        T1|        T2|
+|:--|---------:|---------:|
+|T2 | 0.0003111|          |
+|T3 | 0.0000000| 0.0006521|
 
 Todos diferem entre si
 
@@ -2759,36 +2742,36 @@ summary(KM9)
 ```
 ## trat=T1 
 ##   time         est          lcl        ucl
-## 1   10 0.786371074 0.7206681644 0.83959612
-## 2   24 0.549854904 0.4483684862 0.64406227
-## 3   48 0.279640531 0.1842812072 0.38521939
-## 4   72 0.130206542 0.0691703447 0.21640673
-## 5   96 0.054871360 0.0220348619 0.11594893
-## 6  120 0.020657887 0.0055421699 0.06207970
-## 7  144 0.006846406 0.0009758562 0.03147859
-## 8  168 0.001964497 0.0001119549 0.01457697
+## 1   10 0.786371074 0.7212744410 0.83641184
+## 2   24 0.549854904 0.4468550388 0.63786025
+## 3   48 0.279640531 0.1854181859 0.37963234
+## 4   72 0.130206542 0.0685788474 0.21780289
+## 5   96 0.054871360 0.0221214254 0.11599239
+## 6  120 0.020657887 0.0055233965 0.05939958
+## 7  144 0.006846406 0.0008519012 0.03013258
+## 8  168 0.001964497 0.0000905729 0.01536096
 ## 
 ## trat=T2 
 ##   time        est        lcl       ucl
-## 1   10 0.91229451 0.86666209 0.9415017
-## 2   24 0.79577094 0.70492394 0.8574293
-## 3   48 0.61465240 0.49291609 0.7113961
-## 4   72 0.45902365 0.33290689 0.5748963
-## 5   96 0.32998531 0.21518069 0.4467514
-## 6  120 0.22722132 0.13014931 0.3385206
-## 7  144 0.14902446 0.07418508 0.2424891
-## 8  168 0.09250403 0.03627146 0.1705336
+## 1   10 0.91229451 0.86668275 0.9416030
+## 2   24 0.79577094 0.70537388 0.8569002
+## 3   48 0.61465240 0.48686090 0.7124039
+## 4   72 0.45902365 0.32900512 0.5671880
+## 5   96 0.32998531 0.21271532 0.4369141
+## 6  120 0.22722132 0.13185909 0.3279163
+## 7  144 0.14902446 0.07632927 0.2409619
+## 8  168 0.09250403 0.03848398 0.1704952
 ## 
 ## trat=T3 
 ##   time       est       lcl       ucl
-## 1   10 0.9585577 0.9329213 0.9737709
-## 2   24 0.9000225 0.8433957 0.9340735
-## 3   48 0.7989822 0.7061891 0.8600898
-## 4   72 0.6983485 0.5834441 0.7812186
-## 5   96 0.5997606 0.4754293 0.6946127
-## 6  120 0.5049620 0.3808089 0.6077593
-## 7  144 0.4157087 0.2901428 0.5250214
-## 8  168 0.3336543 0.2115672 0.4482096
+## 1   10 0.9585577 0.9336762 0.9741798
+## 2   24 0.9000225 0.8466974 0.9352620
+## 3   48 0.7989822 0.7115924 0.8632241
+## 4   72 0.6983485 0.5922329 0.7842413
+## 5   96 0.5997606 0.4800741 0.6967639
+## 6  120 0.5049620 0.3831114 0.6101265
+## 7  144 0.4157087 0.2910531 0.5264406
+## 8  168 0.3336543 0.2106692 0.4509101
 ```
 
 ```r
@@ -2812,37 +2795,37 @@ summary(KM10)
 
 ```
 ## trat=T1 
-##   time         est          lcl        ucl
-## 1   10 0.790201487 0.7099575698 0.85424308
-## 2   24 0.537681788 0.4262119931 0.63337120
-## 3   48 0.267748022 0.1647911496 0.36769156
-## 4   72 0.130741530 0.0616504957 0.21423879
-## 5   96 0.063206831 0.0228825445 0.12475967
-## 6  120 0.030369861 0.0080001907 0.07134934
-## 7  144 0.014531118 0.0028374686 0.04084322
-## 8  168 0.006931519 0.0009945592 0.02349990
+##   time         est         lcl        ucl
+## 1   10 0.790201487 0.713344808 0.85441735
+## 2   24 0.537681788 0.436426632 0.63059888
+## 3   48 0.267748022 0.174297712 0.36529431
+## 4   72 0.130741530 0.066506154 0.21287983
+## 5   96 0.063206831 0.024563453 0.12316720
+## 6  120 0.030369861 0.008790675 0.06958418
+## 7  144 0.014531118 0.003115248 0.04063784
+## 8  168 0.006931519 0.001109494 0.02300549
 ## 
 ## trat=T2 
 ##   time       est        lcl       ucl
-## 1   10 0.9055576 0.85403635 0.9446621
-## 2   24 0.7671054 0.68562958 0.8378594
-## 3   48 0.5650288 0.46126316 0.6593579
-## 4   72 0.4110387 0.29567784 0.5164479
-## 5   96 0.2969771 0.19239493 0.4042080
-## 6  120 0.2136179 0.12309329 0.3164901
-## 7  144 0.1531754 0.07804619 0.2449121
-## 8  168 0.1095770 0.04915121 0.1924009
+## 1   10 0.9055576 0.85610546 0.9429080
+## 2   24 0.7671054 0.68624571 0.8321941
+## 3   48 0.5650288 0.46397314 0.6570131
+## 4   72 0.4110387 0.30373354 0.5131874
+## 5   96 0.2969771 0.19572131 0.3995620
+## 6  120 0.2136179 0.12635609 0.3126179
+## 7  144 0.1531754 0.08140010 0.2436702
+## 8  168 0.1095770 0.05202496 0.1895527
 ## 
 ## trat=T3 
 ##   time       est       lcl       ucl
-## 1   10 0.9552715 0.9213478 0.9771406
-## 2   24 0.8838874 0.8255918 0.9292009
-## 3   48 0.7645536 0.6772707 0.8355961
-## 4   72 0.6563859 0.5510308 0.7450240
-## 5   96 0.5610497 0.4430960 0.6616336
-## 6  120 0.4781342 0.3547138 0.5860291
-## 7  144 0.4065841 0.2824256 0.5172258
-## 8  168 0.3451603 0.2241695 0.4593136
+## 1   10 0.9552715 0.9230708 0.9768827
+## 2   24 0.8838874 0.8258807 0.9294664
+## 3   48 0.7645536 0.6776995 0.8378907
+## 4   72 0.6563859 0.5478608 0.7500150
+## 5   96 0.5610497 0.4411990 0.6690056
+## 6  120 0.4781342 0.3519590 0.5953668
+## 7  144 0.4065841 0.2816959 0.5308669
+## 8  168 0.3451603 0.2212397 0.4732437
 ```
 
 ```r
