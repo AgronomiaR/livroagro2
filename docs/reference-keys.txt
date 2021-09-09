@@ -105,7 +105,6 @@ considerando-tratamentos-5
 distribuição-weibull-default
 sem-considerar-tratamentos-6
 considerando-tratamentos-6
-gompertz
 gamma
 método-semi-paramétrico-de-cox
 sem-considerar-tratamentos-7

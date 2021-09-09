@@ -1378,20 +1378,20 @@ ggsurvplot(smod)
 
 <br><br><br>
 
-****
+<!-- **** -->
 
-## Gompertz
+<!-- ## Gompertz -->
 
-****
+<!-- **** -->
 
-```{r}
-library(flexsurv)
-KM9=flexsurvreg(Surv(tempo,status)~trat,dist="Gompertz")
-summary(KM9)
-plot(KM9,col=c(1,2,3))
-```
+<!-- ```{r} -->
+<!-- library(flexsurv) -->
+<!-- KM9=flexsurvreg(Surv(tempo,status)~trat,dist="gompertz") -->
+<!-- summary(KM9) -->
+<!-- plot(KM9,col=c(1,2,3)) -->
+<!-- ``` -->
 
-****
+<!-- **** -->
 
 ## Gamma
 
@@ -1467,7 +1467,6 @@ AIC(KM5) # lognormal
 AIC(KM6) # loglogistic
 AIC(KM7) # weibull
 AIC(KM8) # coxph
-AIC(KM9) # Gompertz
 ```
 
 ## Resíduo

@@ -1,7 +1,7 @@
 --- 
 title: "Aplicações práticas do software R para Agronomia"
 author: "Gabriel Danilo Shimizu"
-date: "2020-11-22"
+date: "2021-09-09"
 site: bookdown::bookdown_site
 documentclass: book
 bibliography: [book.bib, packages.bib]
@@ -702,12 +702,12 @@ n0 <- nls(formula=y~A*x/(V+x), data=data,
 ```
 
 ```
-## 2726.427 :   72.72733 100.00000
-## 820.4424 :   78.84265 179.59765
-## 691.338 :   80.90678 212.88993
-## 690.8008 :   81.02471 215.24858
-## 690.8006 :   81.02129 215.20409
-## 690.8006 :   81.02137 215.20519
+## 2726.427    (1.63e+00): par = (72.72733 100)
+## 820.4424    (4.37e-01): par = (78.84265 179.5977)
+## 691.3380    (2.82e-02): par = (80.90678 212.8899)
+## 690.8008    (4.86e-04): par = (81.02471 215.2486)
+## 690.8006    (1.19e-05): par = (81.02129 215.2041)
+## 690.8006    (3.03e-07): par = (81.02137 215.2052)
 ```
 
 ```r
@@ -817,14 +817,14 @@ n1 <- nls(formula=y~A*x/(V+x)+D*x, data=data,
 ```
 
 ```
-## 10206286603 :   72.72733 100.00000  10.00000
-## 802.0047 :   8.061554e+01  1.857416e+02 -9.194725e-04
-## 545.3405 :   91.710079373 263.748404929  -0.004630648
-## 521.8705 :   96.954052340 297.103221016  -0.006224234
-## 521.0745 :   98.085315801 303.935203239  -0.006567869
-## 521.0613 :   98.241471280 304.881731574  -0.006617559
-## 521.0611 :   98.261118528 305.001695810  -0.006623916
-## 521.0611 :   98.263575225 305.016711452  -0.006624713
+## 1.020629e+10 (3.73e+03): par = (72.72733 100 10)
+## 802.0047    (6.61e-01): par = (80.61554 185.7416 -0.0009194725)
+## 545.3405    (2.02e-01): par = (91.71008 263.7484 -0.004630648)
+## 521.8705    (3.71e-02): par = (96.95405 297.1032 -0.006224234)
+## 521.0745    (4.75e-03): par = (98.08532 303.9352 -0.006567869)
+## 521.0613    (5.96e-04): par = (98.24147 304.8817 -0.006617559)
+## 521.0611    (7.46e-05): par = (98.26112 305.0017 -0.006623916)
+## 521.0611    (9.34e-06): par = (98.26358 305.0167 -0.006624713)
 ```
 
 ```r
@@ -955,7 +955,7 @@ summary(modelo_pieciwise)
 ## Residual standard error: 3.635 on 60 degrees of freedom
 ## Multiple R-Squared: 0.9641,  Adjusted R-squared: 0.9623 
 ## 
-## Convergence attained in 2 iter. (rel. change 0)
+## Convergence attained in 4 iter. (rel. change 0)
 ```
 
 ### Definindo limite com base no platô
@@ -1071,11 +1071,11 @@ modelo_pieciwise1
 ## 
 ## Meaningful coefficients of the linear terms:
 ## (Intercept)            x       I(x^2)         U1.x  
-##   1.580e+01    9.004e-02   -4.424e-06   -7.368e-02  
+##   1.571e+01    1.010e-01   -4.403e-05    8.682e-02  
 ## 
 ## Estimated Break-Point(s):
 ## psi1.x  
-##  560.2
+##   1636
 ```
 
 ```r
@@ -1090,20 +1090,20 @@ summary(modelo_pieciwise1)
 ## segmented.lm(obj = modelo_linear)
 ## 
 ## Estimated Break-Point(s):
-##            Est. St.Err
-## psi1.x 560.234 28.392
+##             Est. St.Err
+## psi1.x 1636.204 25.012
 ## 
 ## Meaningful coefficients of the linear terms:
 ##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  1.580e+01  1.201e+00  13.151   <2e-16 ***
-## x            9.004e-02  4.718e-03  19.083   <2e-16 ***
-## I(x^2)      -4.424e-06  1.764e-06  -2.508   0.0149 *  
-## U1.x        -7.368e-02  6.596e-03 -11.171       NA    
+## (Intercept)  1.571e+01  9.873e-01   15.91   <2e-16 ***
+## x            1.010e-01  3.417e-03   29.55   <2e-16 ***
+## I(x^2)      -4.402e-05  2.269e-06  -19.40   <2e-16 ***
+## U1.x         8.682e-02  7.115e-03   12.20       NA    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 3.073 on 59 degrees of freedom
-## Multiple R-Squared: 0.9748,  Adjusted R-squared: 0.973 
+## Residual standard error: 2.907 on 59 degrees of freedom
+## Multiple R-Squared: 0.9774,  Adjusted R-squared: 0.9759 
 ## 
 ## Convergence attained in 2 iter. (rel. change 0)
 ```
@@ -2043,7 +2043,7 @@ knitr::kable(analise)
 |Michaelis-Mente              | 339.8781| 346.3547| 0.9687055|
 |Michaelis Menten (Corrigido) | 323.8311| 332.4667| 0.9765013|
 |Segmentada Linear            | 352.6998| 363.4943| 0.9640795|
-|Segmentada Quadrática        | 332.1142| 345.0675| 0.9747606|
+|Segmentada Quadrática        | 325.0216| 337.9749| 0.9774082|
 |Mitscherlich                 | 310.3357| 318.9713| 0.9808822|
 |Logístico LL.3               | 340.9449| 349.5804| 0.9691758|
 |Logístico LL.4               | 325.9732| 336.7677| 0.9763419|
@@ -2726,61 +2726,20 @@ ggsurvplot(smod)
 
 <br><br><br>
 
-****
+<!-- **** -->
 
-## Gompertz
+<!-- ## Gompertz -->
 
-****
+<!-- **** -->
 
+<!-- ```{r} -->
+<!-- library(flexsurv) -->
+<!-- KM9=flexsurvreg(Surv(tempo,status)~trat,dist="gompertz") -->
+<!-- summary(KM9) -->
+<!-- plot(KM9,col=c(1,2,3)) -->
+<!-- ``` -->
 
-```r
-library(flexsurv)
-KM9=flexsurvreg(Surv(tempo,status)~trat,dist="Gompertz")
-summary(KM9)
-```
-
-```
-## trat=T1 
-##   time         est          lcl        ucl
-## 1   10 0.786371074 0.7212744410 0.83641184
-## 2   24 0.549854904 0.4468550388 0.63786025
-## 3   48 0.279640531 0.1854181859 0.37963234
-## 4   72 0.130206542 0.0685788474 0.21780289
-## 5   96 0.054871360 0.0221214254 0.11599239
-## 6  120 0.020657887 0.0055233965 0.05939958
-## 7  144 0.006846406 0.0008519012 0.03013258
-## 8  168 0.001964497 0.0000905729 0.01536096
-## 
-## trat=T2 
-##   time        est        lcl       ucl
-## 1   10 0.91229451 0.86668275 0.9416030
-## 2   24 0.79577094 0.70537388 0.8569002
-## 3   48 0.61465240 0.48686090 0.7124039
-## 4   72 0.45902365 0.32900512 0.5671880
-## 5   96 0.32998531 0.21271532 0.4369141
-## 6  120 0.22722132 0.13185909 0.3279163
-## 7  144 0.14902446 0.07632927 0.2409619
-## 8  168 0.09250403 0.03848398 0.1704952
-## 
-## trat=T3 
-##   time       est       lcl       ucl
-## 1   10 0.9585577 0.9336762 0.9741798
-## 2   24 0.9000225 0.8466974 0.9352620
-## 3   48 0.7989822 0.7115924 0.8632241
-## 4   72 0.6983485 0.5922329 0.7842413
-## 5   96 0.5997606 0.4800741 0.6967639
-## 6  120 0.5049620 0.3831114 0.6101265
-## 7  144 0.4157087 0.2910531 0.5264406
-## 8  168 0.3336543 0.2106692 0.4509101
-```
-
-```r
-plot(KM9,col=c(1,2,3))
-```
-
-<img src="index_files/figure-html/unnamed-chunk-87-1.png" width="672" />
-
-****
+<!-- **** -->
 
 ## Gamma
 
@@ -2796,43 +2755,43 @@ summary(KM10)
 ```
 ## trat=T1 
 ##   time         est         lcl        ucl
-## 1   10 0.790201487 0.713344808 0.85441735
-## 2   24 0.537681788 0.436426632 0.63059888
-## 3   48 0.267748022 0.174297712 0.36529431
-## 4   72 0.130741530 0.066506154 0.21287983
-## 5   96 0.063206831 0.024563453 0.12316720
-## 6  120 0.030369861 0.008790675 0.06958418
-## 7  144 0.014531118 0.003115248 0.04063784
-## 8  168 0.006931519 0.001109494 0.02300549
+## 1   10 0.790201487 0.712877981 0.85722852
+## 2   24 0.537681788 0.431528186 0.63689279
+## 3   48 0.267748022 0.169564617 0.37089704
+## 4   72 0.130741530 0.064017122 0.21475910
+## 5   96 0.063206831 0.024071450 0.12537705
+## 6  120 0.030369861 0.008524038 0.07277707
+## 7  144 0.014531118 0.003076532 0.04259751
+## 8  168 0.006931519 0.001079952 0.02487986
 ## 
 ## trat=T2 
 ##   time       est        lcl       ucl
-## 1   10 0.9055576 0.85610546 0.9429080
-## 2   24 0.7671054 0.68624571 0.8321941
-## 3   48 0.5650288 0.46397314 0.6570131
-## 4   72 0.4110387 0.30373354 0.5131874
-## 5   96 0.2969771 0.19572131 0.3995620
-## 6  120 0.2136179 0.12635609 0.3126179
-## 7  144 0.1531754 0.08140010 0.2436702
-## 8  168 0.1095770 0.05202496 0.1895527
+## 1   10 0.9055576 0.85145936 0.9442122
+## 2   24 0.7671054 0.68524507 0.8391997
+## 3   48 0.5650288 0.45737191 0.6620669
+## 4   72 0.4110387 0.29508463 0.5172154
+## 5   96 0.2969771 0.18954541 0.4003649
+## 6  120 0.2136179 0.12107344 0.3109144
+## 7  144 0.1531754 0.07761403 0.2415220
+## 8  168 0.1095770 0.04976384 0.1875847
 ## 
 ## trat=T3 
 ##   time       est       lcl       ucl
-## 1   10 0.9552715 0.9230708 0.9768827
-## 2   24 0.8838874 0.8258807 0.9294664
-## 3   48 0.7645536 0.6776995 0.8378907
-## 4   72 0.6563859 0.5478608 0.7500150
-## 5   96 0.5610497 0.4411990 0.6690056
-## 6  120 0.4781342 0.3519590 0.5953668
-## 7  144 0.4065841 0.2816959 0.5308669
-## 8  168 0.3451603 0.2212397 0.4732437
+## 1   10 0.9552715 0.9210188 0.9762314
+## 2   24 0.8838874 0.8241471 0.9263987
+## 3   48 0.7645536 0.6769355 0.8314138
+## 4   72 0.6563859 0.5522481 0.7442904
+## 5   96 0.5610497 0.4459237 0.6637055
+## 6  120 0.4781342 0.3582737 0.5901244
+## 7  144 0.4065841 0.2849254 0.5227047
+## 8  168 0.3451603 0.2277240 0.4635648
 ```
 
 ```r
 plot(KM10,col=c(1,2,3))
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-88-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-87-1.png" width="672" />
 
 <br><br>
 
@@ -2883,7 +2842,7 @@ library(ggfortify)
 autoplot(survfit(KM8),conf.int = F)+theme_classic()
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-90-1.png" width="1152" />
+<img src="index_files/figure-html/unnamed-chunk-89-1.png" width="1152" />
 
 <br><br>
 
@@ -2910,7 +2869,7 @@ fit.coxph <- coxph(Surv(tempo, status) ~ Treatments, data = dados)
 print(forest_model(fit.coxph, limits=log( c(0.05, 5))))
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-91-1.png" width="1152" />
+<img src="index_files/figure-html/unnamed-chunk-90-1.png" width="1152" />
 
 ## Critério de inferência de Akaike
 
@@ -2972,14 +2931,6 @@ AIC(KM8) # coxph
 ## [1] 789.3642
 ```
 
-```r
-AIC(KM9) # Gompertz
-```
-
-```
-## [1] 1331.275
-```
-
 ## Resíduo
 
 
@@ -3023,7 +2974,7 @@ library(gridExtra)
 grid.arrange(g2,g3,g4,g5,g6,g7,g8,ncol=4)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-93-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-92-1.png" width="672" />
 
 <br><br><br><br><br><br>
 
@@ -3115,7 +3066,7 @@ par(mfrow=c(2,2))
 plot(modelo)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-97-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-96-1.png" width="672" />
 
 ## Halfnormaplot
 
@@ -3128,7 +3079,7 @@ hnp::hnp(modelo, print.on=T)
 ## Binomial model
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-98-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-97-1.png" width="672" />
 
 ## Constrastes
 
@@ -3233,7 +3184,7 @@ par(mfrow=c(2,2))
 plot(modelo)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-103-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-102-1.png" width="672" />
 
 ## Halfnormaplot
 
@@ -3246,7 +3197,7 @@ hnp::hnp(modelo, print.on=T)
 ## Poisson model
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-104-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-103-1.png" width="672" />
 
 ## Constrastes
 
@@ -3374,7 +3325,7 @@ par(mfrow=c(2,2))
 plot(modelo)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-110-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-109-1.png" width="672" />
 
 ## Halfnormaplot
 
@@ -3387,7 +3338,7 @@ hnp::hnp(modelo, print.on=T)
 ## Quasi-Poisson model
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-111-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-110-1.png" width="672" />
 
 ## Constrastes
 
@@ -3490,7 +3441,7 @@ par(mfrow=c(2,2))
 plot(modelo)
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-116-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-115-1.png" width="672" />
 
 ## Halfnormaplot
 
@@ -3503,7 +3454,7 @@ hnp::hnp(modelo, print.on=T)
 ## Quasi-Poisson model
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-117-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-116-1.png" width="672" />
 
 ## Constrastes
 
@@ -3515,13 +3466,13 @@ summary(pairs(media), type = "response")
 ```
 
 ```
-##  contrast  ratio     SE  df z.ratio p.value
-##  T 1 / T 2 0.914 0.0615 Inf -1.332  0.5425 
-##  T 1 / T 3 1.451 0.1103 Inf  4.896  <.0001 
-##  T 1 / T 4 1.166 0.0833 Inf  2.148  0.1382 
-##  T 2 / T 3 1.587 0.1186 Inf  6.182  <.0001 
-##  T 2 / T 4 1.275 0.0893 Inf  3.469  0.0029 
-##  T 3 / T 4 0.803 0.0631 Inf -2.784  0.0275 
+##  contrast  ratio     SE  df null z.ratio p.value
+##  T 1 / T 2 0.914 0.0615 Inf    1 -1.332  0.5425 
+##  T 1 / T 3 1.451 0.1103 Inf    1  4.896  <.0001 
+##  T 1 / T 4 1.166 0.0833 Inf    1  2.148  0.1382 
+##  T 2 / T 3 1.587 0.1186 Inf    1  6.182  <.0001 
+##  T 2 / T 4 1.275 0.0893 Inf    1  3.469  0.0029 
+##  T 3 / T 4 0.803 0.0631 Inf    1 -2.784  0.0275 
 ## 
 ## P value adjustment: tukey method for comparing a family of 4 estimates 
 ## Tests are performed on the log scale
@@ -3817,4 +3768,4 @@ curve(predict(bin1,data.frame(d=x),type="resp"),add=TRUE) ## curva de T1
 curve(predict(bin2,data.frame(d=x),type="resp"),add=TRUE, lty=2,col="darkblue") ## Curva de T2
 ```
 
-<img src="index_files/figure-html/unnamed-chunk-128-1.png" width="672" />
+<img src="index_files/figure-html/unnamed-chunk-127-1.png" width="672" />
